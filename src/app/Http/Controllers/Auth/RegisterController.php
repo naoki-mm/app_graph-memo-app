@@ -26,6 +26,7 @@ class RegisterController extends Controller
 
     /**
      * Where to redirect users after registration.
+     * 新規登録後は、グラフデータ一覧画面へリダイレクトする。
      *
      * @var string
      */
@@ -50,9 +51,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:20'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'max:20', 'confirmed', 'regex:/\A[a-z\d]{8,20}+\z/i'],
         ]);
     }
 

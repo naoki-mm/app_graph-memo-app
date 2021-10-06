@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// 新規登録後の遷移先を仮置き
+Route::get('/', 'HomeController@index')->name('home');
