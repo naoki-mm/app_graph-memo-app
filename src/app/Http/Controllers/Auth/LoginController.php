@@ -23,9 +23,10 @@ class LoginController extends Controller
 
     /**
      * Where to redirect users after login.
-     *
+     * ログイン後は、グラフデータ一覧画面へリダイレクトする。
      * @var string
      */
+
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
