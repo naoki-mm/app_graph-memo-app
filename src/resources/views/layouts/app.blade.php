@@ -6,7 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     <title>
-        @yield('title')
+        @yield('title') | {{ config('app.name') }})
     </title>
 
     {{-- MDB 4.19.1 CSS--}}
