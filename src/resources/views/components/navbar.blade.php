@@ -89,9 +89,10 @@
                     class="dropdown-menu dropdown-menu-end"
                     aria-labelledby="navbarDropdownMenuLink"
                     >
-                    <li><a class="dropdown-item" href="#">My profile</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle fa-fw mr-1"></i></i>プロフィール</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog fa-fw mr-1"></i>アカウント設定</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-fw mr-1"></i>ログアウト</a></li>
                 </ul>
             </li>
         </ul>
