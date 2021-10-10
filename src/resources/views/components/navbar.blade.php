@@ -14,14 +14,14 @@
     <div class="container-fluid">
         <!-- ハンバーガーボタン -->
         <button
-                class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#sidebarMenu"
-                aria-controls="sidebarMenu"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-                >
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#sidebarMenu"
+            aria-controls="sidebarMenu"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            >
             <i class="fas fa-bars"></i>
         </button>
 
@@ -44,12 +44,10 @@
                 placeholder='Search...'
                 style="min-width: 225px"
                 />
-            <span class="input-group-text border-0"
-                ><i class="fas fa-search"></i
-            ></span>
+            <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
         </form>
 
-        <!-- 右サイドのアイコン -->
+        <!-- 右サイドのリスト -->
         <ul class="navbar-nav ms-auto d-flex flex-row">
             <!-- 通知機能 -->
             <li class="nav-item">
@@ -62,7 +60,7 @@
                     <span class="badge rounded-pill badge-notification bg-danger"
                         >1</span
                     >
-            </a>
+                </a>
             </li>
 
             <!-- ユーザー -->
@@ -97,6 +95,7 @@
                 </ul>
             </li>
         </ul>
+        <!-- 右サイドのリスト -->
     </div>
     <!-- コンテナ -->
 </nav>
