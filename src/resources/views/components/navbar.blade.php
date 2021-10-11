@@ -1,10 +1,3 @@
-{{--
-    Copyright: Material Design for Bootstrap
-    https://mdbootstrap.com/
-
-    Read the license: https://mdbootstrap.com/general/license/
---}}
-
 <!-- ナビバー -->
 <nav
     id="main-navbar"
@@ -64,10 +57,9 @@
             </li>
 
             <!-- ユーザー -->
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown pl-1">
                 <a
                     class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
-                    href="#"
                     id="navbarDropdownMenuLink"
                     role="button"
                     data-toggle="dropdown"
@@ -82,19 +74,27 @@
                         loading="lazy"
                         />
                     <span>
-                        テストユーザー
+                        {{ auth()->user()->name }}
                     </span>
                 </a>
-                <ul
-                    class="dropdown-menu dropdown-menu-end"
-                    aria-labelledby="navbarDropdownMenuLink"
-                    >
-                    <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle fa-fw mr-1"></i></i>プロフィール</a></li>
-                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog fa-fw mr-1"></i>アカウント設定</a></li>
+
+                <div class="dropdown-menu dropdown-menu-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                    <button class="dropdown-item" type="button" onclick="location.href=''">
+                        <i class="fas fa-user-circle fa-fw mr-1"></i></i>プロフィール
+                    </button>
+                    <button class="dropdown-item" type="button" onclick="location.href=''">
+                        <i class="fas fa-cog fa-fw mr-1"></i>アカウント設定
+                    </button>
                     <div class="dropdown-divider"></div>
-                    <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-fw mr-1"></i>ログアウト</a></li>
-                </ul>
+                    <button form="logout-button" class="dropdown-item" type="submit">
+                        <i class="fas fa-sign-out-alt fa-fw mr-1"></i>ログアウト
+                    </button>
+                </div>
             </li>
+            {{-- ログアウト用のフォーム --}}
+            <form id="logout-button" method="POST" action="{{ route('logout') }}">
+                @csrf
+            </form>
         </ul>
         <!-- 右サイドのリスト -->
     </div>
