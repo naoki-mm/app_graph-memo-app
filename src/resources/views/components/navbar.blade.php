@@ -19,7 +19,7 @@
         </button>
 
         <!-- ロゴ -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{ route('graph.index') }}">
             <img
                 src="{{ asset('images/logo.png')}}"
                 height="25"

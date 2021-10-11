@@ -13,5 +13,6 @@
 
 Auth::routes();
 
-// 新規登録後の遷移先を仮置き
-Route::get('/', 'HomeController@index')->name('home');
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('graph', 'GraphController', ['only' => ['index']]);
+});
