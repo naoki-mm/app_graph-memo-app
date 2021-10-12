@@ -9,7 +9,8 @@
         @yield('title') | {{ config('app.name') }})
     </title>
 
-    {{-- MDB 4.19.1 CSS--}}
+    <!-- MDB 4.19.1 CSS-->
+    @include('components.license')
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Google Fonts -->
@@ -20,14 +21,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
     {{-- 個別のスタイルシート --}}
     @stack('css')
-
 </head>
 
 <body>
 
     @yield('content')
 
-    {{-- MDB 4.19.1 JavaScript--}}
+    <!-- MDB 4.19.1 JavaScript-->
     <!-- JQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Bootstrap tooltips -->

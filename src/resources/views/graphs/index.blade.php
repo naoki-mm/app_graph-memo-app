@@ -5,7 +5,5 @@
 @endsection
 
 @section('content')
-    @include('components.license')
-    @include('components.sidebar')
-    @include('components.navbar')
+    @include('layouts.sub_views.graph_layout')
 @endsection
