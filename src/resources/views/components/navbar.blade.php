@@ -28,75 +28,12 @@
                 />
         </a>
 
-        <!-- 検索フォーム -->
-        <form class="d-none d-md-flex input-group w-auto my-auto">
-            <input
-                autocomplete="off"
-                type="search"
-                class="form-control rounded"
-                placeholder='Search...'
-                style="min-width: 225px"
-                />
-            <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
-        </form>
+        {{-- 検索フォーム --}}
+        {{ $search_form }}
 
-        <!-- 右サイドのリスト -->
-        <ul class="navbar-nav ms-auto d-flex flex-row">
-            <!-- 通知機能 -->
-            <li class="nav-item">
-                <a
-                    class="nav-link me-3 me-lg-0"
-                    href="#"
-                    role="button"
-                    >
-                    <i class="fas fa-bell"></i>
-                    <span class="badge rounded-pill badge-notification bg-danger"
-                        >1</span
-                    >
-                </a>
-            </li>
+        {{-- 右サイドのリスト --}}
+        {{ $right_side_list }}
 
-            <!-- ユーザー -->
-            <li class="nav-item dropdown pl-1">
-                <a
-                    class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
-                    id="navbarDropdownMenuLink"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    >
-                    <img
-                        src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
-                        class="rounded-circle mr-1"
-                        height="22"
-                        alt=""
-                        loading="lazy"
-                        />
-                    <span>
-                        {{ auth()->user()->name }}
-                    </span>
-                </a>
-
-                <div class="dropdown-menu dropdown-menu-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <button class="dropdown-item" type="button" onclick="location.href=''">
-                        <i class="fas fa-user-circle fa-fw mr-1"></i></i>プロフィール
-                    </button>
-                    <button class="dropdown-item" type="button" onclick="location.href=''">
-                        <i class="fas fa-cog fa-fw mr-1"></i>アカウント設定
-                    </button>
-                    <div class="dropdown-divider"></div>
-                    <button form="logout-button" class="dropdown-item" type="submit">
-                        <i class="fas fa-sign-out-alt fa-fw mr-1"></i>ログアウト
-                    </button>
-                </div>
-            </li>
-            {{-- ログアウト用のフォーム --}}
-            <form id="logout-button" method="POST" action="{{ route('logout') }}">
-                @csrf
-            </form>
-        </ul>
-        <!-- 右サイドのリスト -->
     </div>
     <!-- コンテナ -->
 </nav>
