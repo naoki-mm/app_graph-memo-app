@@ -15,4 +15,5 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('graph', 'GraphController', ['only' => ['index']]);
+    Route::resource('user-basic', 'UserBasicController', ['only' => ['edit']]);
 });
