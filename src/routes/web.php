@@ -13,7 +13,11 @@
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::resource('graph', 'GraphController', ['only' => ['index']]);
-    Route::resource('user-basic', 'UserBasicController', ['only' => ['edit']]);
+Route::middleware(['auth'])->group(function () {
+    Route::namespace('Graph')->group(function () {
+        Route::resource('graph', 'GraphController', ['only' => ['index']]);
+    });
+    Route::namespace('User')->group(function () {
+        Route::resource('user-basic', 'UserBasicController', ['only' => ['edit']]);
+    });
 });

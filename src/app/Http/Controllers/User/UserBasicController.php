@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 
@@ -15,8 +16,7 @@ class UserBasicController extends Controller
      */
     public function edit(User $user)
     {
-        $this->authorize('update', $user);
-        return view('user.basic_edit', compact('user'));
+        return view('users.basic_edit', compact('user'));
     }
 
     /**

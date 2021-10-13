@@ -79,11 +79,11 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <button class="dropdown-item" type="button" onclick="location.href=''">
-                        <i class="fas fa-user-circle fa-fw mr-1"></i></i>プロフィール
+                    <button form="user-info" class="dropdown-item" type="button" onclick="location.href='{{ route("user-basic.edit", auth()->user()->id) }}'">
+                        <i class="fas fa-user-cog fa-fw mr-1"></i></i>アカウント設定
                     </button>
                     <button class="dropdown-item" type="button" onclick="location.href=''">
-                        <i class="fas fa-cog fa-fw mr-1"></i>アカウント設定
+                        <i class="fas fa-question fa-fw mr-1"></i>使い方
                     </button>
                     <div class="dropdown-divider"></div>
                     <button form="logout-button" class="dropdown-item" type="submit">
