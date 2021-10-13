@@ -11,12 +11,13 @@ class UserBasicController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\User $user_basic
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(User $user_basic)
     {
-        return view('users.basic_edit', compact('user'));
+        $this->authorize('update', $user_basic);
+        return view('users.basic_edit', compact('user_basic'));
     }
 
     /**
