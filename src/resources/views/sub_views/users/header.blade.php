@@ -18,7 +18,7 @@
             class="list-group-item list-group-item-action py-2 ripple active"
             aria-current="true"
             >
-            <i class="fas fa-user-edit fa-fw me-3 mr-2"></i><span>ユーザー基本情報</span>
+            <i class="fas fa-user-edit fa-fw me-3 mr-2"></i><span>プロフィール編集</span>
             </a>
 
             <a

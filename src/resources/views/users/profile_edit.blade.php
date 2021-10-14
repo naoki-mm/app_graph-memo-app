@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    ユーザー基本情報
+    プロフィール
 @endsection
 
 @section('header')
@@ -12,11 +12,11 @@
     @component('components.users.main_item')
 
         @slot('page_title')
-            ユーザー基本情報の編集
+            プロフィールの編集
         @endslot
 
         @slot('form')
-            <form method="POST" action="{{ route('user-basic.update', $user_basic->id) }}" class="p-5">
+            <form method="POST" action="{{ route('user-profile.update', $user_profile->id) }}" class="p-5">
                 @method('PATCH')
                 @csrf
 
@@ -31,7 +31,7 @@
                         name="name"
                         class="form-control @error('name') is-invalid @enderror"
                         autocomplete="name"
-                        value="{{ old('name', $user_basic->name) }}"
+                        value="{{ old('name', $user_profile->name) }}"
                         placeholder="グラフ太郎"
                         required autofocus
                     >

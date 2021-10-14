@@ -79,7 +79,7 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <button form="user-info" class="dropdown-item" type="button" onclick="location.href='{{ route("user-basic.edit", auth()->user()->id) }}'">
+                    <button form="user-info" class="dropdown-item" type="button" onclick="location.href='{{ route("user-profile.edit", auth()->user()->id) }}'">
                         <i class="fas fa-user-cog fa-fw mr-1"></i></i>アカウント設定
                     </button>
                     <button class="dropdown-item" type="button" onclick="location.href=''">
