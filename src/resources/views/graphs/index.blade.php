@@ -4,6 +4,14 @@
     ホーム
 @endsection
 
+@section('header')
+    @include('sub_views.graphs.header')
+@endsection
+
 @section('content')
-    @include('layouts.sub_views.graph_layout')
+
+@endsection
+
+@section('footer')
+
 @endsection

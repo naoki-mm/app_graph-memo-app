@@ -24,8 +24,9 @@
 </head>
 
 <body>
-
+    @yield('header')
     @yield('content')
+    @yield('footer')
 
     <!-- MDB 4.19.1 JavaScript-->
     <!-- JQuery -->
