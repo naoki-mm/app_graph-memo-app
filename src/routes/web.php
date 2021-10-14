@@ -18,6 +18,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('graph', 'GraphController', ['only' => ['index']]);
     });
     Route::namespace('User')->group(function () {
-        Route::resource('user-basic', 'UserBasicController', ['only' => ['edit']]);
+        Route::resource('user-basic', 'UserBasicController', ['only' => ['edit', 'update']]);
     });
 });
