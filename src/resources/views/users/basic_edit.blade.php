@@ -6,4 +6,13 @@
 
 @section('content')
     @include('layouts.sub_views.user_layout')
+    @component('components.users.main_item')
+        @slot('page_title')
+
+        @endslot
+
+        @slot('form')
+
+        @endslot
+    @endcomponent
 @endsection

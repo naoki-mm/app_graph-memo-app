@@ -1,8 +1,3 @@
-{{-- Bootstrapで定義されたCSSとの干渉を避けるため、個別にスタイルシートを適用 --}}
-@push('css')
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-@endpush
-
 <!-- サイドバー -->
 <nav
     {{-- トグルボタンとの紐付け --}}
