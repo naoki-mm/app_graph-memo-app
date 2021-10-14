@@ -9,6 +9,12 @@ use App\User;
 
 class ProfileChangeController extends Controller
 {
+    public function __construct()
+    {
+        // "edit"と"update"メソッドにおいて, Policyクラスにて定義した認可機能を適用
+        $this->authorizeResource(User::class, 'user_profile');
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -17,8 +23,6 @@ class ProfileChangeController extends Controller
      */
     public function edit(User $user_profile)
     {
-        // 認可機能 (認証ユーザーとルートパラメータで取得したユーザーが一致するかを判定)
-        $this->authorize('update', $user_profile);
         return view('users.profile_edit', compact('user_profile'));
     }
 
@@ -31,8 +35,6 @@ class ProfileChangeController extends Controller
      */
     public function update(ProfileChangeRequest $request, User $user_profile)
     {
-        // 認可機能 (認証ユーザーとルートパラメータで取得したユーザーが一致するかを判定)
-        $this->authorize('update', $user_profile);
         $user_profile->fill($request->all())->save();
         return redirect()->route('user-profile.edit', [$user_profile])
             ->with('status', 'プロフィールを変更しました。');
