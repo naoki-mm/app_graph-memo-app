@@ -10,7 +10,7 @@
     </title>
 
     <!-- MDB 4.19.1 CSS-->
-    @include('components.license')
+    @include('components.common.license')
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Google Fonts -->
@@ -20,7 +20,7 @@
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
     {{-- 個別のスタイルシート --}}
-    @stack('css')
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
 <body>

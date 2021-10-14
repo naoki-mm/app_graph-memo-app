@@ -1,9 +1,9 @@
 <header>
     {{-- ナビバーの読み込み --}}
-    @include('components.navbar')
+    @include('components.common.navbar')
 
     {{-- サイドバーの読み込みと個別のリストを定義 --}}
-    @component('components.sidebar')
+    @component('components.common.sidebar')
         @slot('sidebar_list')
             <a
             href="{{ route('graph.index') }}"
