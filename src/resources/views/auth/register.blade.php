@@ -16,10 +16,10 @@
                         <form method="POST" action="{{ route('register') }}" class="p-5">
                             @csrf
 
-                            {{-- 名前の入力フォーム --}}
+                            {{-- ニックネームの入力フォーム --}}
                             <div class="form-group">
                                 <label class="form-label" for="name">
-                                    <sup class="text-danger mr-1" style="font-size: 60%">＊</sup>名前
+                                    <sup class="text-danger mr-1" style="font-size: 60%">＊</sup>ニックネーム
                                 </label>
 
                                 <input
