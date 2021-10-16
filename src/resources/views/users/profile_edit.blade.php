@@ -53,14 +53,16 @@
                 <div class="form-group mt-4">
                     <label class="form-label d-block" for="avatar">
                         <span class="d-block mb-2">プロフィール画像</span>
+                        {{-- 画像がDBに保存されていれば、その画像を表示。 --}}
                         @if (!empty($user_profile->image_name))
                             <img src="/storage/avatar_images/{{ $user_profile->image_name }}"
                                 class="rounded-circle d-block mx-auto"
                                 style="object-fit: cover; width: 200px; height: 200px;"
                             >
+                        {{-- 画像がDBに保存されていなければ、初期画像を表示。 --}}
                         @else
                             <img src="/images/avatar-default.svg"
-                                class="ounded-circle d-block mx-auto"
+                                class="rounded-circle d-block mx-auto"
                                 style="object-fit: cover; width: 200px; height: 200px;"
                             >
                         @endif

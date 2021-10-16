@@ -66,13 +66,20 @@
                     aria-haspopup="true"
                     aria-expanded="false"
                     >
-                    <img
-                        src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
-                        class="rounded-circle mr-1"
-                        height="22"
-                        alt=""
-                        loading="lazy"
-                        />
+                    {{-- アバター画像がDBに保存されていれば、その画像を表示。 --}}
+                    @if (!empty(auth()->user()->image_name))
+                        <img src="/storage/avatar_images/{{ auth()->user()->image_name }}"
+                            class="rounded-circle mr-1"
+                            style="object-fit: cover; width: 24px; height: 24px;"
+                        >
+                    {{-- アバター画像がDBに保存されていなければ、初期画像を表示。 --}}
+                    @else
+                        <img src="/images/avatar-default.svg"
+                            class="rounded-circle mr-1"
+                            style="object-fit: cover; width: 24px; height: 24px;"
+                        >
+                    @endif
+
                     <span>
                         {{ auth()->user()->name }}
                     </span>
