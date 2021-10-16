@@ -10,7 +10,6 @@
     </title>
 
     <!-- MDB 4.19.1 CSS-->
-    @include('components.common.license')
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Google Fonts -->
