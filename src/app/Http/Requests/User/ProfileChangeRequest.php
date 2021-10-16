@@ -25,6 +25,7 @@ class ProfileChangeRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:20'],
+            'image_name' => ['file', 'image'],
         ];
     }
 }
