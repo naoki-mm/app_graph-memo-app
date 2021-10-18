@@ -4,7 +4,8 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+// CDNで読み込んだJQueryと重複するためコメントアウト。
+// require('./bootstrap');
 
 window.Vue = require('vue');
 
@@ -20,6 +21,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('avatar-image-change', require('./components/AvatarImageChange.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
