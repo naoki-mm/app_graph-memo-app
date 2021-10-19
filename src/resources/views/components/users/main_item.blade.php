@@ -10,9 +10,9 @@
                 </div>
 
                 @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
+                    <success-notification
+                        :notification='@json(session('status'))'
+                    ></success-notification>
                 @endif
 
                 {{-- フォーム --}}
