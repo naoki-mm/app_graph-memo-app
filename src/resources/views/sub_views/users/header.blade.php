@@ -14,7 +14,7 @@
             </a>
 
             <a
-            href="{{ route('graph.index') }}"
+            href="{{ route("user-profile.edit", auth()->user()->id) }}"
             class="list-group-item list-group-item-action py-2 ripple active"
             aria-current="true"
             >
@@ -22,7 +22,7 @@
             </a>
 
             <a
-            href="#"
+            href="{{ route("user-email.edit", auth()->user()->id) }}"
             class="list-group-item list-group-item-action py-2 ripple"
             aria-current="true"
             >

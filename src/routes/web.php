@@ -19,5 +19,6 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::namespace('User')->group(function () {
         Route::resource('user-profile', 'ProfileChangeController', ['only' => ['edit', 'update']]);
+        Route::resource('user-email', 'EmailChangeController', ['only' => ['edit', 'update']]);
     });
 });
