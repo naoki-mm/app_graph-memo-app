@@ -14,7 +14,7 @@
             </a>
 
             <a
-            href="#"
+            href="{{ route('graph.create') }}"
             class="list-group-item list-group-item-action py-2 ripple"
             aria-current="true"
             >
@@ -22,7 +22,7 @@
             </a>
 
             <a
-            href="{{ route('graph.create') }}"
+            href="#"
             class="list-group-item list-group-item-action py-2 ripple"
             >
             <i class="fas fa-tag fa-fw me-3 mr-2"></i><span>タグ</span>

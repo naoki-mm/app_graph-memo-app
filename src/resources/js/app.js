@@ -23,6 +23,7 @@ require('vue-toasted');
 
 Vue.component('avatar-image-change', require('./components/users/AvatarImageChange.vue').default);
 Vue.component('success-notification', require('./components/common/SuccessNotification.vue').default);
+Vue.component('image-upload', require('./components/graphs/ImageUpload.vue').default);
 
 // vue-toastedの読み込み
 Vue.use(Toasted);

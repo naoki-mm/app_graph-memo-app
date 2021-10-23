@@ -12,11 +12,8 @@
 
     @component('components.graphs.main_item')
 
-        @slot('page_title')
-        @endslot
-
-
-        @slot('form')
+        @slot('main_content')
+            <image-upload></image-upload>
         @endslot
 
     @endcomponent
