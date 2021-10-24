@@ -1,14 +1,7 @@
 <template>
     <!-- ファイル選択 or ドロップ時にcanvasを表示 -->
-    <div v-if="isImageFile" class="card">
-        <div class="card-body w-100
-            d-flex align-items-center justify-content-center text-center"
-            style="height: 90vmin">
-
-            <canvas ref="canvas" class="w-100 h-100"
-            ></canvas>
-
-        </div>
+    <div v-if="isImageFile">
+        <graph-plot :graph-image='graphImage'></graph-plot>
     </div>
 
     <!-- ファイル未選択時にドロップ領域を表示 -->
@@ -50,15 +43,9 @@
 export default {
     data() {
         return {
-            // ドラッグ&ドロップ
             isDragEnterOver: false,
             isImageFile: false,
             graphImage: null,
-
-            // canvas
-            canvas: null,
-            canvasWidth: null,
-            canvasHeight: null,
         }
     },
 
@@ -81,26 +68,22 @@ export default {
             this.isDragEnterOver = false;
         },
 
-        // ドロップ時にCSSを初期スタイルに戻す&canvasに画像を設定。
-        async dropFile(e) {
-            await (this.isImageFile = true);
+        // ドロップ時にCSSを初期スタイルに戻す&画像オブジェクトの取得。
+        dropFile(e) {
+            this.isImageFile = true;
             this.isDragEnterOver = false;
 
             // ドロップした画像オブジェクトの取得
             const files = e.dataTransfer.files;
             this.graphImageUpload(files);
-
-            this.createCanvas();
         },
 
-        // ファイル選択時にcanvasを表示する処理。
-        async onGraphImageSelect(e) {
-            await (this.isImageFile = true);
+        // ファイル選択した画像オブジェクトの取得。
+        onGraphImageSelect(e) {
+            this.isImageFile = true;
 
             const files = e.target.files;
             this.graphImageUpload(files);
-
-            this.createCanvas();
         },
 
         // アップロードしたグラフ画像をImageインスタンスに設定する。
@@ -117,30 +100,6 @@ export default {
                 reader.readAsDataURL(file);
             }
         },
-
-        // canvasを作成しアップロード画像を表示させる。
-        createCanvas () {
-            this.canvas = this.$refs.canvas;
-
-            if(this.canvas) {
-                // イメージインスタンスの作成
-                this.graphImage.onload = () => {
-
-                    // 親要素の値を取得
-                    this.canvasWidth = this.canvas.parentElement.clientWidth;
-                    this.canvasHeight = this.canvas.parentElement.clientHeight;
-
-                    // キャンバスサイズを親要素のサイズに設定
-                    this.canvas.width = this.canvasWidth;
-                    this.canvas.height = this.canvasHeight;
-
-                    const ctx = this.canvas.getContext("2d");
-
-                    // キャンバスへの画像読み込み
-                    ctx.drawImage(this.graphImage, 0, 0, this.canvasWidth, this.canvasHeight);
-                }
-            }
-        }
     }
 }
 </script>
