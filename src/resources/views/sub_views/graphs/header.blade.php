@@ -14,7 +14,7 @@
             </a>
 
             <a
-            href="#"
+            href="{{ route('graph.create') }}"
             class="list-group-item list-group-item-action py-2 ripple"
             aria-current="true"
             >

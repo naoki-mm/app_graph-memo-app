@@ -24,7 +24,7 @@ class GraphController extends Controller
      */
     public function create()
     {
-        //
+        return view('graphs.create');
     }
 
     /**
