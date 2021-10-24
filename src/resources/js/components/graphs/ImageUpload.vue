@@ -1,6 +1,6 @@
 <template>
     <!-- ファイル選択 or ドロップ時にcanvasを表示 -->
-    <div v-if="isDropFile" class="card">
+    <div v-if="isImageFile" class="card">
         <div class="card-body w-100
             d-flex align-items-center justify-content-center text-center"
             style="height: 90vmin">
@@ -30,10 +30,16 @@
                     <p class="h2 drag-drop-info">ここにファイルをドロップ</p>
                     <p class="h4 my-5">または</p>
                 </div>
-                <label for="input_file" class="btn btn-success btn-success btn-block" style="font-size: 1.4rem">
+                <label for="graph_image" class="btn btn-success btn-success btn-block" style="font-size: 1.4rem">
                     <i class="fas fa-upload mr-2"></i>ファイルを選択
                 </label>
-                <input type="file" id="input_file" style="display:none;"
+                <input
+                    id="graph_image"
+                    type="file"
+                    name="graph_image"
+                    class="d-none"
+                    accept="image/png,image/jpeg,image/gif"
+                    @change="onGraphImageSelect"
                 >
             </div>
         </div>
@@ -46,14 +52,18 @@ export default {
         return {
             // ドラッグ&ドロップ
             isDragEnterOver: false,
-            isDropFile: false,
-            dropGraphImage: null,
+            isImageFile: false,
+            graphImage: null,
 
             // canvas
             canvas: null,
             canvasWidth: null,
             canvasHeight: null,
         }
+    },
+
+    mounted() {
+        this.graphImage = new Image();
     },
 
     methods: {
@@ -73,31 +83,48 @@ export default {
 
         // ドロップ時にCSSを初期スタイルに戻す&canvasに画像を設定。
         async dropFile(e) {
+            await (this.isImageFile = true);
+            this.isDragEnterOver = false;
+
             // ドロップした画像オブジェクトの取得
-            let files = e.dataTransfer.files;
+            const files = e.dataTransfer.files;
+            this.graphImageUpload(files);
 
-            this.dropGraphImage = new Image();
+            this.createCanvas();
+        },
 
+        // ファイル選択時にcanvasを表示する処理。
+        async onGraphImageSelect(e) {
+            await (this.isImageFile = true);
+
+            const files = e.target.files;
+            this.graphImageUpload(files);
+
+            this.createCanvas();
+        },
+
+        // アップロードしたグラフ画像をImageインスタンスに設定する。
+        graphImageUpload (files) {
             if(files.length > 0) {
                 const file = files[0];
                 const reader = new FileReader();
 
                 // 画像ファイルの読み込み完了後にresultにセットされたデータを格納
                 reader.onload = (e) => {
-                    this.dropGraphImage.src = e.target.result;
+                    this.graphImage.src = e.target.result;
                 };
-                 // 画像ファイルの読み込み処理
+                // 画像ファイルの読み込み処理
                 reader.readAsDataURL(file);
             }
+        },
 
-            await (this.isDropFile = true);
-            this.isDragEnterOver = false;
-
+        // canvasを作成しアップロード画像を表示させる。
+        createCanvas () {
             this.canvas = this.$refs.canvas;
 
             if(this.canvas) {
                 // イメージインスタンスの作成
-                this.dropGraphImage.onload = () => {
+                this.graphImage.onload = () => {
 
                     // 親要素の値を取得
                     this.canvasWidth = this.canvas.parentElement.clientWidth;
@@ -110,10 +137,10 @@ export default {
                     const ctx = this.canvas.getContext("2d");
 
                     // キャンバスへの画像読み込み
-                    ctx.drawImage(this.dropGraphImage, 0, 0, this.canvasWidth, this.canvasHeight);
+                    ctx.drawImage(this.graphImage, 0, 0, this.canvasWidth, this.canvasHeight);
                 }
             }
-        },
+        }
     }
 }
 </script>
