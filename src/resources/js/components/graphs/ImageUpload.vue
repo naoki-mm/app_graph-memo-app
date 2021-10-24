@@ -1,7 +1,14 @@
 <template>
     <!-- ファイル選択 or ドロップ時にcanvasを表示 -->
-    <div v-if="isDropFile">
+    <div v-if="isDropFile" class="card">
+        <div class="card-body w-100
+            d-flex align-items-center justify-content-center text-center"
+            style="height: 90vmin">
 
+            <canvas ref="canvas" class="w-100 h-100"
+            ></canvas>
+
+        </div>
     </div>
 
     <!-- ファイル未選択時にドロップ領域を表示 -->
@@ -12,7 +19,6 @@
         @drop.prevent="dropFile"
         :class="{enter_drop_area: isDragEnterOver}"
     >
-        <!-- カードレイアウト -->
         <div class="card-body w-100
             d-flex align-items-center justify-content-center text-center"
             style="height: 90vmin">
@@ -38,8 +44,15 @@
 export default {
     data() {
         return {
+            // ドラッグ&ドロップ
             isDragEnterOver: false,
             isDropFile: false,
+            dropGraphImage: null,
+
+            // canvas
+            canvas: null,
+            canvasWidth: null,
+            canvasHeight: null,
         }
     },
 
@@ -58,12 +71,49 @@ export default {
             this.isDragEnterOver = false;
         },
 
-        // ドロップ領域内でファイルをドロップした時にCSSを初期スタイルに戻す&ファイル情報の取得する。
-        dropFile(e) {
-            console.log(e.dataTransfer.files)
-            this.isDropFile = true;
+        // ドロップ時にCSSを初期スタイルに戻す&canvasに画像を設定。
+        async dropFile(e) {
+            // ドロップした画像オブジェクトの取得
+            let files = e.dataTransfer.files;
+
+            this.dropGraphImage = new Image();
+
+            if(files.length > 0) {
+                const file = files[0];
+                const reader = new FileReader();
+
+                // 画像ファイルの読み込み完了後にresultにセットされたデータを格納
+                reader.onload = (e) => {
+                    this.dropGraphImage.src = e.target.result;
+                };
+                 // 画像ファイルの読み込み処理
+                reader.readAsDataURL(file);
+            }
+
+            await (this.isDropFile = true);
             this.isDragEnterOver = false;
-        }
+
+            this.canvas = this.$refs.canvas;
+
+            if(this.canvas) {
+                // イメージインスタンスの作成
+                this.dropGraphImage.onload = () => {
+
+                    // 親要素の値を取得
+                    this.canvasWidth = this.canvas.parentElement.clientWidth;
+                    this.canvasHeight = this.canvas.parentElement.clientHeight;
+
+                    // キャンバスサイズを親要素のサイズに設定
+                    this.canvas.width = this.canvasWidth;
+                    this.canvas.height = this.canvasHeight;
+
+                    const ctx = this.canvas.getContext("2d");
+
+                    // キャンバスへの画像読み込み
+                    ctx.drawImage(this.dropGraphImage, 0, 0, this.canvasWidth, this.canvasHeight);
+                }
+            }
+        },
     }
 }
 </script>

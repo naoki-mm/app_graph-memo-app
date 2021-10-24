@@ -4,7 +4,7 @@
             <span class="d-block mb-2">プロフィール画像</span>
 
             <!-- アバター画像の表示 -->
-            <img v-if="AvatarImage" :src="AvatarImage"
+            <img v-if="avatarImage" :src="avatarImage"
                 class="rounded-circle d-block mx-auto"
                 style="object-fit: cover; width: 200px; height: 200px;"
             >
@@ -34,7 +34,7 @@ export default {
     },
     data() {
         return {
-            AvatarImage: '/storage/avatar_images/' + this.imageName
+            avatarImage: '/storage/avatar_images/' + this.imageName
         };
     },
 
@@ -42,7 +42,7 @@ export default {
         // アバター画像が登録されていなければ、デフォルト画像を設定する。
         if(this.imageName === null) {
             const defaultAvatarImage = '/images/avatar-default.svg';
-            this.AvatarImage = defaultAvatarImage;
+            this.avatarImage = defaultAvatarImage;
         }
     },
 
@@ -55,9 +55,11 @@ export default {
                 const file = files[0];
                 const reader = new FileReader();
 
+                // 画像ファイルの読み込み完了後にresultにセットされたデータを格納
                 reader.onload = (e) => {
-                    this.AvatarImage = e.target.result;
+                    this.avatarImage = e.target.result;
                 };
+                // 画像ファイルの読み込み処理
                 reader.readAsDataURL(file);
             }
         }
