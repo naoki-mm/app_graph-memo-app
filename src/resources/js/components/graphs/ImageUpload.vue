@@ -98,6 +98,9 @@ export default {
                 };
                 // 画像ファイルの読み込み処理
                 reader.readAsDataURL(file);
+
+                // サイドバーを削除してグラフ読み取りUIを表示させるためのイベント
+                this.$emit("my-upload", this.isImageFile);
             }
         },
     }

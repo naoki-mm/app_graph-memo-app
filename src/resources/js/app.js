@@ -25,6 +25,7 @@ Vue.component('avatar-image-change', require('./components/users/AvatarImageChan
 Vue.component('success-notification', require('./components/common/SuccessNotification.vue').default);
 Vue.component('image-upload', require('./components/graphs/ImageUpload.vue').default);
 Vue.component('graph-plot', require('./components/graphs/GraphPlot.vue').default);
+Vue.component('side-navbar', require('./components/common/SideNavbar.vue').default);
 
 // vue-toastedの読み込み
 Vue.use(Toasted);
@@ -36,4 +37,7 @@ Vue.use(Toasted);
 
 const app = new Vue({
     el: '#app',
+    data: {
+        isImageFile: false,
+    }
 });

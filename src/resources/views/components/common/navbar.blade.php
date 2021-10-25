@@ -1,7 +1,9 @@
 <!-- ナビバー -->
 <nav
     id="main-navbar"
-    class="navbar navbar-expand-lg navbar-light bg-white fixed-top"
+    {{-- navbar-expand-lgを削除 --}}
+    class="navbar navbar-light bg-white fixed-top"
+    :class="{'navbar-expand-lg': !isImageFile}"
     >
     <!-- コンテナ -->
     <div class="container-fluid">
