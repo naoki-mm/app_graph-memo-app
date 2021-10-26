@@ -3,8 +3,7 @@
     @include('components.common.navbar')
 
     {{-- サイドバーの読み込みと個別のリストを定義 --}}
-    @component('components.common.sidebar')
-        @slot('sidebar_list')
+    <side-navbar :is-image-file='isImageFile' >
             <a
             href="{{ route('graph.index') }}"
             class="list-group-item list-group-item-action py-2 ripple active"
@@ -33,6 +32,5 @@
             class="list-group-item list-group-item-action py-2 ripple"
             ><i class="fas fa-trash fa-fw me-3 mr-2"></i><span>ゴミ箱</span></a
             >
-        @endslot
-    @endcomponent
+        </side-navbar>
 </header>

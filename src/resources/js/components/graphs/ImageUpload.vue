@@ -1,7 +1,10 @@
 <template>
     <!-- ファイル選択 or ドロップ時にcanvasを表示 -->
-    <div v-if="isImageFile">
+    <div v-if="isImageFile" class="row no-gutters">
+
+        <plot-side-navbar></plot-side-navbar>
         <graph-plot :graph-image='graphImage'></graph-plot>
+
     </div>
 
     <!-- ファイル未選択時にドロップ領域を表示 -->
@@ -98,13 +101,16 @@ export default {
                 };
                 // 画像ファイルの読み込み処理
                 reader.readAsDataURL(file);
+
+                // サイドバーを削除してグラフ読み取りUIを表示させるためのイベント
+                this.$emit("image-upload", this.isImageFile);
             }
         },
     }
 }
 </script>
 
-<style>
+<style scoped>
 /* ドロップエリアの初期設定 */
 .drop_area {
     border: dashed 3px #BDBDBD;
@@ -117,4 +123,9 @@ export default {
     color: #42A5F5;
     background-color: #E3F2FD;
 }
+
+/* .graph-plot {
+    margin-left: calc(((100vw - 100%) / 2) * -1);
+    margin-right: calc(((100vw - 100%) / 2) * -1);
+} */
 </style>

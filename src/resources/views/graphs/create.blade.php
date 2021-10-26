@@ -13,7 +13,7 @@
     @component('components.graphs.main_item')
 
         @slot('main_content')
-            <image-upload></image-upload>
+            <image-upload v-on:image-upload='isImageFile = $event'></image-upload>
         @endslot
 
     @endcomponent
