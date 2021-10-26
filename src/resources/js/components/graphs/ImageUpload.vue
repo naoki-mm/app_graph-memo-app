@@ -1,8 +1,7 @@
 <template>
     <!-- ファイル選択 or ドロップ時にcanvasを表示 -->
-    <div v-if="isImageFile" class="row no-gutters">
+    <div v-if="isImageFile">
 
-        <plot-side-navbar></plot-side-navbar>
         <graph-plot :graph-image='graphImage'></graph-plot>
 
     </div>
