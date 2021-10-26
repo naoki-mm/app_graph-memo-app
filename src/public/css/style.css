@@ -1,5 +1,5 @@
 @media (min-width: 991.98px) {
-  main {
+  .main-layout {
     padding-left: 240px; /* サイドバーを考慮 */
   }
 }

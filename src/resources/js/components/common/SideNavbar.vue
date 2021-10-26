@@ -3,8 +3,8 @@
         <!-- サイドバー -->
         <nav
             id="sidebarMenu"
-        class="collapse navbar-collapse bg-white"
-        :class="{'d-lg-block': !isImage, sidebar: !isImage, 'none-sidebar': isImage}"
+            class="collapse navbar-collapse bg-white"
+            :class="{'d-lg-block': !isImage, sidebar: !isImage, 'none-sidebar': isImage}"
         >
             <!-- サイドに固定 -->
             <div class="position-sticky">
@@ -14,6 +14,10 @@
                 </div>
             </div>
         </nav>
+
+        <!-- <div v-if="isImage">
+            <plot-side-navbar></plot-side-navbar>
+        </div> -->
     </div>
 </template>
 
@@ -25,26 +29,16 @@ export default {
             dfault: false
         },
     },
-    data() {
-        return {
-
-        }
-    },
 
     computed: {
-    isImage() {
-        return this.$props.isImageFile
-    }
-
+        isImage() {
+            return this.$props.isImageFile
+        }
     },
-
-    methods: {
-
-    }
 }
 </script>
 
-<style>
+<style scoped>
 .sidebar {
     position: fixed;
     top: 0;

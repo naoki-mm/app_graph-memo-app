@@ -1,11 +1,13 @@
 <template>
-    <div class="card">
-        <div class="card-body w-100
-            d-flex align-items-center justify-content-center text-center"
-            style="height: 90vmin">
+    <div class="col-12 col-lg-9 pl-lg-2 pt-2 pt-lg-0">
+        <div class="card">
+            <div class="card-body w-100
+                d-flex align-items-center justify-content-center text-center"
+                style="height: 90vmin">
 
-            <canvas ref="canvas" class="w-100 h-100"></canvas>
+                <canvas ref="canvas" class="w-100 h-100"></canvas>
 
+            </div>
         </div>
     </div>
 </template>
