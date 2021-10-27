@@ -26,7 +26,6 @@ Vue.component('success-notification', require('./components/common/SuccessNotifi
 Vue.component('image-upload', require('./components/graphs/ImageUpload.vue').default);
 Vue.component('graph-plot', require('./components/graphs/GraphPlot.vue').default);
 Vue.component('side-navbar', require('./components/common/SideNavbar.vue').default);
-Vue.component('plot-side-navbar', require('./components/graphs/PlotSideNavbar.vue').default);
 
 // vue-toastedの読み込み
 Vue.use(Toasted);
@@ -40,5 +39,6 @@ const app = new Vue({
     el: '#app',
     data: {
         isImageFile: false,
+        graphImage: null
     }
 });

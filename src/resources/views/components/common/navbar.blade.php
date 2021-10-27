@@ -7,9 +7,19 @@
     >
     <!-- コンテナ -->
     <div class="container-fluid">
+        <!-- ロゴ -->
+        <a class="navbar-brand mr-1" href="{{ route('graph.index') }}">
+            <img
+                src="{{ asset('images/logo.png')}}"
+                height="25"
+                alt=""
+                loading="lazy"
+                />
+        </a>
+
         <!-- ハンバーガーボタン -->
         <button
-            class="navbar-toggler"
+            class="navbar-toggler mr-auto mt-2"
             type="button"
             data-toggle="collapse"
             data-target="#sidebarMenu"
@@ -19,16 +29,6 @@
             >
             <i class="fas fa-bars"></i>
         </button>
-
-        <!-- ロゴ -->
-        <a class="navbar-brand" href="{{ route('graph.index') }}">
-            <img
-                src="{{ asset('images/logo.png')}}"
-                height="25"
-                alt=""
-                loading="lazy"
-                />
-        </a>
 
         <!-- 検索フォーム -->
         <form class="d-none d-md-flex input-group w-auto my-auto">
