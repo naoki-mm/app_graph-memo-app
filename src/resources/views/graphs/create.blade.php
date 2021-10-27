@@ -13,7 +13,17 @@
     @component('components.graphs.main_item')
 
         @slot('main_content')
-            <image-upload v-on:image-upload='isImageFile = $event'></image-upload>
+            <div v-if="!isImageFile">
+                <image-upload
+                    v-on:image-upload='isImageFile = $event'
+                    v-on:set-canvas='graphImage = $event'>
+                </image-upload>
+            </div>
+
+            <!-- ファイル選択 or ドロップ時にcanvasを表示 -->
+            <div v-if="isImageFile">
+                <graph-plot :graph-image='graphImage'></graph-plot>
+            </div>
         @endslot
 
     @endcomponent

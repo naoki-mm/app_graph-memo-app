@@ -1,13 +1,6 @@
 <template>
-    <!-- ファイル選択 or ドロップ時にcanvasを表示 -->
-    <div v-if="isImageFile">
-
-        <show-work-aria :graph-image='graphImage'></show-work-aria>
-
-    </div>
-
     <!-- ファイル未選択時にドロップ領域を表示 -->
-    <div v-else class="card drop_area"
+    <div class="card drop_area"
         @dragenter.prevent="checkDragEnterOver"
         @dragover.prevent="checkDragEnterOver"
         @dragleave.prevent="dragLeave"
@@ -102,7 +95,9 @@ export default {
                 reader.readAsDataURL(file);
 
                 // サイドバーを削除してグラフ読み取りUIを表示させるためのイベント
+                // グラフ画像をcanvasへ表示させるためのイベント
                 this.$emit("image-upload", this.isImageFile);
+                this.$emit("set-canvas", this.graphImage);
             }
         },
     }
