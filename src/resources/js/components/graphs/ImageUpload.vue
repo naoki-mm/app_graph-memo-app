@@ -2,7 +2,7 @@
     <!-- ファイル選択 or ドロップ時にcanvasを表示 -->
     <div v-if="isImageFile">
 
-        <graph-plot :graph-image='graphImage'></graph-plot>
+        <show-work-aria :graph-image='graphImage'></show-work-aria>
 
     </div>
 

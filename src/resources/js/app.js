@@ -24,8 +24,11 @@ require('vue-toasted');
 Vue.component('avatar-image-change', require('./components/users/AvatarImageChange.vue').default);
 Vue.component('success-notification', require('./components/common/SuccessNotification.vue').default);
 Vue.component('image-upload', require('./components/graphs/ImageUpload.vue').default);
-Vue.component('graph-plot', require('./components/graphs/GraphPlot.vue').default);
+Vue.component('show-work-aria', require('./components/graphs/ShowWorkAria.vue').default);
 Vue.component('side-navbar', require('./components/common/SideNavbar.vue').default);
+Vue.component('axis-setting', require('./components/graphs/AxisSetting.vue').default);
+Vue.component('graph-plot', require('./components/graphs/GraphPlot.vue').default);
+Vue.component('save-plot-data', require('./components/graphs/SavePlotData.vue').default);
 
 // vue-toastedの読み込み
 Vue.use(Toasted);
