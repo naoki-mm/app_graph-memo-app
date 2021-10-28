@@ -24,19 +24,19 @@
                 <!-- グラフ読み取りサイドバー -->
                 <div class="col-12 col-lg-3">
                     <div class="card">
-                        <div class="card-body sidebar-card w-100">
-                            <ul class="nav nav-tabs nav-pills" id="myTab" role="tablist">
+                        <div class="card-body graph-sidebar-card w-100">
+                            <ul class="nav nav-tabs nav-pills graph-nav-pills" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="axis-tab" data-toggle="tab" href="#axis" role="tab" aria-controls="axis"
-                                    aria-selected="true">軸設定</a>
+                                    aria-selected="true">1. 軸設定</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="plot-tab" data-toggle="tab" href="#plot" role="tab" aria-controls="plot"
-                                    aria-selected="false">プロット</a>
+                                    aria-selected="false">2. プロット</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="save-tab" data-toggle="tab" href="#save" role="tab" aria-controls="save"
-                                    aria-selected="false">保存</a>
+                                    aria-selected="false">3. 保存</a>
                                 </li>
                             </ul>
 
@@ -92,7 +92,7 @@
                                 </div>
                             </div>
                         </form>
-                        
+
                         </div>
                     </div>
                 </div>
