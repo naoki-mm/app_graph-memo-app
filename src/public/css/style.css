@@ -3,3 +3,17 @@
     padding-left: 240px; /* サイドバーを考慮 */
   }
 }
+
+/* グラフサイドバーの調整 */
+@media (max-width: 991.98px) {
+    .sidebar-card {
+        height: 50vmin;
+    }
+}
+
+/* グラフサイドバーの調整 */
+@media (min-width: 991.98px) {
+    .sidebar-card{
+        height: 90vmin;
+    }
+}
