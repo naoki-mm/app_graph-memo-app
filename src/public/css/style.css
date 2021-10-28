@@ -3,3 +3,32 @@
     padding-left: 240px; /* サイドバーを考慮 */
   }
 }
+
+/* グラフサイドバーの調整 */
+@media (max-width: 991.98px) {
+  .graph-sidebar-card {
+    height: 50vmin;
+  }
+}
+
+/* グラフサイドバーの調整 */
+@media (min-width: 991.98px) {
+  .graph-sidebar-card{
+    height: 90vmin;
+  }
+}
+
+.graph-nav-pills .nav-link.active, .graph-nav-pills .show > .nav-link {
+  color: #3490dc;
+  font-weight: bold;
+  border: transparent;
+  background-color: transparent;
+  border-bottom: 0.3rem solid #3490dc;
+  border-radius: 0.01rem;
+  height: 86%;
+}
+
+#axis-tab, #plot-tab, #save-tab {
+  padding: 8px 0px;
+  margin: 0px 10px
+}
