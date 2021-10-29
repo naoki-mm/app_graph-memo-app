@@ -29,7 +29,7 @@
         </a>
 
         <a
-        href="#"
+        href="{{ route("user-password.edit", auth()->user()->id) }}"
         class="list-group-item list-group-item-action py-2 ripple"
         aria-current="true"
         >
