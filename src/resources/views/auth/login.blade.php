@@ -16,6 +16,16 @@
                         <form method="POST" action="{{ route('login') }}" class="p-5">
                             @csrf
 
+                            @if ($errors->any())
+                            <div class="text-danger text-center">
+                                <div class="mb-0">
+                                    @foreach($errors->all() as $error)
+                                        <p>{{ $error }}</p>
+                                    @endforeach
+                                </div>
+                            </div>
+                            @endif
+
                             {{-- メールアドレスの入力フォーム --}}
                             <div class="form-group">
                                 <label class="form-label" for="email">
@@ -26,17 +36,13 @@
                                     type="email"
                                     id="email"
                                     name="email"
-                                    class="form-control @error('email') is-invalid @enderror"
+                                    class="form-control"
                                     autocomplete="email"
                                     value="{{ old('email') }}"
                                     placeholder="graph-t@example.com"
                                     required autofocus
                                 >
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+
                             </div>
 
                             {{-- パスワードの入力フォーム --}}
@@ -49,16 +55,12 @@
                                     type="password"
                                     id="password"
                                     name="password"
-                                    class="form-control @error('password') is-invalid @enderror"
+                                    class="form-control"
                                     autocomplete="current-password"
                                     placeholder="********"
                                     required
                                 >
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+
                                 <small class="grey-text">半角英数字8文字以上を入力してください。</small>
                             </div>
 
