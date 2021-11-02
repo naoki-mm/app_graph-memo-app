@@ -20,60 +20,123 @@
                 </image-upload>
             </div>
 
+            {{--  画像選択 or 画像ドロップ時にcanvasとグラフ読み取りサイドバーを表示  --}}
             <div v-if="isImageFile" class="row no-gutters">
                 <!-- グラフ読み取りサイドバー -->
                 <div class="col-12 col-lg-3">
-                    <div class="card">
+                    <div class="card overflow-auto">
                         <div class="card-body graph-sidebar-card w-100">
                             <ul class="nav nav-tabs nav-pills graph-nav-pills" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="axis-tab" data-toggle="tab" href="#axis" role="tab" aria-controls="axis"
-                                    aria-selected="true">1. 軸設定</a>
+                                    aria-selected="true">軸設定</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="plot-tab" data-toggle="tab" href="#plot" role="tab" aria-controls="plot"
-                                    aria-selected="false">2. プロット</a>
+                                    aria-selected="false">プロット</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="save-tab" data-toggle="tab" href="#save" role="tab" aria-controls="save"
-                                    aria-selected="false">3. 保存</a>
+                                    aria-selected="false">保存</a>
                                 </li>
                             </ul>
 
                         {{-- フォーム --}}
-                        <form method="POST" action="{{ route('login') }}" class="pt-3">
+                        <form method="POST" action="{{ route('login') }}" class="pt-2">
                             @csrf
                             <div class="tab-content" id="myTabContent">
 
                                 {{-- 軸設定タブの内容 --}}
                                 <div class="tab-pane fade show active" id="axis" role="tabpanel" aria-labelledby="axis-tab">
 
-                                    {{-- メールアドレスの入力フォーム --}}
-                                    <div class="form-group">
-                                        <label class="form-label" for="email">
-                                            メールアドレス
-                                        </label>
+                                    <div class="">
 
-                                        <input
-                                            type="text"
-                                            id="email"
-                                            name="email"
-                                            class="form-control @error('email') is-invalid @enderror"
-                                            autocomplete="email"
-                                            value="{{ old('email') }}"
-                                            placeholder="graph-t@example.com"
-                                            required autofocus
-                                        >
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                        <div class="mt-4">
+                                            <div class="mb-3 btn rounded-pill btn-block"
+                                                v-bind:class="{'btn-primary': isActiveSetAxis}">
+                                                横(x)軸を設定する
+                                            </div>
+
+                                            <div class="btn rounded-pill btn-block"
+                                                v-bind:class="{'btn-primary': isActiveSetAxis}">
+                                                縦(y)軸を設定する
+                                            </div>
+                                        </div>
+                                        <ol class="mt-5 pl-3 mb-0">
+                                            <li>グラフ上で横軸の最小値、最大値を順にクリックしてください。</li>
+
+                                            <li class="mt-3">
+                                                <p class="mb-2">軸の値を下記に入力してください。</p>
+                                                {{-- 数値の入力フォーム --}}
+                                                <div class="row" style="height: 50px">
+                                                    <div class="col pr-2">
+                                                        <div class="md-form mt-0">
+
+                                                        <label class="form-label ml-1 mb-1" for="x_axis_min">
+                                                            x min
+                                                        </label>
+
+                                                        <input
+                                                            type="number"
+                                                            id="x_axis_min"
+                                                            name="x_axis_min"
+                                                            class="form-control @error('x_axis_min') is-invalid @enderror"
+                                                            autocomplete="off"
+                                                            value="{{ old('x_axis_min') }}"
+                                                            required
+                                                        >
+                                                        @error('x_axis_min')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col pl-2">
+                                                        <div class="md-form mt-0">
+
+                                                        <label class="form-label ml-1 mb-1" for="x_axis_max">
+                                                            x max
+                                                        </label>
+
+                                                        <input
+                                                            type="number"
+                                                            id="x_axis_max"
+                                                            name="x_axis_max"
+                                                            class="form-control @error('x_axis_max') is-invalid @enderror"
+                                                            autocomplete="off"
+                                                            value="{{ old('x_axis_max') }}"
+                                                            required
+                                                        >
+                                                        @error('x_axis_max')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </li>
+                                        </ol>
+
+                                        <div class="text-right mt-3 mr-1">
+                                            <div class="btn btn-link mr-0 pr-0">
+                                                リセット
+                                            </div>
+                                            <div class="btn btn-link" style="color: #3490dc">
+                                                <strong>OK</strong>
+                                            </div>
+                                        </div>
                                     </div>
 
 
 
                                 </div>
+
+
 
                                 {{-- グラフプロットタブ --}}
                                 <div class="tab-pane fade" id="plot" role="tabpanel" aria-labelledby="plot-tab">
@@ -97,7 +160,6 @@
                     </div>
                 </div>
 
-                <!-- ファイル選択 or ドロップ時にcanvasを表示 -->
                 <graph-plot :graph-image='graphImage'></graph-plot>
 
             </div>

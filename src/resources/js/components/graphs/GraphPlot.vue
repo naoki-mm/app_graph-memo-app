@@ -10,7 +10,7 @@
                 <canvas
                     ref="canvas"
                     class="w-100 h-100 bg-secondary"
-                    @click="plot"
+                    @click="graphPlot"
                     >
                 </canvas>
 
@@ -72,7 +72,11 @@ export default {
     },
 
     methods: {
-        plot(e) {
+        graphPlot(e) {
+            this.getClickPoint(e)
+            this.showPlotPoint()
+        },
+        getClickPoint(e) {
 
             // クリック時の親要素のサイズを取得して、canvasの表示サイズとして扱う。
             let displayCanvasWidth = this.canvas.parentElement.clientWidth;
@@ -93,10 +97,11 @@ export default {
             this.plotPointX = this.clickX * xAxisAdjust;
             this.plotPointY = this.clickY * yAxisAdjust;
 
-            this.showPlotPoint();
+            // this.convertPlotPoint();
         },
 
         showPlotPoint() {
+
             // 円の描画開始角度 0[rad]
             const startAngle = 0;
             // 円の描画終了角度 2π[rad]
@@ -110,10 +115,17 @@ export default {
             this.context.beginPath();
             this.context.arc(this.plotPointX, this.plotPointY, plotPointerSize, startAngle, endAngle, false);
             this.context.fill();
+        },
 
+        showPlotData() {
+            // this.SetGraphAxis();
+        },
 
-        }
-        // setXaxisStart(e) {
+        // convertPlotPoint() {
+        //     let GraphXaxisMin
+        // },
+
+        // SetGraphAxis(e) {
         //     const rectangle = this.canvas.getBoundingClientRect();
 
         //     if (!this.clickXmin && !this.clickXmax) {
@@ -131,8 +143,8 @@ export default {
         //     this.realGraphXmax = 20;
 
         //     this.realGraphXdiff = this.realGraphXmax - this.realGraphXmin;
+        // }
 
-        // },
     }
 }
 </script>

@@ -39,6 +39,7 @@ const app = new Vue({
     el: '#app',
     data: {
         isImageFile: false,
-        graphImage: null
+        graphImage: null,
+        isActiveSetAxis: false
     }
 });
