@@ -171,14 +171,14 @@
                     </div>
                 </div>
 
-                <graph-plot
+                <graph-canvas
                     :graph-image='graphImage'
                     :is-active-set-axis-x='isActiveSetAxisX'
                     :is-active-set-axis-y='isActiveSetAxisY'
                     :is-axis-set-canvas='isAxisSetCanvas'
                     :is-plot-canvas='isPlotCanvas'
                     :is-set-save='isSetSave'>
-                </graph-plot>
+                </graph-canvas>
 
             </div>
         @endslot

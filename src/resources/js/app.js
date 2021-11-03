@@ -24,7 +24,7 @@ require('vue-toasted');
 Vue.component('avatar-image-change', require('./components/users/AvatarImageChange.vue').default);
 Vue.component('success-notification', require('./components/common/SuccessNotification.vue').default);
 Vue.component('image-upload', require('./components/graphs/ImageUpload.vue').default);
-Vue.component('graph-plot', require('./components/graphs/GraphPlot.vue').default);
+Vue.component('graph-canvas', require('./components/graphs/GraphCanvas.vue').default);
 Vue.component('side-navbar', require('./components/common/SideNavbar.vue').default);
 
 // vue-toastedの読み込み
