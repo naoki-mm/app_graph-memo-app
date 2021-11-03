@@ -40,6 +40,12 @@ const app = new Vue({
     data: {
         isImageFile: false,
         graphImage: null,
-        isActiveSetAxis: false
+
+        isActiveSetAxisX: true,
+        isActiveSetAxisY: false,
+
+        isAxisSetCanvas: true,
+        isPlotCanvas: false,
+        isSetSave: false,
     }
 });

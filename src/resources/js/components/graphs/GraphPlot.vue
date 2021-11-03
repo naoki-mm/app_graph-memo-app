@@ -8,8 +8,16 @@
                 style="height: 90vmin">
 
                 <canvas
-                    ref="canvas"
+                    ref="axisSetCanvas"
                     class="w-100 h-100 bg-secondary"
+                    v-show="isAxisSetCanvas"
+                    >
+                </canvas>
+
+                <canvas
+                    ref="plotCanvas"
+                    class="w-100 h-100 bg-secondary"
+                    v-show="isPlotCanvas"
                     @click="graphPlot"
                     >
                 </canvas>
@@ -21,11 +29,58 @@
 
 <script>
 export default {
-    props: ['graphImage'],
+    props: {
+        graphImage: {
+            default: null,
+        },
+        isActiveSetAxisX: {
+            type: Boolean,
+            default: true,
+        },
+        isActiveSetAxisY: {
+            type: Boolean,
+            default: false,
+        },
+        isAxisSetCanvas: {
+            type: Boolean,
+            default: true,
+        },
+        isPlotCanvas: {
+            type: Boolean,
+            default: false,
+        },
+        isSetSave: {
+            type: Boolean,
+            default: false,
+        },
+    },
+
+    computed: {
+        setAxisX() {
+            return this.isActiveSetAxisX
+        },
+
+        setAxisY() {
+            return this.isActiveSetAxisY
+        },
+
+        setAxisCanvas() {
+            return this.isAxisSetCanvas
+        },
+
+        setPlotCanvas() {
+            return this.isPlotCanvas
+        },
+
+        setSave() {
+            return this.isSetSave
+        },
+    },
 
     data() {
         return {
-            canvas: null,
+            plotCanvas: null,
+            axisSetCanvas: null,
             drawCanvasWidth: null,
             drawCanvasHeight: null,
 
@@ -33,7 +88,6 @@ export default {
             clickY: 0,
             plotPointX: 0,
             plotPointY: 0,
-
 
             clickXmin: null,
             clickXmax: null,
@@ -44,30 +98,35 @@ export default {
 
             realGraphXdiff: 0,
 
-            context: null,
-
+            plotContext: null,
+            axisSetContext: null,
         }
     },
 
     mounted() {
         // canvas要素を取得。
-        this.canvas = this.$refs.canvas;
+        this.axisSetCanvas = this.$refs.axisSetCanvas;
+        this.plotCanvas = this.$refs.plotCanvas;
 
         // キャンバスの描画サイズを親要素のサイズに設定
-        this.canvas.width  = this.canvas.parentElement.clientWidth;
-        this.canvas.height = this.canvas.parentElement.clientHeight;
+        this.axisSetCanvas.width  = this.axisSetCanvas.parentElement.clientWidth;
+        this.axisSetCanvas.height = this.axisSetCanvas.parentElement.clientHeight;
+        this.plotCanvas.width  = this.plotCanvas.parentElement.clientWidth;
+        this.plotCanvas.height = this.plotCanvas.parentElement.clientHeight;
 
         // 描画サイズを変数に代入
-        this.drawCanvasWidth = this.canvas.width;
-        this.drawCanvasHeight = this.canvas.height;
+        this.drawCanvasWidth = this.plotCanvas.width;
+        this.drawCanvasHeight = this.plotCanvas.height;
 
         // 画像取得後に実行する処理
         this.graphImage.onload = () => {
 
-            this.context = this.canvas.getContext("2d");
+            this.axisSetcontext = this.axisSetCanvas.getContext("2d");
+            this.plotContext = this.plotCanvas.getContext("2d");
 
             // キャンバスへの画像表示
-            this.context.drawImage(this.graphImage, 0, 0, this.drawCanvasWidth, this.drawCanvasHeight);
+            this.axisSetcontext.drawImage(this.graphImage, 0, 0, this.drawCanvasWidth, this.drawCanvasHeight);
+            this.plotContext.drawImage(this.graphImage, 0, 0, this.drawCanvasWidth, this.drawCanvasHeight);
         }
     },
 
@@ -79,11 +138,11 @@ export default {
         getClickPoint(e) {
 
             // クリック時の親要素のサイズを取得して、canvasの表示サイズとして扱う。
-            let displayCanvasWidth = this.canvas.parentElement.clientWidth;
-            let displayCanvasHeight = this.canvas.parentElement.clientHeight;
+            let displayCanvasWidth = this.plotCanvas.parentElement.clientWidth;
+            let displayCanvasHeight = this.plotCanvas.parentElement.clientHeight;
 
             // canvasの左上角の座標を取得
-            let canvasTopLeftCorner = this.canvas.getBoundingClientRect();
+            let canvasTopLeftCorner = this.plotCanvas.getBoundingClientRect();
 
             // クリックした座標(画面左上が基準)をcanvasの座標(canvas描画領域の左上が基準)に変換
             this.clickX = e.clientX - canvasTopLeftCorner.left;
@@ -110,11 +169,11 @@ export default {
             const plotPointerSize = 5;
 
             // 描画スタイルの設定
-            this.context.fillStyle = "rgba(200, 0, 0, 0.8)";
+            this.plotContext.fillStyle = "rgba(200, 0, 0, 0.8)";
             // クリックした箇所に円を表示
-            this.context.beginPath();
-            this.context.arc(this.plotPointX, this.plotPointY, plotPointerSize, startAngle, endAngle, false);
-            this.context.fill();
+            this.plotContext.beginPath();
+            this.plotContext.arc(this.plotPointX, this.plotPointY, plotPointerSize, startAngle, endAngle, false);
+            this.plotContext.fill();
         },
 
         showPlotData() {

@@ -28,16 +28,25 @@
                         <div class="card-body graph-sidebar-card w-100">
                             <ul class="nav nav-tabs nav-pills graph-nav-pills" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="axis-tab" data-toggle="tab" href="#axis" role="tab" aria-controls="axis"
-                                    aria-selected="true">軸設定</a>
+                                    <a class="nav-link active" id="axis-tab" data-toggle="tab"
+                                        href="#axis" role="tab" aria-controls="axis" aria-selected="true"
+                                        v-on:click="isAxisSetCanvas = true; isPlotCanvas = false; isSetSave = false">
+                                        軸設定
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="plot-tab" data-toggle="tab" href="#plot" role="tab" aria-controls="plot"
-                                    aria-selected="false">プロット</a>
+                                    <a class="nav-link" id="plot-tab" data-toggle="tab"
+                                        href="#plot" role="tab" aria-controls="plot" aria-selected="false"
+                                        v-on:click="isAxisSetCanvas = false; isPlotCanvas = true; isSetSave = false">
+                                        プロット
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="save-tab" data-toggle="tab" href="#save" role="tab" aria-controls="save"
-                                    aria-selected="false">保存</a>
+                                    <a class="nav-link" id="save-tab" data-toggle="tab"
+                                        href="#save" role="tab" aria-controls="save" aria-selected="false"
+                                        v-on:click="isAxisSetCanvas = false; isPlotCanvas = true; isSetSave = true">
+                                        保存
+                                    </a>
                                 </li>
                             </ul>
 
@@ -53,16 +62,18 @@
 
                                         <div class="mt-4">
                                             <div class="mb-3 btn rounded-pill btn-block"
-                                                v-bind:class="{'btn-primary': isActiveSetAxis}">
+                                                :class="{'btn-primary': isActiveSetAxisX}"
+                                                v-on:click="isActiveSetAxisX = true; isActiveSetAxisY = false">
                                                 横(x)軸を設定する
                                             </div>
 
                                             <div class="btn rounded-pill btn-block"
-                                                v-bind:class="{'btn-primary': isActiveSetAxis}">
+                                                :class="{'btn-primary': isActiveSetAxisY}"
+                                                v-on:click="isActiveSetAxisY = true; isActiveSetAxisX = false">
                                                 縦(y)軸を設定する
                                             </div>
                                         </div>
-                                        <ol class="mt-5 pl-3 mb-0">
+                                        <ol class="mt-5 pl-3 mb-2">
                                             <li>グラフ上で横軸の最小値、最大値を順にクリックしてください。</li>
 
                                             <li class="mt-3">
@@ -160,7 +171,14 @@
                     </div>
                 </div>
 
-                <graph-plot :graph-image='graphImage'></graph-plot>
+                <graph-plot
+                    :graph-image='graphImage'
+                    :is-active-set-axis-x='isActiveSetAxisX'
+                    :is-active-set-axis-y='isActiveSetAxisY'
+                    :is-axis-set-canvas='isAxisSetCanvas'
+                    :is-plot-canvas='isPlotCanvas'
+                    :is-set-save='isSetSave'>
+                </graph-plot>
 
             </div>
         @endslot
