@@ -10,14 +10,15 @@
                 <canvas
                     ref="axisSetCanvas"
                     class="w-100 h-100 bg-secondary"
-                    v-show="isAxisSetCanvas"
+                    v-show="setAxisCanvas"
+                    @click="setAxis"
                     >
                 </canvas>
 
                 <canvas
                     ref="plotCanvas"
                     class="w-100 h-100 bg-secondary"
-                    v-show="isPlotCanvas"
+                    v-show="setPlotCanvas"
                     @click="graphPlot"
                     >
                 </canvas>
@@ -84,6 +85,9 @@ export default {
             drawCanvasWidth: null,
             drawCanvasHeight: null,
 
+            clickCountX: 0,
+            clickCountY : 0,
+
             clickX: 0,
             clickY: 0,
             plotPointX: 0,
@@ -121,28 +125,46 @@ export default {
         // 画像取得後に実行する処理
         this.graphImage.onload = () => {
 
-            this.axisSetcontext = this.axisSetCanvas.getContext("2d");
+            this.axisSetContext = this.axisSetCanvas.getContext("2d");
             this.plotContext = this.plotCanvas.getContext("2d");
 
             // キャンバスへの画像表示
-            this.axisSetcontext.drawImage(this.graphImage, 0, 0, this.drawCanvasWidth, this.drawCanvasHeight);
+            this.axisSetContext.drawImage(this.graphImage, 0, 0, this.drawCanvasWidth, this.drawCanvasHeight);
             this.plotContext.drawImage(this.graphImage, 0, 0, this.drawCanvasWidth, this.drawCanvasHeight);
         }
     },
 
     methods: {
-        graphPlot(e) {
-            this.getClickPoint(e)
-            this.showPlotPoint()
+        setAxis(e) {
+            const axisSetPointNumber = 2;
+            if(this.clickCountUp() <= axisSetPointNumber) {
+                this.getClickPoint(e, this.axisSetCanvas);
+                this.showPlotPoint(this.axisSetContext);
+            }
         },
-        getClickPoint(e) {
 
+        clickCountUp() {
+            if(this.setAxisX) {
+                this.clickCountX++;
+                return this.clickCountX;
+            }
+            if(this.setAxisY) {
+                this.clickCountY++;
+                return this.clickCountY
+            }
+        },
+
+        graphPlot(e) {
+            this.getClickPoint(e, this.plotCanvas);
+            this.showPlotPoint(this.plotContext);
+        },
+        getClickPoint(e, canvas) {
             // クリック時の親要素のサイズを取得して、canvasの表示サイズとして扱う。
-            let displayCanvasWidth = this.plotCanvas.parentElement.clientWidth;
-            let displayCanvasHeight = this.plotCanvas.parentElement.clientHeight;
+            let displayCanvasWidth = canvas.parentElement.clientWidth;
+            let displayCanvasHeight = canvas.parentElement.clientHeight;
 
             // canvasの左上角の座標を取得
-            let canvasTopLeftCorner = this.plotCanvas.getBoundingClientRect();
+            let canvasTopLeftCorner = canvas.getBoundingClientRect();
 
             // クリックした座標(画面左上が基準)をcanvasの座標(canvas描画領域の左上が基準)に変換
             this.clickX = e.clientX - canvasTopLeftCorner.left;
@@ -159,7 +181,7 @@ export default {
             // this.convertPlotPoint();
         },
 
-        showPlotPoint() {
+        showPlotPoint(context) {
 
             // 円の描画開始角度 0[rad]
             const startAngle = 0;
@@ -169,11 +191,48 @@ export default {
             const plotPointerSize = 5;
 
             // 描画スタイルの設定
-            this.plotContext.fillStyle = "rgba(200, 0, 0, 0.8)";
+            context.fillStyle = "rgba(200, 0, 0, 0.8)";
             // クリックした箇所に円を表示
-            this.plotContext.beginPath();
-            this.plotContext.arc(this.plotPointX, this.plotPointY, plotPointerSize, startAngle, endAngle, false);
-            this.plotContext.fill();
+            context.beginPath();
+            context.arc(this.plotPointX, this.plotPointY, plotPointerSize, startAngle, endAngle, false);
+            context.fill();
+
+            // 軸設定時のプロット設定
+            if(this.setAxisCanvas) {
+                this.showAxisNavText(context);
+            }
+        },
+
+        showAxisNavText(context) {
+            const axisSetCountMinNumber = 1;
+            const axisSetCountMaxNumber = 2;
+            const textPositionAdjust = 10;
+            // テキスト描画コンテキストの設定変数
+            context.font = "20px 'ＭＳ ゴシック'";
+            context.textAlign = "left";
+
+            // x軸のプロット設定
+            if(this.setAxisX) {
+                context.textBaseline = "top";
+                // クリック数により、テキストの表示を切り替える
+                if(this.clickCountX === axisSetCountMinNumber) {
+                    context.fillText("x min",this.plotPointX + textPositionAdjust, this.plotPointY);
+                }
+                if(this.clickCountX === axisSetCountMaxNumber) {
+                    context.fillText("x max",this.plotPointX + textPositionAdjust, this.plotPointY);
+                }
+            }
+            // y軸のプロット設定
+            if(this.setAxisY) {
+                context.textBaseline = "bottom";
+                // クリック数により、テキストの表示を切り替える
+                if(this.clickCountY === axisSetCountMinNumber) {
+                    context.fillText("y min",this.plotPointX + textPositionAdjust, this.plotPointY - textPositionAdjust);
+                }
+                if(this.clickCountY === axisSetCountMaxNumber) {
+                    context.fillText("y max",this.plotPointX + textPositionAdjust, this.plotPointY - textPositionAdjust);
+                }
+            }
         },
 
         showPlotData() {
