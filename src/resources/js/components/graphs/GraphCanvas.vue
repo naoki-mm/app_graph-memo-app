@@ -10,7 +10,7 @@
                 <canvas
                     ref="axisSetCanvas"
                     class="w-100 h-100 bg-secondary"
-                    v-show="isAxisSetCanvas"
+                    v-show="setAxisCanvas"
                     @click="setAxis"
                     >
                 </canvas>
@@ -18,7 +18,7 @@
                 <canvas
                     ref="plotCanvas"
                     class="w-100 h-100 bg-secondary"
-                    v-show="isPlotCanvas"
+                    v-show="setPlotCanvas"
                     @click="graphPlot"
                     >
                 </canvas>
@@ -85,7 +85,8 @@ export default {
             drawCanvasWidth: null,
             drawCanvasHeight: null,
 
-            clickCount: 0,
+            clickCountX: 0,
+            clickCountY : 0,
 
             clickX: 0,
             clickY: 0,
@@ -135,18 +136,22 @@ export default {
 
     methods: {
         setAxis(e) {
-            this.clickCountUp();
-
             const axisSetPointNumber = 2;
-
-            if(this.clickCount <= axisSetPointNumber) {
+            if(this.clickCountUp() <= axisSetPointNumber) {
                 this.getClickPoint(e, this.axisSetCanvas);
                 this.showPlotPoint(this.axisSetContext);
             }
         },
 
         clickCountUp() {
-            this.clickCount += 1;
+            if(this.setAxisX) {
+                this.clickCountX++;
+                return this.clickCountX;
+            }
+            if(this.setAxisY) {
+                this.clickCountY++;
+                return this.clickCountY
+            }
         },
 
         graphPlot(e) {
@@ -191,6 +196,43 @@ export default {
             context.beginPath();
             context.arc(this.plotPointX, this.plotPointY, plotPointerSize, startAngle, endAngle, false);
             context.fill();
+
+            // 軸設定時のプロット設定
+            if(this.setAxisCanvas) {
+                this.showAxisNavText(context);
+            }
+        },
+
+        showAxisNavText(context) {
+            const axisSetCountMinNumber = 1;
+            const axisSetCountMaxNumber = 2;
+            const textPositionAdjust = 10;
+            // テキスト描画コンテキストの設定変数
+            context.font = "20px 'ＭＳ ゴシック'";
+            context.textAlign = "left";
+
+            // x軸のプロット設定
+            if(this.setAxisX) {
+                context.textBaseline = "top";
+                // クリック数により、テキストの表示を切り替える
+                if(this.clickCountX === axisSetCountMinNumber) {
+                    context.fillText("x min",this.plotPointX + textPositionAdjust, this.plotPointY);
+                }
+                if(this.clickCountX === axisSetCountMaxNumber) {
+                    context.fillText("x max",this.plotPointX + textPositionAdjust, this.plotPointY);
+                }
+            }
+            // y軸のプロット設定
+            if(this.setAxisY) {
+                context.textBaseline = "bottom";
+                // クリック数により、テキストの表示を切り替える
+                if(this.clickCountY === axisSetCountMinNumber) {
+                    context.fillText("y min",this.plotPointX + textPositionAdjust, this.plotPointY - textPositionAdjust);
+                }
+                if(this.clickCountY === axisSetCountMaxNumber) {
+                    context.fillText("y max",this.plotPointX + textPositionAdjust, this.plotPointY - textPositionAdjust);
+                }
+            }
         },
 
         showPlotData() {
