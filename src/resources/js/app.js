@@ -47,5 +47,10 @@ const app = new Vue({
         isAxisSetCanvas: true,
         isPlotCanvas: false,
         isSetSave: false,
+
+        xAxisMinValue: '',
+        xAxisMaxValue: '',
+        yAxisMinValue: '',
+        yAxisMaxValue: '',
     }
 });

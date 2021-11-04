@@ -36,6 +36,7 @@
                         autocomplete="off"
                         value="{{ old('x_axis_min') }}"
                         required
+                        v-model="xAxisMinValue"
                     >
                     @error('x_axis_min')
                         <span class="invalid-feedback" role="alert">
@@ -60,6 +61,7 @@
                         autocomplete="off"
                         value="{{ old('x_axis_max') }}"
                         required
+                        v-model="xAxisMaxValue"
                     >
                     @error('x_axis_max')
                         <span class="invalid-feedback" role="alert">
@@ -106,6 +108,7 @@
                         autocomplete="off"
                         value="{{ old('y_axis_min') }}"
                         required
+                        v-model="yAxisMinValue"
                     >
                     @error('y_axis_min')
                         <span class="invalid-feedback" role="alert">
@@ -130,6 +133,7 @@
                         autocomplete="off"
                         value="{{ old('y_axis_max') }}"
                         required
+                        v-model="yAxisMaxValue"
                     >
                     @error('y_axis_max')
                         <span class="invalid-feedback" role="alert">
