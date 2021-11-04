@@ -252,6 +252,7 @@ export default {
                 }
                 if(this.clickCountX === axisSetCountMaxNumber) {
                     context.fillText("x max",this.plotPointX + textPositionAdjust, this.plotPointY);
+                    this.$emit("complete-set-axis-x", this.clickCountX);
                 }
             }
             // y軸のプロット設定
@@ -263,6 +264,7 @@ export default {
                 }
                 if(this.clickCountY === axisSetCountMaxNumber) {
                     context.fillText("y max",this.plotPointX + textPositionAdjust, this.plotPointY - textPositionAdjust);
+                    this.$emit("complete-set-axis-y", this.clickCountY);
                 }
             }
         },

@@ -36,6 +36,8 @@
                     :x-axis-max-value='xAxisMaxValue'
                     :y-axis-min-value='yAxisMinValue'
                     :y-axis-max-value='yAxisMaxValue'
+                    v-on:complete-set-axis-x='isCompleteSetAxisX = $event'
+                    v-on:complete-set-axis-y='isCompleteSetAxisY = $event'
                     >
                 </graph-canvas>
 

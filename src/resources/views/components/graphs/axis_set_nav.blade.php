@@ -15,10 +15,19 @@
 <div class="axis-setting-nav"
     v-show="isActiveSetAxisX">
     <ol class="mt-5 pl-3 mb-2">
-        <li>グラフ上で横軸の最小値、最大値を順にクリックしてください。</li>
+        <li>グラフ上で横軸の最小値、最大値を順にクリックしてください。
+            <i class="fas fa-check-circle"
+                :class="[isCompleteSetAxisX ? 'green-text': 'grey-text']"
+            ></i>
+        </li>
 
         <li class="mt-3">
-            <p class="mb-2">軸の値を下記に入力してください。</p>
+            <p class="mb-2">
+                </p>軸の値を下記に入力してください。
+                <i class="fas fa-check-circle"
+                    :class="[xAxisMinValue && xAxisMaxValue ? 'green-text': 'grey-text']"
+                ></i>
+            </p>
             {{-- 数値の入力フォーム --}}
             <div class="row" style="height: 50px">
                 <div class="col pr-2">
@@ -87,10 +96,18 @@
 <div class="axis-setting-nav"
     v-show="isActiveSetAxisY">
     <ol class="mt-5 pl-3 mb-2">
-        <li>グラフ上で縦軸の最小値、最大値を順にクリックしてください。</li>
+        <li>グラフ上で縦軸の最小値、最大値を順にクリックしてください。
+            <i class="fas fa-check-circle"
+                :class="[isCompleteSetAxisY ? 'green-text': 'grey-text']"
+            ></i>
+        </li>
 
         <li class="mt-3">
-            <p class="mb-2">軸の値を下記に入力してください。</p>
+            <p class="mb-2">軸の値を下記に入力してください。
+                <i class="fas fa-check-circle"
+                    :class="[yAxisMinValue && yAxisMaxValue ? 'green-text': 'grey-text']"
+                ></i>
+            </p>
             {{-- 数値の入力フォーム --}}
             <div class="row" style="height: 50px">
                 <div class="col pr-2">

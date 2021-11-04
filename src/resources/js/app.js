@@ -52,5 +52,8 @@ const app = new Vue({
         xAxisMaxValue: '',
         yAxisMinValue: '',
         yAxisMaxValue: '',
+
+        isCompleteSetAxisX: '',
+        isCompleteSetAxisY: '',
     }
 });
