@@ -31,7 +31,12 @@
                     :is-active-set-axis-y='isActiveSetAxisY'
                     :is-axis-set-canvas='isAxisSetCanvas'
                     :is-plot-canvas='isPlotCanvas'
-                    :is-set-save='isSetSave'>
+                    :is-set-save='isSetSave'
+                    :x-axis-min-value='xAxisMinValue'
+                    :x-axis-max-value='xAxisMaxValue'
+                    :y-axis-min-value='yAxisMinValue'
+                    :y-axis-max-value='yAxisMaxValue'
+                    >
                 </graph-canvas>
 
             </div>

@@ -54,6 +54,22 @@ export default {
             type: Boolean,
             default: false,
         },
+        xAxisMinValue: {
+            type: String,
+            default: '',
+        },
+        xAxisMaxValue: {
+            type: String,
+            default: '',
+        },
+        yAxisMinValue: {
+            type: String,
+            default: '',
+        },
+        yAxisMaxValue: {
+            type: String,
+            default: '',
+        },
     },
 
     computed: {
@@ -76,6 +92,19 @@ export default {
         setSave() {
             return this.isSetSave
         },
+        xMinValue() {
+            return this.xAxisMinValue
+        },
+        xMaxValue() {
+            return this.xAxisMaxValue
+        },
+        yMinValue() {
+            return this.yAxisMinValue
+        },
+        yMaxValue() {
+            return this.yAxisMaxValue
+        },
+
     },
 
     data() {
@@ -137,9 +166,12 @@ export default {
     methods: {
         setAxis(e) {
             const axisSetPointNumber = 2;
+
             if(this.clickCountUp() <= axisSetPointNumber) {
                 this.getClickPoint(e, this.axisSetCanvas);
                 this.showPlotPoint(this.axisSetContext);
+            } else {
+                alert('軸設定を変更する場合は、リセットボタンを押してください。');
             }
         },
 
