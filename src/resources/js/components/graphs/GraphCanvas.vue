@@ -137,9 +137,12 @@ export default {
     methods: {
         setAxis(e) {
             const axisSetPointNumber = 2;
+
             if(this.clickCountUp() <= axisSetPointNumber) {
                 this.getClickPoint(e, this.axisSetCanvas);
                 this.showPlotPoint(this.axisSetContext);
+            } else {
+                alert('軸設定を変更する場合は、リセットボタンを押してください。');
             }
         },
 
