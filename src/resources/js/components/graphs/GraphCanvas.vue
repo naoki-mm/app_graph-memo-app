@@ -7,19 +7,30 @@
                 d-flex align-items-center justify-content-center text-center"
                 style="height: 90vmin">
 
+
+’
                 <canvas
+                    id="axsis-set-layer"
                     ref="axisSetCanvas"
-                    class="w-100 h-100 bg-secondary"
+                    class="w-100 h-100"
                     v-show="setAxisCanvas"
                     @click="setAxis"
                     >
                 </canvas>
 
                 <canvas
+                    id="plot-layer"
                     ref="plotCanvas"
-                    class="w-100 h-100 bg-secondary"
+                    class="w-100 h-100"
                     v-show="setPlotCanvas"
                     @click="graphPlot"
+                    >
+                </canvas>
+
+                <canvas
+                    id="background-grah-image-layer"
+                    ref="graphImageCanvas"
+                    class="w-100 h-100"
                     >
                 </canvas>
 
@@ -109,6 +120,7 @@ export default {
 
     data() {
         return {
+            graphImageCanvas: null,
             plotCanvas: null,
             axisSetCanvas: null,
             drawCanvasWidth: null,
@@ -131,6 +143,7 @@ export default {
 
             realGraphXdiff: 0,
 
+            graphImageContext: null,
             plotContext: null,
             axisSetContext: null,
         }
@@ -138,28 +151,30 @@ export default {
 
     mounted() {
         // canvas要素を取得。
+        this.graphImageCanvas = this.$refs.graphImageCanvas;
         this.axisSetCanvas = this.$refs.axisSetCanvas;
         this.plotCanvas = this.$refs.plotCanvas;
 
         // キャンバスの描画サイズを親要素のサイズに設定
+        this.graphImageCanvas.width  = this.graphImageCanvas.parentElement.clientWidth;
+        this.graphImageCanvas.height = this.graphImageCanvas.parentElement.clientHeight;
         this.axisSetCanvas.width  = this.axisSetCanvas.parentElement.clientWidth;
         this.axisSetCanvas.height = this.axisSetCanvas.parentElement.clientHeight;
         this.plotCanvas.width  = this.plotCanvas.parentElement.clientWidth;
         this.plotCanvas.height = this.plotCanvas.parentElement.clientHeight;
 
         // 描画サイズを変数に代入
-        this.drawCanvasWidth = this.plotCanvas.width;
-        this.drawCanvasHeight = this.plotCanvas.height;
+        this.drawCanvasWidth = this.graphImageCanvas.width;
+        this.drawCanvasHeight = this.graphImageCanvas.height;
 
         // 画像取得後に実行する処理
         this.graphImage.onload = () => {
-
+            this.graphImageContext = this.graphImageCanvas.getContext("2d");
             this.axisSetContext = this.axisSetCanvas.getContext("2d");
             this.plotContext = this.plotCanvas.getContext("2d");
 
             // キャンバスへの画像表示
-            this.axisSetContext.drawImage(this.graphImage, 0, 0, this.drawCanvasWidth, this.drawCanvasHeight);
-            this.plotContext.drawImage(this.graphImage, 0, 0, this.drawCanvasWidth, this.drawCanvasHeight);
+            this.graphImageContext.drawImage(this.graphImage, 0, 0, this.drawCanvasWidth, this.drawCanvasHeight);
         }
     },
 
@@ -252,6 +267,7 @@ export default {
                 }
                 if(this.clickCountX === axisSetCountMaxNumber) {
                     context.fillText("x max",this.plotPointX + textPositionAdjust, this.plotPointY);
+                    this.$emit("complete-set-axis-x", this.clickCountX);
                 }
             }
             // y軸のプロット設定
@@ -263,6 +279,7 @@ export default {
                 }
                 if(this.clickCountY === axisSetCountMaxNumber) {
                     context.fillText("y max",this.plotPointX + textPositionAdjust, this.plotPointY - textPositionAdjust);
+                    this.$emit("complete-set-axis-y", this.clickCountY);
                 }
             }
         },
@@ -302,5 +319,18 @@ export default {
 <style>
 .canvas-card {
     padding: 0px;
+}
+canvas{
+    position: absolute;
+}
+#plot-layer {
+    z-index: 3;
+}
+#axsis-set-layer {
+    z-index: 2;
+
+}
+#background-grah-image-layer {
+    z-index: 1;
 }
 </style>
