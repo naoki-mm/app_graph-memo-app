@@ -87,61 +87,71 @@ export default {
 
     data() {
         return {
-            graphImageCanvas: null,
-            plotCanvas: null,
-            axisSetCanvas: null,
-            drawCanvasWidth: null,
-            drawCanvasHeight: null,
+            canvas: {
+                graphImageCanvas: null,
+                plotCanvas: null,
+                axisSetCanvas: null,
+                size: {
+                    drawWidth: null,
+                    drawHeight: null,
+                },
+                context: {
+                    graphImage: null,
+                    plot: null,
+                    axisSetting: null,
+                },
 
-            clickCountX: 0,
-            clickCountY : 0,
+            },
+            clickCount: {
+                X: 0,
+                Y : 0,
+            },
 
-            clickX: 0,
-            clickY: 0,
-            plotPointX: 0,
-            plotPointY: 0,
+            plotPoint: {
+                X: 0,
+                Y: 0,
+            },
 
-            clickXmin: null,
-            clickXmax: null,
-            clickXdiff: 0,
 
-            realGraphXmin: 0,
-            realGraphXmax: 0,
+            // clickXmin: null,
+            // clickXmax: null,
+            // clickXdiff: 0,
 
-            realGraphXdiff: 0,
+            // realGraphXmin: 0,
+            // realGraphXmax: 0,
 
-            graphImageContext: null,
-            plotContext: null,
-            axisSetContext: null,
+            // realGraphXdiff: 0,
+
+
         }
     },
 
     mounted() {
         // canvas要素を取得。
-        this.graphImageCanvas = this.$refs.graphImageCanvas;
-        this.axisSetCanvas = this.$refs.axisSetCanvas;
-        this.plotCanvas = this.$refs.plotCanvas;
+        this.canvas.graphImageCanvas = this.$refs.graphImageCanvas;
+        this.canvas.axisSetCanvas = this.$refs.axisSetCanvas;
+        this.canvas.plotCanvas = this.$refs.plotCanvas;
 
         // キャンバスの描画サイズを親要素のサイズに設定
-        this.graphImageCanvas.width  = this.graphImageCanvas.parentElement.clientWidth;
-        this.graphImageCanvas.height = this.graphImageCanvas.parentElement.clientHeight;
-        this.axisSetCanvas.width  = this.axisSetCanvas.parentElement.clientWidth;
-        this.axisSetCanvas.height = this.axisSetCanvas.parentElement.clientHeight;
-        this.plotCanvas.width  = this.plotCanvas.parentElement.clientWidth;
-        this.plotCanvas.height = this.plotCanvas.parentElement.clientHeight;
+        this.canvas.graphImageCanvas.width  = this.canvas.graphImageCanvas.parentElement.clientWidth;
+        this.canvas.graphImageCanvas.height = this.canvas.graphImageCanvas.parentElement.clientHeight;
+        this.canvas.axisSetCanvas.width  = this.canvas.axisSetCanvas.parentElement.clientWidth;
+        this.canvas.axisSetCanvas.height = this.canvas.axisSetCanvas.parentElement.clientHeight;
+        this.canvas.plotCanvas.width  = this.canvas.plotCanvas.parentElement.clientWidth;
+        this.canvas.plotCanvas.height = this.canvas.plotCanvas.parentElement.clientHeight;
 
         // 描画サイズを変数に代入
-        this.drawCanvasWidth = this.graphImageCanvas.width;
-        this.drawCanvasHeight = this.graphImageCanvas.height;
+        this.canvas.size.drawWidth = this.canvas.graphImageCanvas.width;
+        this.canvas.size.drawHeight = this.canvas.graphImageCanvas.height;
 
         // 画像取得後に実行する処理
         this.graphImage.onload = () => {
-            this.graphImageContext = this.graphImageCanvas.getContext("2d");
-            this.axisSetContext = this.axisSetCanvas.getContext("2d");
-            this.plotContext = this.plotCanvas.getContext("2d");
+            this.canvas.context.graphImage = this.canvas.graphImageCanvas.getContext("2d");
+            this.canvas.context.axisSetting = this.canvas.axisSetCanvas.getContext("2d");
+            this.canvas.context.plot = this.canvas.plotCanvas.getContext("2d");
 
             // キャンバスへの画像表示
-            this.graphImageContext.drawImage(this.graphImage, 0, 0, this.drawCanvasWidth, this.drawCanvasHeight);
+            this.canvas.context.graphImage.drawImage(this.graphImage, 0, 0, this.canvas.size.drawWidth, this.canvas.size.drawHeight);
         }
 },
 
@@ -150,8 +160,8 @@ export default {
             const axisSetPointNumber = 2;
 
             if(this.clickCountUp() <= axisSetPointNumber) {
-                this.getClickPoint(e, this.axisSetCanvas);
-                this.showPlotPoint(this.axisSetContext);
+                this.getClickPoint(e, this.canvas.axisSetCanvas);
+                this.showPlotPoint(this.canvas.context.axisSetting);
             } else {
                 alert('軸設定を変更する場合は、リセットボタンを押してください。');
             }
@@ -159,27 +169,27 @@ export default {
 
         resetSettingAxis() {
             if(this.$root.axisSettingDetect.isResetClick) {
-                this.clickCountX = 0;
-                this.clickCountY = 0;
+                this.clickCount.X = 0;
+                this.clickCount.Y = 0;
                 this.$root.axisSettingDetect.isResetClick = false;
-                this.axisSetContext.clearRect(0, 0, this.graphImageCanvas.width, this.graphImageCanvas.height);
+                this.canvas.context.axisSetting.clearRect(0, 0, this.canvas.graphImageCanvas.width, this.canvas.graphImageCanvas.height);
             }
         },
 
         clickCountUp() {
             if(this.getAxisSettingDetect.isActiveX) {
-                this.clickCountX++;
-                return this.clickCountX;
+                this.clickCount.X++;
+                return this.clickCount.X;
             }
             if(this.getAxisSettingDetect.isActiveY) {
-                this.clickCountY++;
-                return this.clickCountY
+                this.clickCount.Y++;
+                return this.clickCount.Y;
             }
         },
 
         graphPlot(e) {
-            this.getClickPoint(e, this.plotCanvas);
-            this.showPlotPoint(this.plotContext);
+            this.getClickPoint(e, this.canvas.plotCanvas);
+            this.showPlotPoint(this.canvas.context.plot);
         },
         getClickPoint(e, canvas) {
             // クリック時の親要素のサイズを取得して、canvasの表示サイズとして扱う。
@@ -190,16 +200,16 @@ export default {
             let canvasTopLeftCorner = canvas.getBoundingClientRect();
 
             // クリックした座標(画面左上が基準)をcanvasの座標(canvas描画領域の左上が基準)に変換
-            this.clickX = e.clientX - canvasTopLeftCorner.left;
-            this.clickY = e.clientY - canvasTopLeftCorner.top;
+            let clickX = e.clientX - canvasTopLeftCorner.left;
+            let clickY = e.clientY - canvasTopLeftCorner.top;
 
             // canvasの描画領域と表示領域の差異の軸補正係数
-            let xAxisAdjust = this.drawCanvasWidth / displayCanvasWidth;
-            let yAxisAdjust = this.drawCanvasHeight / displayCanvasHeight;
+            let xAxisAdjust = this.canvas.size.drawWidth / displayCanvasWidth;
+            let yAxisAdjust = this.canvas.size.drawHeight / displayCanvasHeight;
 
             // クリックした座標をcanvas内の描画値に換算
-            this.plotPointX = this.clickX * xAxisAdjust;
-            this.plotPointY = this.clickY * yAxisAdjust;
+            this.plotPoint.X = clickX * xAxisAdjust;
+            this.plotPoint.Y = clickY * yAxisAdjust;
 
             // this.convertPlotPoint();
         },
@@ -217,7 +227,7 @@ export default {
             context.fillStyle = "rgba(200, 0, 0, 0.8)";
             // クリックした箇所に円を表示
             context.beginPath();
-            context.arc(this.plotPointX, this.plotPointY, plotPointerSize, startAngle, endAngle, false);
+            context.arc(this.plotPoint.X, this.plotPoint.Y, plotPointerSize, startAngle, endAngle, false);
             context.fill();
 
             // 軸設定時のプロット設定
@@ -238,24 +248,24 @@ export default {
             if(this.getAxisSettingDetect.isActiveX) {
                 context.textBaseline = "top";
                 // クリック数により、テキストの表示を切り替える
-                if(this.clickCountX === axisSetCountMinNumber) {
-                    context.fillText("x min",this.plotPointX + textPositionAdjust, this.plotPointY);
+                if(this.clickCount.X === axisSetCountMinNumber) {
+                    context.fillText("x min",this.plotPoint.X + textPositionAdjust, this.plotPoint.Y);
                 }
-                if(this.clickCountX === axisSetCountMaxNumber) {
-                    context.fillText("x max",this.plotPointX + textPositionAdjust, this.plotPointY);
-                    this.$emit("complete-set-axis-x", this.clickCountX);
+                if(this.clickCount.X === axisSetCountMaxNumber) {
+                    context.fillText("x max",this.plotPoint.X + textPositionAdjust, this.plotPoint.Y);
+                    this.$emit("complete-set-axis-x", this.clickCount.X);
                 }
             }
             // y軸のプロット設定
             if(this.getAxisSettingDetect.isActiveY) {
                 context.textBaseline = "bottom";
                 // クリック数により、テキストの表示を切り替える
-                if(this.clickCountY === axisSetCountMinNumber) {
-                    context.fillText("y min",this.plotPointX + textPositionAdjust, this.plotPointY - textPositionAdjust);
+                if(this.clickCount.Y === axisSetCountMinNumber) {
+                    context.fillText("y min",this.plotPoint.X + textPositionAdjust, this.plotPoint.Y - textPositionAdjust);
                 }
-                if(this.clickCountY === axisSetCountMaxNumber) {
-                    context.fillText("y max",this.plotPointX + textPositionAdjust, this.plotPointY - textPositionAdjust);
-                    this.$emit("complete-set-axis-y", this.clickCountY);
+                if(this.clickCount.Y === axisSetCountMaxNumber) {
+                    context.fillText("y max",this.plotPoint.X + textPositionAdjust, this.plotPoint.Y - textPositionAdjust);
+                    this.$emit("complete-set-axis-y", this.clickCount.Y);
                 }
             }
         },
