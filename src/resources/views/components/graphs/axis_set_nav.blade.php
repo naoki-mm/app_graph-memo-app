@@ -84,11 +84,10 @@
     </ol>
 
     <div class="text-right mt-3 mr-1">
-        <div class="btn btn-link mr-0 pr-0">
-            リセット
-        </div>
-        <div class="btn btn-link" style="color: #3490dc">
-            <strong>OK</strong>
+        <div class="btn btn-link mr-2 pr-0"
+            style="color: #3490dc"
+            v-on:click="resetSettingAxis">
+            <strong>軸設定をリセット</strong>
         </div>
     </div>
 </div>
@@ -164,11 +163,10 @@
     </ol>
 
     <div class="text-right mt-3 mr-1">
-        <div class="btn btn-link mr-0 pr-0">
-            リセット
-        </div>
-        <div class="btn btn-link" style="color: #3490dc">
-            <strong>OK</strong>
+        <div class="btn btn-link mr-2 pr-0"
+            style="color: #3490dc"
+            v-on:click="resetSettingAxis">
+            <strong>軸設定をリセット</strong>
         </div>
     </div>
 </div>
