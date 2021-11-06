@@ -26,6 +26,7 @@
                 @include('sub_views.graphs.plot_create')
 
                 <graph-canvas
+                    ref="graphCanvas"
                     :graph-image='graphImage'
                     :is-active-set-axis-x='isActiveSetAxisX'
                     :is-active-set-axis-y='isActiveSetAxisY'

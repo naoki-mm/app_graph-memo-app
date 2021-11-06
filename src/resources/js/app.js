@@ -37,23 +37,40 @@ Vue.use(Toasted);
 
 const app = new Vue({
     el: '#app',
-    data: {
-        isImageFile: false,
-        graphImage: null,
+    data() {
+        return {
+            isImageFile: false,
+            graphImage: null,
 
-        isActiveSetAxisX: true,
-        isActiveSetAxisY: false,
+            isActiveSetAxisX: true,
+            isActiveSetAxisY: false,
 
-        isAxisSetCanvas: true,
-        isPlotCanvas: false,
-        isSetSave: false,
+            isAxisSetCanvas: true,
+            isPlotCanvas: false,
+            isSetSave: false,
 
-        xAxisMinValue: '',
-        xAxisMaxValue: '',
-        yAxisMinValue: '',
-        yAxisMaxValue: '',
+            xAxisMinValue: '',
+            xAxisMaxValue: '',
+            yAxisMinValue: '',
+            yAxisMaxValue: '',
 
-        isCompleteSetAxisX: '',
-        isCompleteSetAxisY: '',
-    }
+            isCompleteSetAxisX: '',
+            isCompleteSetAxisY: '',
+
+            isResetClickAxis: false,
+        }
+    },
+
+    methods: {
+        resetSettingAxis() {
+            this.xAxisMinValue = '';
+            this.xAxisMaxValue = '';
+            this.yAxisMinValue = '';
+            this.yAxisMaxValue = '';
+            this.isCompleteSetAxisX = '',
+            this.isCompleteSetAxisY = '',
+            this.isResetClickAxis = true;
+            this.$refs.graphCanvas.resetSettingAxis();
+        },
+    },
 });

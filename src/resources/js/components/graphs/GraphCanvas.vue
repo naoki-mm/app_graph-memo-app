@@ -176,7 +176,7 @@ export default {
             // キャンバスへの画像表示
             this.graphImageContext.drawImage(this.graphImage, 0, 0, this.drawCanvasWidth, this.drawCanvasHeight);
         }
-    },
+},
 
     methods: {
         setAxis(e) {
@@ -187,6 +187,15 @@ export default {
                 this.showPlotPoint(this.axisSetContext);
             } else {
                 alert('軸設定を変更する場合は、リセットボタンを押してください。');
+            }
+        },
+
+        resetSettingAxis() {
+            if(this.$root.isResetClickAxis) {
+                this.clickCountX = 0;
+                this.clickCountY = 0;
+                this.$root.isResetClickAxis = false;
+                this.axisSetContext.clearRect(0, 0, this.graphImageCanvas.width, this.graphImageCanvas.height);
             }
         },
 
