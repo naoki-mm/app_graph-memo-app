@@ -1,5 +1,5 @@
 <!--メインレイアウト-->
-<main :class="{'main-layout': !isImageFile}"
+<main :class="{'main-layout': !graphImage.isFile}"
         style="margin-top: 58px">
     <div class="container-fluid pt-2">
 

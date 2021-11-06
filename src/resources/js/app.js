@@ -39,37 +39,43 @@ const app = new Vue({
     el: '#app',
     data() {
         return {
-            isImageFile: false,
-            graphImage: null,
+            graphImage: {
+                isFile: false,
+                fileName: null,
+            },
 
-            isActiveSetAxisX: true,
-            isActiveSetAxisY: false,
+            axisSettingDetect: {
+                isActiveX: true,
+                isActiveY: false,
+                isCompleteX: '',
+                isCompleteY: '',
+                isResetClick: false,
+            },
 
-            isAxisSetCanvas: true,
-            isPlotCanvas: false,
-            isSetSave: false,
+            showCanvasEventDetect: {
+                isAxisSetCanvas: true,
+                isPlotCanvas: false,
+                isSetSave: false,
+            },
 
-            xAxisMinValue: '',
-            xAxisMaxValue: '',
-            yAxisMinValue: '',
-            yAxisMaxValue: '',
-
-            isCompleteSetAxisX: '',
-            isCompleteSetAxisY: '',
-
-            isResetClickAxis: false,
+            axisValue: {
+                xMin: '',
+                xMax: '',
+                yMin: '',
+                yMax: '',
+            },
         }
     },
 
     methods: {
         resetSettingAxis() {
-            this.xAxisMinValue = '';
-            this.xAxisMaxValue = '';
-            this.yAxisMinValue = '';
-            this.yAxisMaxValue = '';
-            this.isCompleteSetAxisX = '',
-            this.isCompleteSetAxisY = '',
-            this.isResetClickAxis = true;
+            this.axisValue.xMin = '';
+            this.axisValue.xMax = '';
+            this.axisValue.yMin = '';
+            this.axisValue.yMax = '';
+            this.axisSettingDetect.isCompleteX = '',
+            this.axisSettingDetect.isCompleteY = '',
+            this.axisSettingDetect.isResetClick = true;
             this.$refs.graphCanvas.resetSettingAxis();
         },
     },

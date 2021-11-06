@@ -7,13 +7,11 @@
                 d-flex align-items-center justify-content-center text-center"
                 style="height: 90vmin">
 
-
-’
                 <canvas
                     id="axsis-set-layer"
                     ref="axisSetCanvas"
                     class="w-100 h-100"
-                    v-show="setAxisCanvas"
+                    v-show="getShowCanvasEventDetect.isAxisSetCanvas"
                     @click="setAxis"
                     >
                 </canvas>
@@ -22,7 +20,7 @@
                     id="plot-layer"
                     ref="plotCanvas"
                     class="w-100 h-100"
-                    v-show="setPlotCanvas"
+                    v-show="getShowCanvasEventDetect.isPlotCanvas"
                     @click="graphPlot"
                     >
                 </canvas>
@@ -45,77 +43,46 @@ export default {
         graphImage: {
             default: null,
         },
-        isActiveSetAxisX: {
-            type: Boolean,
-            default: true,
+        axisSettingDetect: {
+            type: Object,
+            default: () => ({
+                isActiveX: true,
+                isActiveY: false,
+            })
         },
-        isActiveSetAxisY: {
-            type: Boolean,
-            default: false,
+
+        showCanvasEventDetect: {
+            type: Object,
+            default: () => ({
+                isAxisSetCanvas: true,
+                isPlotCanvas: false,
+                isSetSave: false,
+            })
         },
-        isAxisSetCanvas: {
-            type: Boolean,
-            default: true,
-        },
-        isPlotCanvas: {
-            type: Boolean,
-            default: false,
-        },
-        isSetSave: {
-            type: Boolean,
-            default: false,
-        },
-        xAxisMinValue: {
-            type: String,
-            default: '',
-        },
-        xAxisMaxValue: {
-            type: String,
-            default: '',
-        },
-        yAxisMinValue: {
-            type: String,
-            default: '',
-        },
-        yAxisMaxValue: {
-            type: String,
-            default: '',
+
+        axisValue: {
+            type: Object,
+            default: () => ({
+                xMin: '',
+                xMax: '',
+                yMin: '',
+                yMax: '',
+            })
         },
     },
 
     computed: {
-        setAxisX() {
-            return this.isActiveSetAxisX
+        getAxisSettingDetect() {
+            return this.axisSettingDetect;
         },
 
-        setAxisY() {
-            return this.isActiveSetAxisY
+        getShowCanvasEventDetect() {
+            return this.showCanvasEventDetect;
         },
 
-        setAxisCanvas() {
-            return this.isAxisSetCanvas
+        getAxisValue() {
+            return this.axisValue;
         },
-
-        setPlotCanvas() {
-            return this.isPlotCanvas
-        },
-
-        setSave() {
-            return this.isSetSave
-        },
-        xMinValue() {
-            return this.xAxisMinValue
-        },
-        xMaxValue() {
-            return this.xAxisMaxValue
-        },
-        yMinValue() {
-            return this.yAxisMinValue
-        },
-        yMaxValue() {
-            return this.yAxisMaxValue
-        },
-
     },
 
     data() {
@@ -191,20 +158,20 @@ export default {
         },
 
         resetSettingAxis() {
-            if(this.$root.isResetClickAxis) {
+            if(this.$root.axisSettingDetect.isResetClick) {
                 this.clickCountX = 0;
                 this.clickCountY = 0;
-                this.$root.isResetClickAxis = false;
+                this.$root.axisSettingDetect.isResetClick = false;
                 this.axisSetContext.clearRect(0, 0, this.graphImageCanvas.width, this.graphImageCanvas.height);
             }
         },
 
         clickCountUp() {
-            if(this.setAxisX) {
+            if(this.getAxisSettingDetect.isActiveX) {
                 this.clickCountX++;
                 return this.clickCountX;
             }
-            if(this.setAxisY) {
+            if(this.getAxisSettingDetect.isActiveY) {
                 this.clickCountY++;
                 return this.clickCountY
             }
@@ -254,7 +221,7 @@ export default {
             context.fill();
 
             // 軸設定時のプロット設定
-            if(this.setAxisCanvas) {
+            if(this.getShowCanvasEventDetect.isAxisSetCanvas) {
                 this.showAxisNavText(context);
             }
         },
@@ -268,7 +235,7 @@ export default {
             context.textAlign = "left";
 
             // x軸のプロット設定
-            if(this.setAxisX) {
+            if(this.getAxisSettingDetect.isActiveX) {
                 context.textBaseline = "top";
                 // クリック数により、テキストの表示を切り替える
                 if(this.clickCountX === axisSetCountMinNumber) {
@@ -280,7 +247,7 @@ export default {
                 }
             }
             // y軸のプロット設定
-            if(this.setAxisY) {
+            if(this.getAxisSettingDetect.isActiveY) {
                 context.textBaseline = "bottom";
                 // クリック数により、テキストの表示を切り替える
                 if(this.clickCountY === axisSetCountMinNumber) {
