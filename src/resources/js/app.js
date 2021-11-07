@@ -69,14 +69,27 @@ const app = new Vue({
 
     methods: {
         resetSettingAxis() {
+            // 軸値のリセット
             this.axisValue.xMin = '';
             this.axisValue.xMax = '';
             this.axisValue.yMin = '';
             this.axisValue.yMax = '';
+
+            // 完了通知のリセット
             this.axisSettingDetect.isCompleteX = '',
             this.axisSettingDetect.isCompleteY = '',
+
+            // 描画のリセットで用いるリセットフラグ
             this.axisSettingDetect.isResetClick = true;
-            this.$refs.graphCanvas.resetSettingAxis();
+
+            // 描画のリセット
+            this.$refs.graphCanvas.resetDrawingSettingAxis();
         },
+
+        switchShowCanvas(axis, plot, save) {
+            this.showCanvasEventDetect.isAxisSetCanvas = axis;
+            this.showCanvasEventDetect.isPlotCanvas = plot;
+            this.showCanvasEventDetect.isSetSave = save;
+        }
     },
 });

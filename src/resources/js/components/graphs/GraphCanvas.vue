@@ -112,7 +112,6 @@ export default {
                 Y: 0,
             },
 
-
             // clickXmin: null,
             // clickXmax: null,
             // clickXdiff: 0,
@@ -121,8 +120,6 @@ export default {
             // realGraphXmax: 0,
 
             // realGraphXdiff: 0,
-
-
         }
     },
 
@@ -132,15 +129,12 @@ export default {
         this.canvas.axisSetCanvas = this.$refs.axisSetCanvas;
         this.canvas.plotCanvas = this.$refs.plotCanvas;
 
-        // キャンバスの描画サイズを親要素のサイズに設定
-        this.canvas.graphImageCanvas.width  = this.canvas.graphImageCanvas.parentElement.clientWidth;
-        this.canvas.graphImageCanvas.height = this.canvas.graphImageCanvas.parentElement.clientHeight;
-        this.canvas.axisSetCanvas.width  = this.canvas.axisSetCanvas.parentElement.clientWidth;
-        this.canvas.axisSetCanvas.height = this.canvas.axisSetCanvas.parentElement.clientHeight;
-        this.canvas.plotCanvas.width  = this.canvas.plotCanvas.parentElement.clientWidth;
-        this.canvas.plotCanvas.height = this.canvas.plotCanvas.parentElement.clientHeight;
+        // キャンバスの表示サイズを親要素のサイズに設定
+        this.setCanvasDisplaySize(this.canvas.graphImageCanvas);
+        this.setCanvasDisplaySize(this.canvas.axisSetCanvas);
+        this.setCanvasDisplaySize(this.canvas.plotCanvas);
 
-        // 描画サイズを変数に代入
+        // キャンバスの描画サイズを変数に代入
         this.canvas.size.drawWidth = this.canvas.graphImageCanvas.width;
         this.canvas.size.drawHeight = this.canvas.graphImageCanvas.height;
 
@@ -156,6 +150,11 @@ export default {
 },
 
     methods: {
+        setCanvasDisplaySize(canvas) {
+            canvas.width  = canvas.parentElement.clientWidth;
+            canvas.height  = canvas.parentElement.clientHeight;
+        },
+
         setAxis(e) {
             const axisSetPointNumber = 2;
 
@@ -167,7 +166,7 @@ export default {
             }
         },
 
-        resetSettingAxis() {
+        resetDrawingSettingAxis() {
             if(this.$root.axisSettingDetect.isResetClick) {
                 this.clickCount.X = 0;
                 this.clickCount.Y = 0;
