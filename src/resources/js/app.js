@@ -39,38 +39,57 @@ const app = new Vue({
     el: '#app',
     data() {
         return {
-            isImageFile: false,
-            graphImage: null,
+            graphImage: {
+                isFile: false,
+                fileName: null,
+            },
 
-            isActiveSetAxisX: true,
-            isActiveSetAxisY: false,
+            axisSettingDetect: {
+                isActiveX: true,
+                isActiveY: false,
+                isCompleteX: '',
+                isCompleteY: '',
+                isResetClick: false,
+            },
 
-            isAxisSetCanvas: true,
-            isPlotCanvas: false,
-            isSetSave: false,
+            showCanvasEventDetect: {
+                isAxisSetCanvas: true,
+                isPlotCanvas: false,
+                isSetSave: false,
+            },
 
-            xAxisMinValue: '',
-            xAxisMaxValue: '',
-            yAxisMinValue: '',
-            yAxisMaxValue: '',
-
-            isCompleteSetAxisX: '',
-            isCompleteSetAxisY: '',
-
-            isResetClickAxis: false,
+            axisValue: {
+                xMin: '',
+                xMax: '',
+                yMin: '',
+                yMax: '',
+            },
         }
     },
 
     methods: {
         resetSettingAxis() {
-            this.xAxisMinValue = '';
-            this.xAxisMaxValue = '';
-            this.yAxisMinValue = '';
-            this.yAxisMaxValue = '';
-            this.isCompleteSetAxisX = '',
-            this.isCompleteSetAxisY = '',
-            this.isResetClickAxis = true;
-            this.$refs.graphCanvas.resetSettingAxis();
+            // 軸値のリセット
+            this.axisValue.xMin = '';
+            this.axisValue.xMax = '';
+            this.axisValue.yMin = '';
+            this.axisValue.yMax = '';
+
+            // 完了通知のリセット
+            this.axisSettingDetect.isCompleteX = '',
+            this.axisSettingDetect.isCompleteY = '',
+
+            // 描画のリセットで用いるリセットフラグ
+            this.axisSettingDetect.isResetClick = true;
+
+            // 描画のリセット
+            this.$refs.graphCanvas.resetDrawingSettingAxis();
         },
+
+        switchShowCanvas(axis, plot, save) {
+            this.showCanvasEventDetect.isAxisSetCanvas = axis;
+            this.showCanvasEventDetect.isPlotCanvas = plot;
+            this.showCanvasEventDetect.isSetSave = save;
+        }
     },
 });

@@ -3,7 +3,7 @@
     id="main-navbar"
     {{-- navbar-expand-lgを削除 --}}
     class="navbar navbar-light bg-white fixed-top"
-    :class="{'navbar-expand-lg': !isImageFile}"
+    :class="{'navbar-expand-lg': !graphImage.isFile}"
     >
     <!-- コンテナ -->
     <div class="container-fluid">

@@ -5,21 +5,24 @@
                 <li class="nav-item">
                     <a class="nav-link active" id="axis-tab" data-toggle="tab"
                         href="#axis" role="tab" aria-controls="axis" aria-selected="true"
-                        v-on:click="isAxisSetCanvas = true; isPlotCanvas = false; isSetSave = false">
+                        v-on:click="switchShowCanvas(true, false, false)"
+                        >
                         軸設定
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="plot-tab" data-toggle="tab"
                         href="#plot" role="tab" aria-controls="plot" aria-selected="false"
-                        v-on:click="isAxisSetCanvas = false; isPlotCanvas = true; isSetSave = false">
+                        v-on:click="switchShowCanvas(false, true, false)"
+                        >
                         プロット
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="save-tab" data-toggle="tab"
                         href="#save" role="tab" aria-controls="save" aria-selected="false"
-                        v-on:click="isAxisSetCanvas = false; isPlotCanvas = true; isSetSave = true">
+                        v-on:click="switchShowCanvas(false, true, true)"
+                        >
                         保存
                     </a>
                 </li>

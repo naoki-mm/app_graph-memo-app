@@ -13,32 +13,27 @@
     @component('components.graphs.main_item')
 
         @slot('main_content')
-            <div v-if="!isImageFile">
+            <div v-if="!graphImage.isFile">
                 <image-upload
-                    v-on:image-upload='isImageFile = $event'
-                    v-on:set-canvas='graphImage = $event'>
+                    v-on:image-upload='graphImage.isFile = $event'
+                    v-on:set-canvas='graphImage.fileName = $event'>
                 </image-upload>
             </div>
 
             {{--  画像選択 or 画像ドロップ時にcanvasとグラフ読み取りサイドバーを表示  --}}
-            <div v-if="isImageFile" class="row no-gutters">
+            <div v-if="graphImage.isFile" class="row no-gutters">
 
                 @include('sub_views.graphs.plot_create')
 
                 <graph-canvas
                     ref="graphCanvas"
-                    :graph-image='graphImage'
-                    :is-active-set-axis-x='isActiveSetAxisX'
-                    :is-active-set-axis-y='isActiveSetAxisY'
-                    :is-axis-set-canvas='isAxisSetCanvas'
-                    :is-plot-canvas='isPlotCanvas'
-                    :is-set-save='isSetSave'
-                    :x-axis-min-value='xAxisMinValue'
-                    :x-axis-max-value='xAxisMaxValue'
-                    :y-axis-min-value='yAxisMinValue'
-                    :y-axis-max-value='yAxisMaxValue'
-                    v-on:complete-set-axis-x='isCompleteSetAxisX = $event'
-                    v-on:complete-set-axis-y='isCompleteSetAxisY = $event'
+                    :graph-image='graphImage.fileName'
+                    :axis-setting-detect='axisSettingDetect'
+                    :show-canvas-event-detect='showCanvasEventDetect'
+                    :x-axis-value='axisValue'
+
+                    v-on:complete-set-axis-x='axisSettingDetect.isCompleteX = $event'
+                    v-on:complete-set-axis-y='axisSettingDetect.isCompleteY = $event'
                     >
                 </graph-canvas>
 

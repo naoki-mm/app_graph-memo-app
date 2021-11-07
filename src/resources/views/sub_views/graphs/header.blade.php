@@ -3,7 +3,7 @@
     @include('components.common.navbar')
 
     {{-- サイドバーの読み込みと個別のリストを定義 --}}
-    <side-navbar :is-image-file='isImageFile' >
+    <side-navbar :is-image-file='graphImage.isFile' >
         <a
         href="{{ route('graph.index') }}"
         class="list-group-item list-group-item-action py-2 ripple active"
