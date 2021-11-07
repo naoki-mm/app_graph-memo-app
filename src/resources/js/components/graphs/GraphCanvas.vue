@@ -71,20 +71,6 @@ export default {
         },
     },
 
-    computed: {
-        getAxisSettingDetect() {
-            return this.axisSettingDetect;
-        },
-
-        getShowCanvasEventDetect() {
-            return this.showCanvasEventDetect;
-        },
-
-        getAxisValue() {
-            return this.axisValue;
-        },
-    },
-
     data() {
         return {
             canvas: {
@@ -123,6 +109,20 @@ export default {
         }
     },
 
+    computed: {
+        getAxisSettingDetect() {
+            return this.axisSettingDetect;
+        },
+
+        getShowCanvasEventDetect() {
+            return this.showCanvasEventDetect;
+        },
+
+        getAxisValue() {
+            return this.axisValue;
+        },
+    },
+
     mounted() {
         // canvas要素を取得。
         this.canvas.graphImageCanvas = this.$refs.graphImageCanvas;
@@ -150,6 +150,7 @@ export default {
 },
 
     methods: {
+        // キャンバスの表示サイズのを親要素のサイズに設定
         setCanvasDisplaySize(canvas) {
             canvas.width  = canvas.parentElement.clientWidth;
             canvas.height  = canvas.parentElement.clientHeight;
@@ -158,8 +159,11 @@ export default {
         setAxis(e) {
             const axisSetPointNumber = 2;
 
+            // canvasのクリック数により、処理を変更
             if(this.clickCountUp() <= axisSetPointNumber) {
+                // クリック座標の取得
                 this.getClickPoint(e, this.canvas.axisSetCanvas);
+                // クリック座標にプロットポインタを描画する。
                 this.showPlotPoint(this.canvas.context.axisSetting);
             } else {
                 alert('軸設定を変更する場合は、リセットボタンを押してください。');
@@ -168,9 +172,14 @@ export default {
 
         resetDrawingSettingAxis() {
             if(this.$root.axisSettingDetect.isResetClick) {
+                // canvasのクリック数を初期化
                 this.clickCount.X = 0;
                 this.clickCount.Y = 0;
+
+                // リセットフラグを初期化
                 this.$root.axisSettingDetect.isResetClick = false;
+
+                // 軸設定の描画をリセット
                 this.canvas.context.axisSetting.clearRect(0, 0, this.canvas.graphImageCanvas.width, this.canvas.graphImageCanvas.height);
             }
         },
@@ -187,7 +196,9 @@ export default {
         },
 
         graphPlot(e) {
+            // クリックの座標取得
             this.getClickPoint(e, this.canvas.plotCanvas);
+            // クリック座標にプロットポインタを描画する。
             this.showPlotPoint(this.canvas.context.plot);
         },
         getClickPoint(e, canvas) {
