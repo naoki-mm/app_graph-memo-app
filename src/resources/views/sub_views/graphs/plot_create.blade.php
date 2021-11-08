@@ -39,7 +39,7 @@
 
                 {{-- グラフプロットタブ --}}
                 <div class="tab-pane fade" id="plot" role="tabpanel" aria-labelledby="plot-tab">
-
+                    @include('components.graphs.graph_plot')
                 </div>
 
                 {{-- 保存タブ --}}
