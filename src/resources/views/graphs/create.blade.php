@@ -30,7 +30,10 @@
                     :graph-image='graphImage.fileName'
                     :axis-setting-detect='axisSettingDetect'
                     :show-canvas-event-detect='showCanvasEventDetect'
-                    :x-axis-value='axisValue'
+                    :axis-value='axisValue'
+
+                    :graph-plot-point='graphPlotPoint'
+                    {{-- v-on:complete-set-axis-x='graphPlot.data = $event' --}}
 
                     v-on:complete-set-axis-x='axisSettingDetect.isCompleteX = $event'
                     v-on:complete-set-axis-y='axisSettingDetect.isCompleteY = $event'

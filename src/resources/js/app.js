@@ -64,6 +64,10 @@ const app = new Vue({
                 yMin: '',
                 yMax: '',
             },
+
+            graphPlotPoint: {
+                data: '',
+            }
         }
     },
 
