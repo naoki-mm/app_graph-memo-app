@@ -66,41 +66,47 @@ const app = new Vue({
             },
 
             graphPlotPoint: {
-                dataSetPoint: [{x: 1.55, y: 2.63},{x: 3.55, y:4.66},{x: 5, y:6}],
+                data: [{x: 1.55, y: 2.63},{x: 3.55, y:4.66},{x: 5, y:6}],
             }
         }
     },
     computed: {
+        // グラフデータを表示・更新するテキストエリアの処理。
         showPlotData: {
             get() {
-                return this.graphPlotPoint.dataSetPoint.map(function(object) {
-                if(!object.x  && !object.y) {
-                    return '';
-                } else if (!object.x){
-                    return object.y + '\n';
-                } else if (!object.y){
-                    return object.x + '\n';
-                } else {
-                    return object.x + ',' + object.y + '\n';
-                }
-                }).join('');
+                // dataの値がある場合は、改行を入れてテキストエリアに表示
+                return this.graphPlotPoint.data.map(function(plotData) {
+                    if(!plotData.x  && !plotData.y) {
+                        return '';
+                    } else if (!plotData.x){
+                        return plotData.y + '\n';
+                    } else if (!plotData.y){
+                        return plotData.x + '\n';
+                    } else {
+                        return plotData.x + ',' + plotData.y + '\n';
+                    }
+                }).join(''); // 行頭のカンマを消去するためにjoinで処理
             },
-            set(value) {
-                let lines = value.split('\n');
-                lineComponents = ''
+            set(textAreaValue) {
+                // テキストエリア内の一行を取得
+                let textAreaLines = textAreaValue.split('\n');
+                let textAreaLineComponents = ''
 
-                lines.forEach((line, index) => {
-                    lineComponents = line.split(',');
-                    if(typeof lineComponents[0] === 'undefined') {
-                        lineComponents[0] = '';
+                // テキストエリア内の編集をdataへ反映
+                textAreaLines.forEach((textAreaLine, index) => {
+                    // 行区切りのデータをカンマを境にx, yの配列に変換
+                    textAreaLineComponents = textAreaLine.split(',');
+                    // カンマを削除した場合undefinedとなるため、該当する値を空にする。
+                    if(typeof textAreaLineComponents[0] === 'undefined') {
+                        textAreaLineComponents[0] = '';
                     }
-                    if(typeof lineComponents[1] === 'undefined') {
-                        lineComponents[1] = '';
+                    if(typeof textAreaLineComponents[1] === 'undefined') {
+                        textAreaLineComponents[1] = '';
                     }
-
-                    if(typeof this.graphPlotPoint.dataSetPoint[index] !== 'undefined') {
-                        this.graphPlotPoint.dataSetPoint[index].x = lineComponents[0];
-                        this.graphPlotPoint.dataSetPoint[index].y = lineComponents[1];
+                    // 編集データをdataへ反映
+                    if(typeof this.graphPlotPoint.data[index] !== 'undefined') {
+                        this.graphPlotPoint.data[index].x = textAreaLineComponents[0];
+                        this.graphPlotPoint.data[index].y = textAreaLineComponents[1];
                     }
                 });
 
