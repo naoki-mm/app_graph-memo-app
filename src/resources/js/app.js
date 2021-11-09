@@ -66,11 +66,57 @@ const app = new Vue({
             },
 
             graphPlotPoint: {
-                data: '',
+                data: [{x: 1.55, y: 2.63},{x: 3.55, y:4.66},{x: 5, y:6}],
             }
         }
     },
+    computed: {
+        // グラフデータを表示・更新するテキストエリアの処理。
+        showPlotData: {
+            get() {
+                // dataの値がある場合は、改行を入れてテキストエリアに表示
+                return this.graphPlotPoint.data.map(function(plotData) {
+                    if(!plotData.x  && !plotData.y) {
+                        return '';
+                    } else if (!plotData.x){
+                        return plotData.y + '\n';
+                    } else if (!plotData.y){
+                        return plotData.x + '\n';
+                    } else {
+                        return plotData.x + ',' + plotData.y + '\n';
+                    }
+                }).join(''); // 行頭のカンマを消去するためにjoinで処理
+            },
+            set(textAreaValue) {
+                // テキストエリア内の一行を取得
+                let textAreaLines = textAreaValue.split('\n');
+                let textAreaLineComponents = ''
 
+                // テキストエリア内の編集をdataへ反映
+                textAreaLines.forEach((textAreaLine, index) => {
+                    // 行区切りのデータをカンマを境にx, yの配列に変換
+                    textAreaLineComponents = textAreaLine.split(',');
+                    // カンマを削除した場合undefinedとなるため、該当する値を空にする。
+                    if(typeof textAreaLineComponents[0] === 'undefined') {
+                        textAreaLineComponents[0] = '';
+                    }
+                    if(typeof textAreaLineComponents[1] === 'undefined') {
+                        textAreaLineComponents[1] = '';
+                    }
+                    // 編集データをdataへ反映
+                    if(typeof this.graphPlotPoint.data[index] !== 'undefined') {
+                        // dataの変更処理
+                        this.graphPlotPoint.data[index].x = textAreaLineComponents[0];
+                        this.graphPlotPoint.data[index].y = textAreaLineComponents[1];
+                    } else if(!this.graphPlotPoint.data[index]) {
+                        // dataの追加処理
+                        this.graphPlotPoint.data.push({x: textAreaLineComponents[0], y: textAreaLineComponents[1]})
+                    }
+                });
+
+            }
+        }
+    },
     methods: {
         resetSettingAxis() {
             // 軸値のリセット

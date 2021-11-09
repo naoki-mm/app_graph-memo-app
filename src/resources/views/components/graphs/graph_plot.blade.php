@@ -18,8 +18,8 @@
                 rows="15"
                 autocomplete="off"
                 required
-                v-model="graphPlotPoint.data"
-            >@{{ graphPlotPoint.data }}</textarea>
+                v-model="showPlotData"
+            ></textarea>
             @error('plot_data')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
