@@ -105,8 +105,12 @@ const app = new Vue({
                     }
                     // 編集データをdataへ反映
                     if(typeof this.graphPlotPoint.data[index] !== 'undefined') {
+                        // dataの変更処理
                         this.graphPlotPoint.data[index].x = textAreaLineComponents[0];
                         this.graphPlotPoint.data[index].y = textAreaLineComponents[1];
+                    } else if(!this.graphPlotPoint.data[index]) {
+                        // dataの追加処理
+                        this.graphPlotPoint.data.push({x: textAreaLineComponents[0], y: textAreaLineComponents[1]})
                     }
                 });
 
