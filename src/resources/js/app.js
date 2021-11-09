@@ -66,11 +66,47 @@ const app = new Vue({
             },
 
             graphPlotPoint: {
-                data: '',
+                dataSetPoint: [{x: 1.55, y: 2.63},{x: 3.55, y:4.66},{x: 5, y:6}],
             }
         }
     },
+    computed: {
+        showPlotData: {
+            get() {
+                return this.graphPlotPoint.dataSetPoint.map(function(object) {
+                if(!object.x  && !object.y) {
+                    return '';
+                } else if (!object.x){
+                    return object.y + '\n';
+                } else if (!object.y){
+                    return object.x + '\n';
+                } else {
+                    return object.x + ',' + object.y + '\n';
+                }
+                }).join('');
+            },
+            set(value) {
+                let lines = value.split('\n');
+                lineComponents = ''
 
+                lines.forEach((line, index) => {
+                    lineComponents = line.split(',');
+                    if(typeof lineComponents[0] === 'undefined') {
+                        lineComponents[0] = '';
+                    }
+                    if(typeof lineComponents[1] === 'undefined') {
+                        lineComponents[1] = '';
+                    }
+
+                    if(typeof this.graphPlotPoint.dataSetPoint[index] !== 'undefined') {
+                        this.graphPlotPoint.dataSetPoint[index].x = lineComponents[0];
+                        this.graphPlotPoint.dataSetPoint[index].y = lineComponents[1];
+                    }
+                });
+
+            }
+        }
+    },
     methods: {
         resetSettingAxis() {
             // 軸値のリセット
