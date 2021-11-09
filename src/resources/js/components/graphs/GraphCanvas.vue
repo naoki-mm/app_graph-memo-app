@@ -262,6 +262,16 @@ export default {
             this.showPlotPoint(this.canvas.context.plot);
             // ユーザーが設定したグラフ画像の軸を基準に、プロットポイントの座標変換を行う。
             this.setConvertPlotData();
+            // 桁数の調整
+            this.setDigits();
+            // プロットデータを配列に格納して親データに渡す。
+            this.setArrayPlotData();
+        },
+
+        setArrayPlotData() {
+            let currentGraphPlot = this.getGraphPlotPoint;
+            currentGraphPlot.data.push({x: this.convertPlotData.X, y: this.convertPlotData.Y});
+            this.$emit("graph-plot", currentGraphPlot);
         },
 
         setConvertPlotData() {
@@ -289,6 +299,12 @@ export default {
             // 対辺と隣辺に軸補正係数を掛けて, プロットデータの変換値を計算してdataにセット。
             this.convertPlotData.X = plotHypotenuseCos * scaleAdjustValueX;
             this.convertPlotData.Y = plotHypotenuseSin * scaleAdjustValueY;
+        },
+
+        setDigits() {
+            const plotPointRoundDigits = 3;
+            this.convertPlotData.X = this.convertPlotData.X.toFixed(plotPointRoundDigits);
+            this.convertPlotData.Y = this.convertPlotData.Y.toFixed(plotPointRoundDigits);
         },
 
         getAxisScaleAdjustValue(exponent, graphValueMax, graphValueMin, plotValueMax, plotValueMin) {

@@ -66,7 +66,7 @@ const app = new Vue({
             },
 
             graphPlotPoint: {
-                data: [{x: 1.55, y: 2.63},{x: 3.55, y:4.66},{x: 5, y:6}],
+                data: [],
             }
         }
     },
@@ -110,7 +110,7 @@ const app = new Vue({
                         this.graphPlotPoint.data[index].y = textAreaLineComponents[1];
                     } else if(!this.graphPlotPoint.data[index]) {
                         // dataの追加処理
-                        this.graphPlotPoint.data.push({x: textAreaLineComponents[0], y: textAreaLineComponents[1]})
+                        this.graphPlotPoint.data.push({x: textAreaLineComponents[0], y: textAreaLineComponents[1]});
                     }
                 });
 
