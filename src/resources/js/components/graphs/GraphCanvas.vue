@@ -101,8 +101,8 @@ export default {
                     Y: 0,
                 },
                 value: {
-                    X: [],
-                    Y: [],
+                    axisX: {min: {x:0, y:0}, max: {x:0, y:0}},
+                    axisY: {min: {x:0, y:0}, max: {x:0, y:0}}
                 },
             },
 
@@ -172,20 +172,26 @@ export default {
         setAxis(e) {
             const axisSetPointNumber = 2;
 
+            // 各軸の設定時のクリック数を取得
+            let clickCount = this.clickCountUp();
             // canvasのクリック数により、処理を変更
-            if(this.clickCountUp() <= axisSetPointNumber) {
+            if(clickCount <= axisSetPointNumber) {
                 // クリック座標の取得
                 this.getClickPoint(e, this.canvas.axisSetCanvas);
                 // クリック座標にプロットポインタを描画する。
                 this.showPlotPoint(this.canvas.context.axisSetting);
                 // 軸設定時のプロット設定
                 this.showAxisNavText(this.canvas.context.axisSetting);
-                // プロットした各軸のmin,maxのデータを配列に格納
-                if(this.getAxisSettingDetect.isActiveX) {
-                    this.axisSetting.value.X.push({x:this.plotPoint.X, y:this.plotPoint.Y});
+                // プロットした値を各軸のmin,maxのデータを配列に格納
+                if(this.getAxisSettingDetect.isActiveX && clickCount === 1) {
+                    this.axisSetting.value.axisX.min = {x:this.plotPoint.X, y:this.plotPoint.Y};
+                } else if(this.getAxisSettingDetect.isActiveX && clickCount === 2) {
+                    this.axisSetting.value.axisX.max = {x:this.plotPoint.X, y:this.plotPoint.Y};
                 }
-                if(this.getAxisSettingDetect.isActiveY) {
-                    this.axisSetting.value.Y.push({x:this.plotPoint.X, y:this.plotPoint.Y});
+                if(this.getAxisSettingDetect.isActiveY && clickCount === 1) {
+                    this.axisSetting.value.axisY.min = {x:this.plotPoint.X, y:this.plotPoint.Y};
+                } else if(this.getAxisSettingDetect.isActiveY && clickCount === 2) {
+                    this.axisSetting.value.axisY.max = {x:this.plotPoint.X, y:this.plotPoint.Y};
                 }
 
             } else {
@@ -199,8 +205,8 @@ export default {
                 this.axisSetting.clickCount.X = 0;
                 this.axisSetting.clickCount.Y = 0;
 
-                this.axisSetting.value.X = [];
-                this.axisSetting.value.Y = [];
+                this.axisSetting.value.axisX = {min: {x:0, y:0}, max: {x:0, y:0}};
+                this.axisSetting.value.axisY = {min: {x:0, y:0}, max: {x:0, y:0}};
 
                 // リセットフラグを初期化
                 this.$root.axisSettingDetect.isResetClick = false;
@@ -277,21 +283,17 @@ export default {
 
         setConvertPlotData() {
             // 軸設定プロット値を各変数に代入
-            let axisSettingPointXmax = this.axisSetting.value.X[1];
-            let axisSettingPointXmin = this.axisSetting.value.X[0];
-            let axisSettingPointYmax = this.axisSetting.value.Y[1];
-            let axisSettingPointYmin = this.axisSetting.value.Y[0];
 
             const exponent = 2;
             // 各x,y成分を実際のグラフ軸スケールする係数（canvasとグラフ画像軸に角度がある場合も考慮）。
-            let scaleAdjustValueX = this.getAxisScaleAdjustValue(exponent, this.getAxisValue.xMax, this.getAxisValue.xMin, axisSettingPointXmax, axisSettingPointXmin);
-            let scaleAdjustValueY = this.getAxisScaleAdjustValue(exponent, this.getAxisValue.yMax, this.getAxisValue.yMin, axisSettingPointYmax, axisSettingPointYmin);
+            let scaleAdjustValueX = this.getAxisScaleAdjustValue(exponent, this.getAxisValue.xMax, this.getAxisValue.xMin, this.axisSetting.value.axisX.max, this.axisSetting.value.axisX.min);
+            let scaleAdjustValueY = this.getAxisScaleAdjustValue(exponent, this.getAxisValue.yMax, this.getAxisValue.yMin, this.axisSetting.value.axisY.max, this.axisSetting.value.axisY.min);
 
             // プロットデータの斜辺の長さ
-            let plotHypotenuse = Math.sqrt(Math.pow((this.plotPoint.X - axisSettingPointXmin.x), exponent) + Math.pow((this.plotPoint.Y - axisSettingPointYmin.y), exponent));
+            let plotHypotenuse = Math.sqrt(Math.pow((this.plotPoint.X - this.axisSetting.value.axisX.min.x), exponent) + Math.pow((this.plotPoint.Y - this.axisSetting.value.axisY.min.y), exponent));
 
             // グラフ画像の軸に対するプロットポイントの角度
-            let plotPointAngle = this.getPlotPointAngle(axisSettingPointXmax, axisSettingPointXmin);
+            let plotPointAngle = this.getPlotPointAngle(this.axisSetting.value.axisX.max, this.axisSetting.value.axisX.min);
 
             // プロットデータの斜辺に対する対辺と隣辺を計算。
             let plotHypotenuseSin = plotHypotenuse * Math.sin(plotPointAngle);
