@@ -272,6 +272,7 @@ export default {
             let currentGraphPlot = this.getGraphPlotPoint;
             currentGraphPlot.data.push({x: this.convertPlotData.X, y: this.convertPlotData.Y});
             this.$emit("graph-plot", currentGraphPlot);
+            this.$emit("scroll-text-area");
         },
 
         setConvertPlotData() {

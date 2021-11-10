@@ -140,6 +140,12 @@ const app = new Vue({
             this.showCanvasEventDetect.isAxisSetCanvas = axis;
             this.showCanvasEventDetect.isPlotCanvas = plot;
             this.showCanvasEventDetect.isSetSave = save;
+        },
+
+        scrollTextArea() {
+            let plotTextArea = this.$refs.plotTextArea;
+            let plotTextAreaHeight = plotTextArea.scrollHeight;
+            plotTextArea.scrollTo(0, plotTextAreaHeight);
         }
     },
 });

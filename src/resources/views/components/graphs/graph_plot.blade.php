@@ -13,6 +13,7 @@
 
             <textarea
                 id="plot_data"
+                ref="plotTextArea"
                 name="plot_data"
                 class="form-control @error('plot_data') is-invalid @enderror rounded-0"
                 rows="15"
