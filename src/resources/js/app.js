@@ -66,7 +66,8 @@ const app = new Vue({
             },
 
             graphPlotPoint: {
-                data: [],
+                graphData: [],
+                canvasData: [],
             }
         }
     },
@@ -75,7 +76,7 @@ const app = new Vue({
         showPlotData: {
             get() {
                 // dataの値がある場合は、改行を入れてテキストエリアに表示
-                return this.graphPlotPoint.data.map(function(plotData) {
+                return this.graphPlotPoint.graphData.map(function(plotData) {
                     if(!plotData.x  && !plotData.y) {
                         return '';
                     } else if (!plotData.x){
@@ -104,14 +105,15 @@ const app = new Vue({
                         textAreaLineComponents[1] = '';
                     }
                     // 編集データをdataへ反映
-                    if(typeof this.graphPlotPoint.data[index] !== 'undefined') {
+                    if(typeof this.graphPlotPoint.graphData[index] !== 'undefined') {
                         // dataの変更処理
-                        this.graphPlotPoint.data[index].x = textAreaLineComponents[0];
-                        this.graphPlotPoint.data[index].y = textAreaLineComponents[1];
-                    } else if(!this.graphPlotPoint.data[index]) {
+                        this.graphPlotPoint.graphData[index].x = textAreaLineComponents[0];
+                        this.graphPlotPoint.graphData[index].y = textAreaLineComponents[1];
+                    } else if(!this.graphPlotPoint.graphData[index]) {
                         // dataの追加処理
-                        this.graphPlotPoint.data.push({x: textAreaLineComponents[0], y: textAreaLineComponents[1]});
+                        this.graphPlotPoint.graphData.push({x: textAreaLineComponents[0], y: textAreaLineComponents[1]});
                     }
+                    // this.$refs.graphCanvas.plotChangeTextArea();
                 });
 
             }

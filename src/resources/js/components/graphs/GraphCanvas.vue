@@ -73,7 +73,8 @@ export default {
         graphPlotPoint: {
             type: Object,
             default: () => ({
-                data: '',
+                graphData: '',
+                canvasData: '',
             })
         },
     },
@@ -106,15 +107,15 @@ export default {
                 },
             },
 
-
             plotPoint: {
-                X: 0,
-                Y: 0,
-            },
-
-            convertPlotData: {
-                X: 0,
-                Y: 0,
+                onCanvasData: {
+                    X: 0,
+                    Y: 0,
+                },
+                converGraphData: {
+                    X: 0,
+                    Y: 0,
+                },
             },
         }
     },
@@ -131,7 +132,7 @@ export default {
         getAxisValue() {
             return this.axisValue;
         },
-        getGraphPlotPoint() {
+        getPlotPoint() {
             return this.graphPlotPoint;
         },
     },
@@ -184,14 +185,14 @@ export default {
                 this.showAxisNavText(this.canvas.context.axisSetting);
                 // プロットした値を各軸のmin,maxのデータを配列に格納
                 if(this.getAxisSettingDetect.isActiveX && clickCount === 1) {
-                    this.axisSetting.value.axisX.min = {x:this.plotPoint.X, y:this.plotPoint.Y};
+                    this.axisSetting.value.axisX.min = {x:this.plotPoint.onCanvasData.X, y:this.plotPoint.onCanvasData.Y};
                 } else if(this.getAxisSettingDetect.isActiveX && clickCount === 2) {
-                    this.axisSetting.value.axisX.max = {x:this.plotPoint.X, y:this.plotPoint.Y};
+                    this.axisSetting.value.axisX.max = {x:this.plotPoint.onCanvasData.X, y:this.plotPoint.onCanvasData.Y};
                 }
                 if(this.getAxisSettingDetect.isActiveY && clickCount === 1) {
-                    this.axisSetting.value.axisY.min = {x:this.plotPoint.X, y:this.plotPoint.Y};
+                    this.axisSetting.value.axisY.min = {x:this.plotPoint.onCanvasData.X, y:this.plotPoint.onCanvasData.Y};
                 } else if(this.getAxisSettingDetect.isActiveY && clickCount === 2) {
-                    this.axisSetting.value.axisY.max = {x:this.plotPoint.X, y:this.plotPoint.Y};
+                    this.axisSetting.value.axisY.max = {x:this.plotPoint.onCanvasData.X, y:this.plotPoint.onCanvasData.Y};
                 }
 
             } else {
@@ -240,10 +241,10 @@ export default {
                 context.textBaseline = "top";
                 // クリック数により、テキストの表示を切り替える
                 if(this.axisSetting.clickCount.X === axisSetCountMinNumber) {
-                    context.fillText("x min",this.plotPoint.X + textPositionAdjust, this.plotPoint.Y);
+                    context.fillText("x min",this.plotPoint.onCanvasData.X + textPositionAdjust, this.plotPoint.onCanvasData.Y);
                 }
                 if(this.axisSetting.clickCount.X === axisSetCountMaxNumber) {
-                    context.fillText("x max",this.plotPoint.X + textPositionAdjust, this.plotPoint.Y);
+                    context.fillText("x max",this.plotPoint.onCanvasData.X + textPositionAdjust, this.plotPoint.onCanvasData.Y);
                     this.$emit("complete-set-axis-x", this.axisSetting.clickCount.X);
                 }
             }
@@ -252,10 +253,10 @@ export default {
                 context.textBaseline = "bottom";
                 // クリック数により、テキストの表示を切り替える
                 if(this.axisSetting.clickCount.Y === axisSetCountMinNumber) {
-                    context.fillText("y min",this.plotPoint.X + textPositionAdjust, this.plotPoint.Y - textPositionAdjust);
+                    context.fillText("y min",this.plotPoint.onCanvasData.X + textPositionAdjust, this.plotPoint.onCanvasData.Y - textPositionAdjust);
                 }
                 if(this.axisSetting.clickCount.Y === axisSetCountMaxNumber) {
-                    context.fillText("y max",this.plotPoint.X + textPositionAdjust, this.plotPoint.Y - textPositionAdjust);
+                    context.fillText("y max",this.plotPoint.onCanvasData.X + textPositionAdjust, this.plotPoint.onCanvasData.Y - textPositionAdjust);
                     this.$emit("complete-set-axis-y", this.axisSetting.clickCount.Y);
                 }
             }
@@ -275,22 +276,22 @@ export default {
         },
 
         setArrayPlotData() {
-            let currentGraphPlot = this.getGraphPlotPoint;
-            currentGraphPlot.data.push({x: this.convertPlotData.X, y: this.convertPlotData.Y});
-            this.$emit("graph-plot", currentGraphPlot);
+            let currentPlot = this.getPlotPoint;
+
+            currentPlot.canvasData.push({x: this.plotPoint.onCanvasData.X, y: this.plotPoint.onCanvasData.Y});
+            currentPlot.graphData.push({x: this.plotPoint.converGraphData.X, y: this.plotPoint.converGraphData.Y});
+            this.$emit("graph-plot", currentPlot);
             this.$emit("scroll-text-area");
         },
 
         setConvertPlotData() {
-            // 軸設定プロット値を各変数に代入
-
-            const exponent = 2;
+            var exponent = 2;
             // 各x,y成分を実際のグラフ軸スケールする係数（canvasとグラフ画像軸に角度がある場合も考慮）。
             let scaleAdjustValueX = this.getAxisScaleAdjustValue(exponent, this.getAxisValue.xMax, this.getAxisValue.xMin, this.axisSetting.value.axisX.max, this.axisSetting.value.axisX.min);
             let scaleAdjustValueY = this.getAxisScaleAdjustValue(exponent, this.getAxisValue.yMax, this.getAxisValue.yMin, this.axisSetting.value.axisY.max, this.axisSetting.value.axisY.min);
 
             // プロットデータの斜辺の長さ
-            let plotHypotenuse = Math.sqrt(Math.pow((this.plotPoint.X - this.axisSetting.value.axisX.min.x), exponent) + Math.pow((this.plotPoint.Y - this.axisSetting.value.axisY.min.y), exponent));
+            let plotHypotenuse = Math.sqrt(Math.pow((this.plotPoint.onCanvasData.X - this.axisSetting.value.axisX.min.x), exponent) + Math.pow((this.plotPoint.onCanvasData.Y - this.axisSetting.value.axisY.min.y), exponent));
 
             // グラフ画像の軸に対するプロットポイントの角度
             let plotPointAngle = this.getPlotPointAngle(this.axisSetting.value.axisX.max, this.axisSetting.value.axisX.min);
@@ -300,14 +301,14 @@ export default {
             let plotHypotenuseCos = plotHypotenuse * Math.cos(plotPointAngle);
 
             // 対辺と隣辺に軸補正係数を掛けて, プロットデータの変換値を計算してdataにセット。
-            this.convertPlotData.X = plotHypotenuseCos * scaleAdjustValueX;
-            this.convertPlotData.Y = plotHypotenuseSin * scaleAdjustValueY;
+            this.plotPoint.converGraphData.X = plotHypotenuseCos * scaleAdjustValueX;
+            this.plotPoint.converGraphData.Y = plotHypotenuseSin * scaleAdjustValueY;
         },
 
         setDigits() {
             const plotPointRoundDigits = 3;
-            this.convertPlotData.X = this.convertPlotData.X.toFixed(plotPointRoundDigits);
-            this.convertPlotData.Y = this.convertPlotData.Y.toFixed(plotPointRoundDigits);
+            this.plotPoint.converGraphData.X = this.plotPoint.converGraphData.X.toFixed(plotPointRoundDigits);
+            this.plotPoint.converGraphData.Y = this.plotPoint.converGraphData.Y.toFixed(plotPointRoundDigits);
         },
 
         getAxisScaleAdjustValue(exponent, graphValueMax, graphValueMin, plotValueMax, plotValueMin) {
@@ -320,7 +321,7 @@ export default {
         },
 
         getPlotPointAngle(plotValueMax, plotValueMin) {
-            let graphPlotAngle = Math.atan2((-(this.plotPoint.Y - plotValueMin.y)), (this.plotPoint.X - plotValueMin.x));
+            let graphPlotAngle = Math.atan2((-(this.plotPoint.onCanvasData.Y - plotValueMin.y)), (this.plotPoint.onCanvasData.X - plotValueMin.x));
             let axisPlotAngle = Math.atan2((-(plotValueMax.y - plotValueMin.y)), (plotValueMax.x - plotValueMin.x));
 
             return graphPlotAngle - axisPlotAngle;
@@ -343,11 +344,15 @@ export default {
             let yAxisAdjust = this.canvas.size.drawHeight / displayCanvasHeight;
 
             // クリックした座標をcanvas内の描画値に換算
-            this.plotPoint.X = clickX * xAxisAdjust;
-            this.plotPoint.Y = clickY * yAxisAdjust;
+            this.plotPoint.onCanvasData.X = clickX * xAxisAdjust;
+            this.plotPoint.onCanvasData.Y = clickY * yAxisAdjust;
         },
 
-        showPlotPoint(context) {
+        // plotChangeTextArea() {
+        //     this.showPlotPoint(this.canvas.context.plot, this.getGraphPlotPoint);
+        // },
+
+        showPlotPoint(context, currentGraphPlotPoint) {
 
             // 円の描画開始角度 0[rad]
             const startAngle = 0;
@@ -360,8 +365,14 @@ export default {
             context.fillStyle = "rgba(200, 0, 0, 0.8)";
             // クリックした箇所に円を表示
             context.beginPath();
-            context.arc(this.plotPoint.X, this.plotPoint.Y, plotPointerSize, startAngle, endAngle, false);
-            context.fill();
+            // if(currentGraphPlotPoint) {
+
+
+
+            // } else {
+                context.arc(this.plotPoint.onCanvasData.X, this.plotPoint.onCanvasData.Y, plotPointerSize, startAngle, endAngle, false);
+                context.fill();
+            // }
         },
 
     },
