@@ -1,25 +1,8 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 // CDNで読み込んだJQueryと重複するためコメントアウト。
 // require('./bootstrap');
 
 window.Vue = require('vue');
 require('vue-toasted');
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('avatar-image-change', require('./components/users/AvatarImageChange.vue').default);
 Vue.component('success-notification', require('./components/common/SuccessNotification.vue').default);
@@ -29,11 +12,6 @@ Vue.component('side-navbar', require('./components/common/SideNavbar.vue').defau
 
 // vue-toastedの読み込み
 Vue.use(Toasted);
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
 
 const app = new Vue({
     el: '#app',
@@ -67,7 +45,6 @@ const app = new Vue({
 
             graphPlotPoint: {
                 graphData: [],
-                canvasData: [],
             }
         }
     },
@@ -75,47 +52,47 @@ const app = new Vue({
         // グラフデータを表示・更新するテキストエリアの処理。
         showPlotData: {
             get() {
-                // dataの値がある場合は、改行を入れてテキストエリアに表示
+                // dataの値がある場合は、カンマを入れてテキストエリアに表示
                 return this.graphPlotPoint.graphData.map(function(plotData) {
                     if(!plotData.x  && !plotData.y) {
-                        return '';
+                        return;
                     } else if (!plotData.x){
-                        return plotData.y + '\n';
+                        return ',' + plotData.y;
                     } else if (!plotData.y){
-                        return plotData.x + '\n';
+                        return plotData.x + ',' ;
                     } else {
-                        return plotData.x + ',' + plotData.y + '\n';
+                        return plotData.x + ',' + plotData.y;
                     }
-                }).join(''); // 行頭のカンマを消去するためにjoinで処理
+                }).join('\n'); // 配列の余計なカンマを改行にするためjoinで処理(文字列に変換)
             },
             set(textAreaValue) {
                 // テキストエリア内の一行を取得
-                let textAreaLines = textAreaValue.split('\n');
+                let textAreaLines = textAreaValue.split(/\n/);
+
+                // 初期化
                 let textAreaLineComponents = ''
+                this.graphPlotPoint.graphData = [];
 
                 // テキストエリア内の編集をdataへ反映
-                textAreaLines.forEach((textAreaLine, index) => {
+                textAreaLines.forEach((textAreaLine) => {
                     // 行区切りのデータをカンマを境にx, yの配列に変換
                     textAreaLineComponents = textAreaLine.split(',');
+
                     // カンマを削除した場合undefinedとなるため、該当する値を空にする。
-                    if(typeof textAreaLineComponents[0] === 'undefined') {
-                        textAreaLineComponents[0] = '';
-                    }
                     if(typeof textAreaLineComponents[1] === 'undefined') {
                         textAreaLineComponents[1] = '';
                     }
-                    // 編集データをdataへ反映
-                    if(typeof this.graphPlotPoint.graphData[index] !== 'undefined') {
-                        // dataの変更処理
-                        this.graphPlotPoint.graphData[index].x = textAreaLineComponents[0];
-                        this.graphPlotPoint.graphData[index].y = textAreaLineComponents[1];
-                    } else if(!this.graphPlotPoint.graphData[index]) {
-                        // dataの追加処理
+                    // x, y両方のデータがない(消去)された場合は、配列データを挿入しない。
+                    if(!textAreaLineComponents[0] && !textAreaLineComponents[1]) {
+                        return;
+                    } else {
+                        // 更新されたデータで配列データを挿入
                         this.graphPlotPoint.graphData.push({x: textAreaLineComponents[0], y: textAreaLineComponents[1]});
                     }
-                    // this.$refs.graphCanvas.plotChangeTextArea();
-                });
 
+                });
+                // canvas上の描画データの更新
+                this.$refs.graphCanvas.updatePlotData();
             }
         }
     },
