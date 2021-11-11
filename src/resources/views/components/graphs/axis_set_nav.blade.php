@@ -33,10 +33,6 @@
                 <div class="col pr-2">
                     <div class="md-form mt-0">
 
-                    <label class="form-label ml-1 mb-1" for="x_axis_min">
-                        x min
-                    </label>
-
                     <input
                         type="number"
                         id="x_axis_min"
@@ -47,6 +43,9 @@
                         required
                         v-model="axisValue.xMin"
                     >
+                    <label class="form-label ml-1 mb-1" for="x_axis_min">
+                        x min
+                    </label>
                     @error('x_axis_min')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -58,10 +57,6 @@
                 <div class="col pl-2">
                     <div class="md-form mt-0">
 
-                    <label class="form-label ml-1 mb-1" for="x_axis_max">
-                        x max
-                    </label>
-
                     <input
                         type="number"
                         id="x_axis_max"
@@ -72,6 +67,9 @@
                         required
                         v-model="axisValue.xMax"
                     >
+                    <label class="form-label ml-1 mb-1" for="x_axis_max">
+                        x max
+                    </label>
                     @error('x_axis_max')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -112,10 +110,6 @@
                 <div class="col pr-2">
                     <div class="md-form mt-0">
 
-                    <label class="form-label ml-1 mb-1" for="y_axis_min">
-                        y min
-                    </label>
-
                     <input
                         type="number"
                         id="y_axis_min"
@@ -126,6 +120,9 @@
                         required
                         v-model="axisValue.yMin"
                     >
+                    <label class="form-label ml-1 mb-1" for="y_axis_min">
+                        y min
+                    </label>
                     @error('y_axis_min')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -137,10 +134,6 @@
                 <div class="col pl-2">
                     <div class="md-form mt-0">
 
-                    <label class="form-label ml-1 mb-1" for="y_axis_max">
-                        y max
-                    </label>
-
                     <input
                         type="number"
                         id="y_axis_max"
@@ -151,6 +144,9 @@
                         required
                         v-model="axisValue.yMax"
                     >
+                    <label class="form-label ml-1 mb-1" for="y_axis_max">
+                        y max
+                    </label>
                     @error('y_axis_max')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

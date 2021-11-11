@@ -2,7 +2,6 @@
     グラフ上をクリックしてプロットデータを取得してください。
 </div>
 
-
     <div class="row" style="height: 50px">
         <div class="col pr-2">
             <div class="form-group">
@@ -15,7 +14,7 @@
                 id="plot_data"
                 ref="plotTextArea"
                 name="plot_data"
-                class="form-control @error('plot_data') is-invalid @enderror rounded-0"
+                class="form-control @error('plot_data') is-invalid @enderror"
                 rows="15"
                 autocomplete="off"
                 required

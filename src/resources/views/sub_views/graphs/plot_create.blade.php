@@ -44,13 +44,7 @@
 
                 {{-- 保存タブ --}}
                 <div class="tab-pane fade" id="save" role="tabpanel" aria-labelledby="save-tab">
-
-                    {{-- 保存ボタン --}}
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-block btn-primary">
-                            保存する
-                        </button>
-                    </div>
+                    @include('components.graphs.graph_save')
                 </div>
             </div>
         </form>
