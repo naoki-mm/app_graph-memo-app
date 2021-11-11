@@ -33,7 +33,8 @@
                     :axis-value='axisValue'
 
                     :graph-plot-point='graphPlotPoint'
-                    {{-- v-on:complete-set-axis-x='graphPlot.data = $event' --}}
+                    v-on:graph-plot='graphPlotPoint = $event'
+                    v-on:scroll-text-area='scrollTextArea()'
 
                     v-on:complete-set-axis-x='axisSettingDetect.isCompleteX = $event'
                     v-on:complete-set-axis-y='axisSettingDetect.isCompleteY = $event'
