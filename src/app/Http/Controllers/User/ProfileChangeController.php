@@ -59,16 +59,18 @@ class ProfileChangeController extends Controller
      * @param UploadedFile $file アップロードされたアバター画像
      * @return string ファイル名
      */
-    private function saveAvatarImage(UploadedFile $file): string
+    private function saveAvatarImage(UploadedFile $upload_file): string
     {
-        $tempPath = $this->makeTempPath();
+        $temp_path = $this->makeTempPath();
 
-        Image::make($file)->fit(200, 200)->save($tempPath);
+        // 一時ファイルにリサイズ画像を格納
+        Image::make($upload_file)->fit(200, 200)->save($temp_path);
 
-        $filePath = Storage::disk('public')
-            ->putFile('avatar_images', new File($tempPath));
+        // リサイズ画像をstorageの指定フォルダに格納
+        $file_path = Storage::disk('public')
+            ->putFile('avatar_images', new File($temp_path));
 
-        return basename($filePath);
+        return basename($file_path);
     }
 
     /**
@@ -78,8 +80,10 @@ class ProfileChangeController extends Controller
      */
     private function makeTempPath(): string
     {
+        // テンポラリファイルを作成 (返り値：ファイルポインタ)
         $tmp_fp = tmpfile();
-        $meta   = stream_get_meta_data($tmp_fp);
+        // ファイルポインタからメタデータを取得
+        $meta = stream_get_meta_data($tmp_fp);
         return $meta["uri"];
     }
 }
