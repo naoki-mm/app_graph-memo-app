@@ -24,18 +24,18 @@
         <div class="form-group md-form">
 
             <textarea
-                id="plot_memo"
-                name="plot_memo"
-                class="form-control md-textarea @error('plot_memo') is-invalid @enderror"
+                id="memo"
+                name="memo"
+                class="form-control md-textarea @error('memo') is-invalid @enderror"
                 rows="6"
                 autocomplete="off"
             ></textarea>
 
-            <label class="form-label" for="plot_memo">
+            <label class="form-label" for="memo">
                 メモ
             </label>
 
-            @error('plot_memo')
+            @error('memo')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>

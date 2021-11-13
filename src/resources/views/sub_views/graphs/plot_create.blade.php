@@ -29,7 +29,7 @@
             </ul>
 
         {{-- フォーム --}}
-        <form method="POST" action="{{ route('login') }}" class="pt-2">
+        <form id="graph_form" method="POST" action="{{ route('login') }}" enctype="multipart/form-data" class="pt-2">
             @csrf
             <div class="tab-content" id="myTabContent">
 

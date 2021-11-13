@@ -35,18 +35,18 @@
 
                     <input
                         type="number"
-                        id="x_axis_min"
-                        name="x_axis_min"
-                        class="form-control @error('x_axis_min') is-invalid @enderror"
+                        id="x_min_value"
+                        name="x_min_value"
+                        class="form-control @error('x_min_value') is-invalid @enderror"
                         autocomplete="off"
-                        value="{{ old('x_axis_min') }}"
+                        value="{{ old('x_min_value') }}"
                         required
                         v-model="axisValue.xMin"
                     >
-                    <label class="form-label ml-1 mb-1" for="x_axis_min">
+                    <label class="form-label ml-1 mb-1" for="x_min_value">
                         x min
                     </label>
-                    @error('x_axis_min')
+                    @error('x_min_value')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -59,18 +59,18 @@
 
                     <input
                         type="number"
-                        id="x_axis_max"
-                        name="x_axis_max"
-                        class="form-control @error('x_axis_max') is-invalid @enderror"
+                        id="x_max_value"
+                        name="x_max_value"
+                        class="form-control @error('x_max_value') is-invalid @enderror"
                         autocomplete="off"
-                        value="{{ old('x_axis_max') }}"
+                        value="{{ old('x_max_value') }}"
                         required
                         v-model="axisValue.xMax"
                     >
-                    <label class="form-label ml-1 mb-1" for="x_axis_max">
+                    <label class="form-label ml-1 mb-1" for="x_max_value">
                         x max
                     </label>
-                    @error('x_axis_max')
+                    @error('x_max_value')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -112,18 +112,18 @@
 
                     <input
                         type="number"
-                        id="y_axis_min"
-                        name="y_axis_min"
-                        class="form-control @error('y_axis_min') is-invalid @enderror"
+                        id="y_min_value"
+                        name="y_min_value"
+                        class="form-control @error('y_min_value') is-invalid @enderror"
                         autocomplete="off"
-                        value="{{ old('y_axis_min') }}"
+                        value="{{ old('y_min_value') }}"
                         required
                         v-model="axisValue.yMin"
                     >
-                    <label class="form-label ml-1 mb-1" for="y_axis_min">
+                    <label class="form-label ml-1 mb-1" for="y_min_value">
                         y min
                     </label>
-                    @error('y_axis_min')
+                    @error('y_min_value')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -136,18 +136,18 @@
 
                     <input
                         type="number"
-                        id="y_axis_max"
-                        name="y_axis_max"
-                        class="form-control @error('y_axis_max') is-invalid @enderror"
+                        id="y_max_value"
+                        name="y_max_value"
+                        class="form-control @error('y_max_value') is-invalid @enderror"
                         autocomplete="off"
-                        value="{{ old('y_axis_max') }}"
+                        value="{{ old('y_max_value') }}"
                         required
                         v-model="axisValue.yMax"
                     >
-                    <label class="form-label ml-1 mb-1" for="y_axis_max">
+                    <label class="form-label ml-1 mb-1" for="y_max_value">
                         y max
                     </label>
-                    @error('y_axis_max')
+                    @error('y_max_value')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

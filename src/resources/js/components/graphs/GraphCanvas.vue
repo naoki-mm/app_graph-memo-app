@@ -32,6 +32,15 @@
                     >
                 </canvas>
 
+                <input form="graph_form" type="hidden" name="x_min_plot_x" :value="axisSetting.value.axisX.min.x" required>
+                <input form="graph_form" type="hidden" name="x_min_plot_y" :value="axisSetting.value.axisX.min.y" required>
+                <input form="graph_form" type="hidden" name="x_max_plot_x" :value="axisSetting.value.axisX.max.x" required>
+                <input form="graph_form" type="hidden" name="x_max_plot_y" :value="axisSetting.value.axisX.max.y" required>
+                <input form="graph_form" type="hidden" name="y_min_plot_x" :value="axisSetting.value.axisY.min.x" required>
+                <input form="graph_form" type="hidden" name="y_min_plot_y" :value="axisSetting.value.axisY.min.y" required>
+                <input form="graph_form" type="hidden" name="y_max_plot_x" :value="axisSetting.value.axisY.max.x" required>
+                <input form="graph_form" type="hidden" name="y_max_plot_y" :value="axisSetting.value.axisY.max.y" required>
+
             </div>
         </div>
     </div>

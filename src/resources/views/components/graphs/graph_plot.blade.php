@@ -11,16 +11,16 @@
             </label>
 
             <textarea
-                id="plot_data"
+                id="data"
                 ref="plotTextArea"
-                name="plot_data"
-                class="form-control @error('plot_data') is-invalid @enderror"
+                name="data"
+                class="form-control @error('data') is-invalid @enderror"
                 rows="15"
                 autocomplete="off"
                 required
                 v-model="showPlotData"
             ></textarea>
-            @error('plot_data')
+            @error('data')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>

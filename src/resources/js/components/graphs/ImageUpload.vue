@@ -22,9 +22,10 @@
                     <i class="fas fa-upload mr-2"></i>ファイルを選択
                 </label>
                 <input
-                    id="graph_image"
+                    form="graph_form"
+                    id="image_name"
                     type="file"
-                    name="graph_image"
+                    name="image_name"
                     class="d-none"
                     accept="image/png,image/jpeg,image/gif"
                     @change="onGraphImageSelect"
