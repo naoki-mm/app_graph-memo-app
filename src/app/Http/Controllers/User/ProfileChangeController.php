@@ -40,7 +40,7 @@ class ProfileChangeController extends Controller
 
         // アバター画像がリクエストに存在した場合、画像をストレージに保存し、DBのファイル名を更新する。
         if ($request->has('avatar')) {
-            $fileName = $image_file_save->saveAvatarImage($request->file('avatar'));
+            $fileName = $image_file_save->saveImage($request->file('avatar'), true, 'avatar_images');
             $user_profile->image_name = $fileName;
         }
 

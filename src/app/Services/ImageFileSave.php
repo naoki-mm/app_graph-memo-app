@@ -13,18 +13,23 @@ class ImageFileSave
      * アバター画像をリサイズして保存
      *
      * @param UploadedFile $file アップロードされたアバター画像
+     * @param bool $is_fit リサイズ有無
      * @return string ファイル名
      */
-    public function saveAvatarImage(UploadedFile $upload_file): string
+    public function saveImage(UploadedFile $upload_file, bool $is_fit, string $directory_name): string
     {
         $temp_path = $this->makeTempPath();
 
-        // 一時ファイルにリサイズ画像を格納
-        Image::make($upload_file)->fit(200, 200)->save($temp_path);
+        if ($is_fit) {
+            // 一時ファイルにリサイズ画像を格納
+            Image::make($upload_file)->fit(200, 200)->save($temp_path);
+        } else {
+            Image::make($upload_file)->save($temp_path);
+        }
 
-        // リサイズ画像をstorageの指定フォルダに格納
+        // 画像をstorageの指定フォルダに格納
         $file_path = Storage::disk('public')
-        ->putFile('avatar_images', new File($temp_path));
+        ->putFile($directory_name, new File($temp_path));
 
         return basename($file_path);
     }

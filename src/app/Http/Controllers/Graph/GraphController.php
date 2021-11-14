@@ -45,7 +45,7 @@ class GraphController extends Controller
         $graph->memo = $request->input('memo');
 
         if ($request->has('graph_image')) {
-            $fileName = $image_file_save->saveAvatarImage($request->file('graph_image'));
+            $fileName = $image_file_save->saveImage($request->file('graph_image'), false, 'graph_images');
             $graph->image_name = $fileName;
         }
 
