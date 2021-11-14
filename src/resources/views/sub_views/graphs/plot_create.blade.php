@@ -28,14 +28,13 @@
                 </li>
             </ul>
 
-        {{-- フォーム --}}
-        <form id="graph_form" method="POST" action="{{ route('login') }}" enctype="multipart/form-data" class="pt-2">
-            @csrf
+
             <div class="tab-content" id="myTabContent">
 
                 {{-- 軸設定タブの内容 --}}
                 <div class="tab-pane fade show active" id="axis" role="tabpanel" aria-labelledby="axis-tab">
                     @include('components.graphs.axis_set_nav')
+                </div>
 
                 {{-- グラフプロットタブ --}}
                 <div class="tab-pane fade" id="plot" role="tabpanel" aria-labelledby="plot-tab">
@@ -46,9 +45,12 @@
                 <div class="tab-pane fade" id="save" role="tabpanel" aria-labelledby="save-tab">
                     @include('components.graphs.graph_save')
                 </div>
+
             </div>
-        </form>
+
 
         </div>
+
     </div>
 </div>
+

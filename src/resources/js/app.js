@@ -37,10 +37,10 @@ const app = new Vue({
             },
 
             axisValue: {
-                xMin: '',
-                xMax: '',
-                yMin: '',
-                yMax: '',
+                xMin: '0',
+                xMax: '20',
+                yMin: '0',
+                yMax: '2',
             },
 
             graphPlotPoint: {
@@ -115,16 +115,41 @@ const app = new Vue({
             this.$refs.graphCanvas.resetDrawingSettingAxis();
         },
 
+        // canvasの切り替え
         switchShowCanvas(axis, plot, save) {
             this.showCanvasEventDetect.isAxisSetCanvas = axis;
             this.showCanvasEventDetect.isPlotCanvas = plot;
             this.showCanvasEventDetect.isSetSave = save;
         },
 
+        // テキストエリアの自動スクロール処理
         scrollTextArea() {
             let plotTextArea = this.$refs.plotTextArea;
             let plotTextAreaHeight = plotTextArea.scrollHeight;
             plotTextArea.scrollTo(0, plotTextAreaHeight);
-        }
+        },
+
+        // input要素を作成し、ファイル送信の準備をする
+        setFile(sendFile) {
+
+            // input要素を作成
+            const input_data = document.createElement('input');
+
+            // input要素の属性を設定
+            input_data.type = 'file';
+            input_data.name = 'graph_image';
+            input_data.files = sendFile;
+            input_data.accept = 'image/png,image/jpeg,image/gif';
+            input_data.className = 'd-none';
+
+            // formにinputを追加
+            let graphForm = this.$refs.graphForm;
+            graphForm.appendChild(input_data);
+        },
+
+        // グラフ画像を表示するメソッドの呼び出し
+        showImage() {
+            setTimeout(this.$refs.graphCanvas.showCanvasImage,50);
+        },
     },
 });

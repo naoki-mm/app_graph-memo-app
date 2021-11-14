@@ -17,7 +17,7 @@ class CreatePlotDataTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('graph_id');
             $table->foreign('graph_id')->references('id')->on('graphs')->onDelete('cascade');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->text('data');
             $table->timestamps();
             $table->softDeletes();

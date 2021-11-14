@@ -42,9 +42,9 @@
             @enderror
         </div>
 
-        <div class="mt-5 btn btn-block btn-primary">
+        <button class="mt-5 btn btn-block btn-primary">
             新規保存する
-        </div>
+        </button>
 
     </div>
 </div>

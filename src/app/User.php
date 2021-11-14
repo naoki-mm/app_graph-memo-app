@@ -36,4 +36,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // UserモデルからGraphモデルへのアクセス
+    public function graphs()
+    {
+        return $this->hasMany('App\Graph');
+    }
+
+    // UserモデルからPlotDataモデルへの直接アクセス
+    public function plotData()
+    {
+        return $this->hasManyThrough('App\PlotData', 'App\Graph');
+    }
+
+    // UserモデルからAxisSettingモデルへの直接アクセス
+    public function axisSetting()
+    {
+        return $this->hasOneThrough('App\AxisSetting', 'App\Graph');
+    }
 }

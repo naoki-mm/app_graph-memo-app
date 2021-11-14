@@ -13,35 +13,44 @@
     @component('components.graphs.main_item')
 
         @slot('main_content')
-            <div v-if="!graphImage.isFile">
-                <image-upload
-                    v-on:image-upload='graphImage.isFile = $event'
-                    v-on:set-canvas='graphImage.fileName = $event'>
-                </image-upload>
-            </div>
 
-            {{--  画像選択 or 画像ドロップ時にcanvasとグラフ読み取りサイドバーを表示  --}}
-            <div v-if="graphImage.isFile" class="row no-gutters">
+            {{-- フォーム --}}
+            <form ref="graphForm" id="graph_form" method="POST" action="{{ route('graph.store') }}" enctype="multipart/form-data">
+                @csrf
+                <div v-show="!graphImage.isFile">
+                    <image-upload
+                        ref="imageUpload"
+                        v-on:send-file='setFile($event)'
+                        v-on:show-image='showImage()'
+                        v-on:image-upload='graphImage.isFile = $event'
+                        v-on:set-canvas='graphImage.fileName = $event'>
+                    </image-upload>
 
-                @include('sub_views.graphs.plot_create')
+                </div>
 
-                <graph-canvas
-                    ref="graphCanvas"
-                    :graph-image='graphImage.fileName'
-                    :axis-setting-detect='axisSettingDetect'
-                    :show-canvas-event-detect='showCanvasEventDetect'
-                    :axis-value='axisValue'
+                {{--  画像選択 or 画像ドロップ時にcanvasとグラフ読み取りサイドバーを表示  --}}
+                <div v-show="graphImage.isFile" class="row no-gutters">
 
-                    :graph-plot-point='graphPlotPoint'
-                    v-on:graph-plot='graphPlotPoint = $event'
-                    v-on:scroll-text-area='scrollTextArea()'
+                    @include('sub_views.graphs.plot_create')
 
-                    v-on:complete-set-axis-x='axisSettingDetect.isCompleteX = $event'
-                    v-on:complete-set-axis-y='axisSettingDetect.isCompleteY = $event'
-                    >
-                </graph-canvas>
+                    <graph-canvas
+                        ref="graphCanvas"
+                        :graph-image='graphImage.fileName'
+                        :axis-setting-detect='axisSettingDetect'
+                        :show-canvas-event-detect='showCanvasEventDetect'
+                        :axis-value='axisValue'
 
-            </div>
+                        :graph-plot-point='graphPlotPoint'
+                        v-on:graph-plot='graphPlotPoint = $event'
+                        v-on:scroll-text-area='scrollTextArea()'
+
+                        v-on:complete-set-axis-x='axisSettingDetect.isCompleteX = $event'
+                        v-on:complete-set-axis-y='axisSettingDetect.isCompleteY = $event'
+                        >
+                    </graph-canvas>
+
+                </div>
+            </form>
         @endslot
 
     @endcomponent
