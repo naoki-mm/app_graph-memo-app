@@ -7,6 +7,13 @@
                 d-flex align-items-center justify-content-center text-center"
                 style="height: 90vmin">
 
+                <img
+                    id="background-grah-image"
+                    ref="backGroundGraphImage"
+                    :src="graphImage"
+                    class="w-100 h-100"
+                >
+
                 <canvas
                     id="axsis-set-layer"
                     ref="axisSetCanvas"
@@ -22,13 +29,6 @@
                     class="w-100 h-100"
                     v-show="getShowCanvasEventDetect.isPlotCanvas"
                     @click="graphPlot"
-                    >
-                </canvas>
-
-                <canvas
-                    id="background-grah-image-layer"
-                    ref="graphImageCanvas"
-                    class="w-100 h-100"
                     >
                 </canvas>
 
@@ -90,7 +90,6 @@ export default {
     data() {
         return {
             canvas: {
-                graphImageCanvas: null,
                 plotCanvas: null,
                 axisSetCanvas: null,
                 size: {
@@ -98,7 +97,6 @@ export default {
                     drawHeight: null,
                 },
                 context: {
-                    graphImage: null,
                     plot: null,
                     axisSetting: null,
                 },
@@ -146,29 +144,22 @@ export default {
     },
 
     methods: {
-        showCanvasImage() {
-
+        setCanvas() {
             // canvas要素を取得。
-            this.canvas.graphImageCanvas = this.$refs.graphImageCanvas;
             this.canvas.axisSetCanvas = this.$refs.axisSetCanvas;
             this.canvas.plotCanvas = this.$refs.plotCanvas;
 
             // キャンバスの表示サイズを親要素のサイズに設定
-            this.setCanvasDisplaySize(this.canvas.graphImageCanvas);
             this.setCanvasDisplaySize(this.canvas.axisSetCanvas);
             this.setCanvasDisplaySize(this.canvas.plotCanvas);
 
             // キャンバスの描画サイズを変数に代入
-            this.canvas.size.drawWidth = this.canvas.graphImageCanvas.width;
-            this.canvas.size.drawHeight = this.canvas.graphImageCanvas.height;
+            this.canvas.size.drawWidth = this.canvas.axisSetCanvas.width;
+            this.canvas.size.drawHeight = this.canvas.axisSetCanvas.height;
 
             // コンテキストの設定
-            this.canvas.context.graphImage = this.canvas.graphImageCanvas.getContext("2d");
             this.canvas.context.axisSetting = this.canvas.axisSetCanvas.getContext("2d");
             this.canvas.context.plot = this.canvas.plotCanvas.getContext("2d");
-
-            // ベースのキャンバスへの画像表示
-            this.canvas.context.graphImage.drawImage(this.graphImage, 0, 0, this.canvas.size.drawWidth, this.canvas.size.drawHeight);
         },
 
         // キャンバスの表示サイズのを親要素のサイズに設定
@@ -222,7 +213,7 @@ export default {
                 this.$root.axisSettingDetect.isResetClick = false;
 
                 // 軸設定の描画をリセット
-                this.canvas.context.axisSetting.clearRect(0, 0, this.canvas.graphImageCanvas.width, this.canvas.graphImageCanvas.height);
+                this.canvas.context.axisSetting.clearRect(0, 0, this.canvas.axisSetCanvas.width, this.canvas.axisSetCanvas.height);
             }
         },
 
@@ -369,7 +360,7 @@ export default {
         // canvas上の描画データの更新
         updatePlotData() {
             // 描画データのリセット
-            this.canvas.context.plot.clearRect(0, 0, this.canvas.graphImageCanvas.width, this.canvas.graphImageCanvas.height);
+            this.canvas.context.plot.clearRect(0, 0, this.canvas.axisSetCanvas.width, this.canvas.axisSetCanvas.height);
             // 描画データを更新して再描画
             this.showPlotPoint(this.canvas.context.plot, this.getPlotPoint);
         },
@@ -444,17 +435,18 @@ export default {
 .canvas-card {
     padding: 0px;
 }
-canvas{
-    position: absolute;
-}
+
 #plot-layer {
+    position: absolute;
     z-index: 3;
 }
 #axsis-set-layer {
+    position: absolute;
     z-index: 2;
 
 }
-#background-grah-image-layer {
+#background-grah-image {
+    position: absolute;
     z-index: 1;
 }
 </style>

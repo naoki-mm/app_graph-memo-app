@@ -46,10 +46,6 @@ export default {
         }
     },
 
-    mounted() {
-        this.graphImage = new Image();
-    },
-
     methods: {
         // ドロップ領域にファイルあり&マウスホバー時にCSSをアクティブなスタイルに変更する。
         checkDragEnterOver(e){
@@ -97,16 +93,16 @@ export default {
 
                 // 画像ファイルの読み込み完了後にresultにセットされたデータを格納
                 reader.onload = (e) => {
-                    this.graphImage.src = e.target.result;
+                    this.graphImage = e.target.result;
+
+                    // サイドバーを削除してグラフ読み取りUIを表示させるためのイベント
+                    this.$emit("image-upload", this.isImageFile);
+                    // グラフ画像をcanvasへ表示させるためのイベント
+                    this.$emit("set-image", this.graphImage);
+                    this.$emit("call-set-canvas");
                 };
                 // 画像ファイルの読み込み処理
                 reader.readAsDataURL(file);
-
-                // サイドバーを削除してグラフ読み取りUIを表示させるためのイベント
-                this.$emit("image-upload", this.isImageFile);
-                // グラフ画像をcanvasへ表示させるためのイベント
-                this.$emit("set-canvas", this.graphImage);
-                this.$emit("show-image");
             }
         },
     }
@@ -127,8 +123,4 @@ export default {
     background-color: #E3F2FD;
 }
 
-/* .graph-plot {
-    margin-left: calc(((100vw - 100%) / 2) * -1);
-    margin-right: calc(((100vw - 100%) / 2) * -1);
-} */
 </style>
