@@ -22,6 +22,7 @@
                     <i class="fas fa-upload mr-2"></i>ファイルを選択
                 </label>
                 <input
+                    v-if="!dragSelect"
                     id="graph_image"
                     type="file"
                     name="graph_image"
@@ -41,6 +42,7 @@ export default {
             isDragEnterOver: false,
             isImageFile: false,
             graphImage: null,
+            dragSelect: false,
         }
     },
 
@@ -67,9 +69,14 @@ export default {
         dropFile(e) {
             this.isImageFile = true;
             this.isDragEnterOver = false;
+            this.dragSelect = true;
 
             // ドロップした画像オブジェクトの取得
             const files = e.dataTransfer.files;
+
+            // input要素に設定するためのイベント
+            this.$emit("send-file", files);
+
             this.graphImageUpload(files);
         },
 
@@ -83,6 +90,7 @@ export default {
 
         // アップロードしたグラフ画像をImageインスタンスに設定する。
         graphImageUpload (files) {
+
             if(files.length > 0) {
                 const file = files[0];
                 const reader = new FileReader();
@@ -95,9 +103,10 @@ export default {
                 reader.readAsDataURL(file);
 
                 // サイドバーを削除してグラフ読み取りUIを表示させるためのイベント
-                // グラフ画像をcanvasへ表示させるためのイベント
                 this.$emit("image-upload", this.isImageFile);
+                // グラフ画像をcanvasへ表示させるためのイベント
                 this.$emit("set-canvas", this.graphImage);
+                this.$emit("show-image");
             }
         },
     }

@@ -32,6 +32,15 @@
                     >
                 </canvas>
 
+                <input form="graph_form" type="hidden" name="x_min_plot_x" :value="axisSetting.value.axisX.min.x" required>
+                <input form="graph_form" type="hidden" name="x_min_plot_y" :value="axisSetting.value.axisX.min.y" required>
+                <input form="graph_form" type="hidden" name="x_max_plot_x" :value="axisSetting.value.axisX.max.x" required>
+                <input form="graph_form" type="hidden" name="x_max_plot_y" :value="axisSetting.value.axisX.max.y" required>
+                <input form="graph_form" type="hidden" name="y_min_plot_x" :value="axisSetting.value.axisY.min.x" required>
+                <input form="graph_form" type="hidden" name="y_min_plot_y" :value="axisSetting.value.axisY.min.y" required>
+                <input form="graph_form" type="hidden" name="y_max_plot_x" :value="axisSetting.value.axisY.max.x" required>
+                <input form="graph_form" type="hidden" name="y_max_plot_y" :value="axisSetting.value.axisY.max.y" required>
+
             </div>
         </div>
     </div>
@@ -136,33 +145,32 @@ export default {
         },
     },
 
-    mounted() {
-        // canvas要素を取得。
-        this.canvas.graphImageCanvas = this.$refs.graphImageCanvas;
-        this.canvas.axisSetCanvas = this.$refs.axisSetCanvas;
-        this.canvas.plotCanvas = this.$refs.plotCanvas;
+    methods: {
+        showCanvasImage() {
 
-        // キャンバスの表示サイズを親要素のサイズに設定
-        this.setCanvasDisplaySize(this.canvas.graphImageCanvas);
-        this.setCanvasDisplaySize(this.canvas.axisSetCanvas);
-        this.setCanvasDisplaySize(this.canvas.plotCanvas);
+            // canvas要素を取得。
+            this.canvas.graphImageCanvas = this.$refs.graphImageCanvas;
+            this.canvas.axisSetCanvas = this.$refs.axisSetCanvas;
+            this.canvas.plotCanvas = this.$refs.plotCanvas;
 
-        // キャンバスの描画サイズを変数に代入
-        this.canvas.size.drawWidth = this.canvas.graphImageCanvas.width;
-        this.canvas.size.drawHeight = this.canvas.graphImageCanvas.height;
+            // キャンバスの表示サイズを親要素のサイズに設定
+            this.setCanvasDisplaySize(this.canvas.graphImageCanvas);
+            this.setCanvasDisplaySize(this.canvas.axisSetCanvas);
+            this.setCanvasDisplaySize(this.canvas.plotCanvas);
 
-        // 画像取得後に実行する処理
-        this.graphImage.onload = () => {
+            // キャンバスの描画サイズを変数に代入
+            this.canvas.size.drawWidth = this.canvas.graphImageCanvas.width;
+            this.canvas.size.drawHeight = this.canvas.graphImageCanvas.height;
+
+            // コンテキストの設定
             this.canvas.context.graphImage = this.canvas.graphImageCanvas.getContext("2d");
             this.canvas.context.axisSetting = this.canvas.axisSetCanvas.getContext("2d");
             this.canvas.context.plot = this.canvas.plotCanvas.getContext("2d");
 
-            // キャンバスへの画像表示
+            // ベースのキャンバスへの画像表示
             this.canvas.context.graphImage.drawImage(this.graphImage, 0, 0, this.canvas.size.drawWidth, this.canvas.size.drawHeight);
-        }
-},
+        },
 
-    methods: {
         // キャンバスの表示サイズのを親要素のサイズに設定
         setCanvasDisplaySize(canvas) {
             canvas.width  = canvas.parentElement.clientWidth;
