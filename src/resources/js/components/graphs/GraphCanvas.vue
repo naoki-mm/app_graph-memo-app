@@ -33,14 +33,18 @@
                 </canvas>
 
                 <input form="graph_form" type="hidden" name="graph-image-text" :value="getGraphImage" >
-                <input form="graph_form" type="hidden" name="x_min_plot_x" :value="axisSetting.clickPoint.xMin.x" required>
-                <input form="graph_form" type="hidden" name="x_min_plot_y" :value="axisSetting.clickPoint.xMin.y" required>
-                <input form="graph_form" type="hidden" name="x_max_plot_x" :value="axisSetting.clickPoint.xMax.x" required>
-                <input form="graph_form" type="hidden" name="x_max_plot_y" :value="axisSetting.clickPoint.xMax.y" required>
-                <input form="graph_form" type="hidden" name="y_min_plot_x" :value="axisSetting.clickPoint.yMin.x" required>
-                <input form="graph_form" type="hidden" name="y_min_plot_y" :value="axisSetting.clickPoint.yMin.y" required>
-                <input form="graph_form" type="hidden" name="y_max_plot_x" :value="axisSetting.clickPoint.yMax.x" required>
-                <input form="graph_form" type="hidden" name="y_max_plot_y" :value="axisSetting.clickPoint.yMax.y" required>
+                
+                <input form="graph_form" type="hidden" name="x_min_plot_x" :value="axisSetting.value.axisX.min.x" required>
+                <input form="graph_form" type="hidden" name="x_min_plot_y" :value="axisSetting.value.axisX.min.y" required>
+                <input form="graph_form" type="hidden" name="x_max_plot_x" :value="axisSetting.value.axisX.max.x" required>
+                <input form="graph_form" type="hidden" name="x_max_plot_y" :value="axisSetting.value.axisX.max.y" required>
+                <input form="graph_form" type="hidden" name="y_min_plot_x" :value="axisSetting.value.axisY.min.x" required>
+                <input form="graph_form" type="hidden" name="y_min_plot_y" :value="axisSetting.value.axisY.min.y" required>
+                <input form="graph_form" type="hidden" name="y_max_plot_x" :value="axisSetting.value.axisY.max.x" required>
+                <input form="graph_form" type="hidden" name="y_max_plot_y" :value="axisSetting.value.axisY.max.y" required>
+
+                <input form="graph_form" type="hidden" name="width" :value="canvas.size.drawWidth" >
+                <input form="graph_form" type="hidden" name="height" :value="canvas.size.drawHeight" >
 
             </div>
         </div>
@@ -117,16 +121,12 @@ export default {
                     X: 0,
                     Y: 0,
                 },
-                clickPoint: {
-                    xMin: {x: this.oldGraphData['x_min_plot_x'], y: this.oldGraphData['x_min_plot_y']},
-                    xMax: {x: this.oldGraphData['x_max_plot_x'], y: this.oldGraphData['x_max_plot_y']},
-                    yMin: {x: this.oldGraphData['y_min_plot_x'], y: this.oldGraphData['y_min_plot_y']},
-                    yMax: {x: this.oldGraphData['y_max_plot_x'], y: this.oldGraphData['y_max_plot_y']},
-                },
 
                 value: {
-                    axisX: {min: {x:0, y:0}, max: {x:0, y:0}},
-                    axisY: {min: {x:0, y:0}, max: {x:0, y:0}}
+                    axisX: {min: {x: this.oldGraphData['x_min_plot_x'], y: this.oldGraphData['x_min_plot_y']},
+                            max: {x: this.oldGraphData['x_max_plot_x'], y: this.oldGraphData['x_max_plot_y']}},
+                    axisY: {min: {x: this.oldGraphData['y_min_plot_x'], y: this.oldGraphData['y_min_plot_y']},
+                            max: {x: this.oldGraphData['y_max_plot_x'], y: this.oldGraphData['y_max_plot_y']}}
                 },
             },
 
@@ -180,25 +180,41 @@ export default {
     },
 
     methods: {
-        // 軸設定のoldデータがあれば、強制的にクリックイベントを発生させる。
-        clickOldAxisPoint() {
+        // 軸設定のoldデータがあれば、軸設定を行う。
+        setOldAxis() {
             // x軸の軸設定をプロット
-            Object.keys(this.axisSetting.clickPoint).map((oldAxisName) => {
-                if(oldAxisName === 'xMin' || oldAxisName === 'xMax') {
-                    this.$root.axisSettingDetect.isActiveX = true;
-                    this.$root.axisSettingDetect.isActiveY = false;
-                    this.setAxis(null, oldAxisName);
-                }
-                // y軸を軸設定をプロット
-                if(oldAxisName === 'yMin' || oldAxisName === 'yMax') {
-                    this.$root.axisSettingDetect.isActiveX = false;
-                    this.$root.axisSettingDetect.isActiveY = true;
-                    this.setAxis(null, oldAxisName);
-                }
+
+            Object.keys(this.axisSetting.value).forEach((oldAxisName) => {
+                Object.keys(this.axisSetting.value[oldAxisName]).forEach((scale) => {
+                    if(oldAxisName === 'axisX') {
+                        // x軸設定プロットの描画
+                        this.setOldAxisPlot(true, false, oldAxisName, scale);
+                    }
+                    if(oldAxisName === 'axisY') {
+                        // y軸設定プロットの描画
+                        this.setOldAxisPlot(false, true, oldAxisName, scale);
+                    }
+                });
+
             })
                 // タブのアクティブ状態を初期に戻す
                 this.$root.axisSettingDetect.isActiveX = true;
                 this.$root.axisSettingDetect.isActiveY = false;
+        },
+
+        setOldAxisPlot(isActiveX, isActiveY, oldAxisName, scale) {
+            // 軸設定タブの切り替え
+            this.$root.axisSettingDetect.isActiveX = isActiveX;
+            this.$root.axisSettingDetect.isActiveY = isActiveY;
+
+            // oldデータと現在の軸設定時のキャンバス描画サイズの比率を求める（レスポンシブ対応のため）
+            let oldAxisAdjustX = this.canvas.size.drawWidth / this.oldGraphData['width'];
+            let oldAxisAdjustY = this.canvas.size.drawHeight / this.oldGraphData['height'];
+
+            // プロットデータをセット
+            this.plotPoint.onCanvasData.X = this.axisSetting.value[oldAxisName][scale]['x'] * oldAxisAdjustX;
+            this.plotPoint.onCanvasData.Y = this.axisSetting.value[oldAxisName][scale]['y'] * oldAxisAdjustY;
+            this.setAxis(null, true);
         },
 
         // キャンバスをセット
@@ -221,7 +237,7 @@ export default {
 
             // 軸設定のoldデータがあれば、強制的にクリックイベントを発生させる。
             if(Object.keys(this.oldGraphData).length) {
-                this.clickOldAxisPoint();
+                this.setOldAxis();
             }
         },
 
@@ -232,48 +248,38 @@ export default {
         },
 
         // グラフ軸設定
-        setAxis(e, oldAxisName) {
-            console.log(oldAxisName);
+        setAxis(e, isOldAxisSetting) {
             const axisSetPointNumber = 2;
 
             // 各軸の設定時のクリック数を取得
             let clickCount = this.clickCountUp();
             // canvasのクリック数により、処理を変更
             if(clickCount <= axisSetPointNumber) {
-                // クリック座標の取得
-                this.getClickPoint(e, this.canvas.axisSetCanvas, oldAxisName);
-                // クリック座標をレスポンシブ対応に変換
-                this.convertClickPoint(this.canvas.axisSetCanvas,);
+                if(!isOldAxisSetting) {
+                    // クリック座標の取得
+                    this.getClickPoint(e, this.canvas.axisSetCanvas);
+                    // クリック座標をレスポンシブ対応に変換
+                    this.convertClickPoint(this.canvas.axisSetCanvas);
+                }
                 // クリック座標にプロットポインタを描画する。
                 this.showPlotPoint(this.canvas.context.axisSetting);
                 // 軸設定時のプロット設定
                 this.showAxisNavText(this.canvas.context.axisSetting);
                 // プロットした値を各軸のmin,maxのデータを配列に格納
                 if(this.getAxisSettingDetect.isActiveX && clickCount === 1) {
-                    // DB保存用にクリックデータを配列に格納
-                    this.setArrayAxisPlotData('xMin');
                     this.axisSetting.value.axisX.min = {x:this.plotPoint.onCanvasData.X, y:this.plotPoint.onCanvasData.Y};
                 } else if(this.getAxisSettingDetect.isActiveX && clickCount === 2) {
-                    this.setArrayAxisPlotData('xMax');
                     this.axisSetting.value.axisX.max = {x:this.plotPoint.onCanvasData.X, y:this.plotPoint.onCanvasData.Y};
                 }
                 if(this.getAxisSettingDetect.isActiveY && clickCount === 1) {
-                    this.setArrayAxisPlotData('yMin');
                     this.axisSetting.value.axisY.min = {x:this.plotPoint.onCanvasData.X, y:this.plotPoint.onCanvasData.Y};
                 } else if(this.getAxisSettingDetect.isActiveY && clickCount === 2) {
-                    this.setArrayAxisPlotData('yMax');
                     this.axisSetting.value.axisY.max = {x:this.plotPoint.onCanvasData.X, y:this.plotPoint.onCanvasData.Y};
                 }
 
             } else {
                 alert('軸設定を変更する場合は、リセットボタンを押してください。');
             }
-        },
-
-        // 軸設定のプロットデータを配列に格納。
-        setArrayAxisPlotData(axisName) {
-            this.axisSetting.clickPoint[axisName]['x'] = this.canvas.click.x;
-            this.axisSetting.clickPoint[axisName]['y'] = this.canvas.click.y;
         },
 
         // 軸設定のリセット処理
@@ -415,20 +421,13 @@ export default {
         },
 
         // canvas上のクリック座標を取得(レスポンシブのスケール変換あり)
-        getClickPoint(e, canvas, oldAxisName) {
-            if(!oldAxisName) {
-                // canvasの左上角の座標を取得
-                let canvasTopLeftCorner = canvas.getBoundingClientRect();
+        getClickPoint(e, canvas) {
+            // canvasの左上角の座標を取得
+            let canvasTopLeftCorner = canvas.getBoundingClientRect();
 
-                // クリックした座標(画面左上が基準)をcanvasの座標(canvas描画領域の左上が基準)に変換
-                this.canvas.click.x = e.clientX - canvasTopLeftCorner.left;
-                this.canvas.click.y = e.clientY - canvasTopLeftCorner.top;
-            }
-
-            if(oldAxisName) {
-                this.canvas.click.x = this.axisSetting.clickPoint[oldAxisName]['x'];
-                this.canvas.click.y = this.axisSetting.clickPoint[oldAxisName]['y'];
-            }
+            // クリックした座標(画面左上が基準)をcanvasの座標(canvas描画領域の左上が基準)に変換
+            this.canvas.click.x = e.clientX - canvasTopLeftCorner.left;
+            this.canvas.click.y = e.clientY - canvasTopLeftCorner.top;
         },
 
         convertClickPoint(canvas) {
