@@ -19,7 +19,7 @@ const app = new Vue({
         return {
             graphImage: {
                 isFile: false,
-                fileName: null,
+                data: null,
             },
 
             axisSettingDetect: {
@@ -148,8 +148,8 @@ const app = new Vue({
         },
 
         // グラフ画像を表示するメソッドの呼び出し
-        showImage() {
-            setTimeout(this.$refs.graphCanvas.showCanvasImage,50);
+        callSetCanvas() {
+            setTimeout(this.$refs.graphCanvas.setCanvas,50);
         },
     },
 });

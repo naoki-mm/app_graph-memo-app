@@ -7,6 +7,13 @@
                 d-flex align-items-center justify-content-center text-center"
                 style="height: 90vmin">
 
+                <img
+                    id="background-grah-image"
+                    ref="backGroundGraphImage"
+                    :src="getGraphImage"
+                    class="w-100 h-100"
+                >
+
                 <canvas
                     id="axsis-set-layer"
                     ref="axisSetCanvas"
@@ -25,13 +32,8 @@
                     >
                 </canvas>
 
-                <canvas
-                    id="background-grah-image-layer"
-                    ref="graphImageCanvas"
-                    class="w-100 h-100"
-                    >
-                </canvas>
-
+                <input form="graph_form" type="hidden" name="graph-image-text" :value="getGraphImage" >
+                
                 <input form="graph_form" type="hidden" name="x_min_plot_x" :value="axisSetting.value.axisX.min.x" required>
                 <input form="graph_form" type="hidden" name="x_min_plot_y" :value="axisSetting.value.axisX.min.y" required>
                 <input form="graph_form" type="hidden" name="x_max_plot_x" :value="axisSetting.value.axisX.max.x" required>
@@ -40,6 +42,9 @@
                 <input form="graph_form" type="hidden" name="y_min_plot_y" :value="axisSetting.value.axisY.min.y" required>
                 <input form="graph_form" type="hidden" name="y_max_plot_x" :value="axisSetting.value.axisY.max.x" required>
                 <input form="graph_form" type="hidden" name="y_max_plot_y" :value="axisSetting.value.axisY.max.y" required>
+
+                <input form="graph_form" type="hidden" name="width" :value="canvas.size.drawWidth" >
+                <input form="graph_form" type="hidden" name="height" :value="canvas.size.drawHeight" >
 
             </div>
         </div>
@@ -52,6 +57,11 @@ export default {
         graphImage: {
             default: null,
         },
+
+        oldGraphData: {
+            default: null,
+        },
+
         axisSettingDetect: {
             type: Object,
             default: () => ({
@@ -90,7 +100,6 @@ export default {
     data() {
         return {
             canvas: {
-                graphImageCanvas: null,
                 plotCanvas: null,
                 axisSetCanvas: null,
                 size: {
@@ -98,9 +107,12 @@ export default {
                     drawHeight: null,
                 },
                 context: {
-                    graphImage: null,
                     plot: null,
                     axisSetting: null,
+                },
+                click: {
+                    x: 0,
+                    y: 0,
                 },
 
             },
@@ -109,9 +121,12 @@ export default {
                     X: 0,
                     Y: 0,
                 },
+
                 value: {
-                    axisX: {min: {x:0, y:0}, max: {x:0, y:0}},
-                    axisY: {min: {x:0, y:0}, max: {x:0, y:0}}
+                    axisX: {min: {x: this.oldGraphData['x_min_plot_x'], y: this.oldGraphData['x_min_plot_y']},
+                            max: {x: this.oldGraphData['x_max_plot_x'], y: this.oldGraphData['x_max_plot_y']}},
+                    axisY: {min: {x: this.oldGraphData['y_min_plot_x'], y: this.oldGraphData['y_min_plot_y']},
+                            max: {x: this.oldGraphData['y_max_plot_x'], y: this.oldGraphData['y_max_plot_y']}}
                 },
             },
 
@@ -143,32 +158,87 @@ export default {
         getPlotPoint() {
             return this.graphPlotPoint;
         },
+        getGraphImage() {
+            if(this.graphImage) {
+                return this.graphImage;
+            }
+            // 画面更新時にグラフ画像のoldデータがあれば表示
+            else if(Object.keys(this.oldGraphData).length) {
+                return this.oldGraphData['graph-image-text'];
+            } else {
+                return null;
+            }
+        },
+    },
+
+    mounted() {
+        // グラフ画像がoldデータがあれば画像・キャンバスの表示設定を行う。
+        if(Object.keys(this.oldGraphData).length) {
+            this.$root.graphImage.isFile = true;
+            setTimeout(this.setCanvas, 50);
+        }
     },
 
     methods: {
-        showCanvasImage() {
+        // 軸設定のoldデータがあれば、軸設定を行う。
+        setOldAxis() {
+            // x軸の軸設定をプロット
 
+            Object.keys(this.axisSetting.value).forEach((oldAxisName) => {
+                Object.keys(this.axisSetting.value[oldAxisName]).forEach((scale) => {
+                    if(oldAxisName === 'axisX') {
+                        // x軸設定プロットの描画
+                        this.setOldAxisPlot(true, false, oldAxisName, scale);
+                    }
+                    if(oldAxisName === 'axisY') {
+                        // y軸設定プロットの描画
+                        this.setOldAxisPlot(false, true, oldAxisName, scale);
+                    }
+                });
+
+            })
+                // タブのアクティブ状態を初期に戻す
+                this.$root.axisSettingDetect.isActiveX = true;
+                this.$root.axisSettingDetect.isActiveY = false;
+        },
+
+        setOldAxisPlot(isActiveX, isActiveY, oldAxisName, scale) {
+            // 軸設定タブの切り替え
+            this.$root.axisSettingDetect.isActiveX = isActiveX;
+            this.$root.axisSettingDetect.isActiveY = isActiveY;
+
+            // oldデータと現在の軸設定時のキャンバス描画サイズの比率を求める（レスポンシブ対応のため）
+            let oldAxisAdjustX = this.canvas.size.drawWidth / this.oldGraphData['width'];
+            let oldAxisAdjustY = this.canvas.size.drawHeight / this.oldGraphData['height'];
+
+            // プロットデータをセット
+            this.plotPoint.onCanvasData.X = this.axisSetting.value[oldAxisName][scale]['x'] * oldAxisAdjustX;
+            this.plotPoint.onCanvasData.Y = this.axisSetting.value[oldAxisName][scale]['y'] * oldAxisAdjustY;
+            this.setAxis(null, true);
+        },
+
+        // キャンバスをセット
+        setCanvas() {
             // canvas要素を取得。
-            this.canvas.graphImageCanvas = this.$refs.graphImageCanvas;
             this.canvas.axisSetCanvas = this.$refs.axisSetCanvas;
             this.canvas.plotCanvas = this.$refs.plotCanvas;
 
             // キャンバスの表示サイズを親要素のサイズに設定
-            this.setCanvasDisplaySize(this.canvas.graphImageCanvas);
             this.setCanvasDisplaySize(this.canvas.axisSetCanvas);
             this.setCanvasDisplaySize(this.canvas.plotCanvas);
 
             // キャンバスの描画サイズを変数に代入
-            this.canvas.size.drawWidth = this.canvas.graphImageCanvas.width;
-            this.canvas.size.drawHeight = this.canvas.graphImageCanvas.height;
+            this.canvas.size.drawWidth = this.canvas.axisSetCanvas.width;
+            this.canvas.size.drawHeight = this.canvas.axisSetCanvas.height;
 
             // コンテキストの設定
-            this.canvas.context.graphImage = this.canvas.graphImageCanvas.getContext("2d");
             this.canvas.context.axisSetting = this.canvas.axisSetCanvas.getContext("2d");
             this.canvas.context.plot = this.canvas.plotCanvas.getContext("2d");
 
-            // ベースのキャンバスへの画像表示
-            this.canvas.context.graphImage.drawImage(this.graphImage, 0, 0, this.canvas.size.drawWidth, this.canvas.size.drawHeight);
+            // 軸設定のoldデータがあれば、強制的にクリックイベントを発生させる。
+            if(Object.keys(this.oldGraphData).length) {
+                this.setOldAxis();
+            }
         },
 
         // キャンバスの表示サイズのを親要素のサイズに設定
@@ -178,15 +248,19 @@ export default {
         },
 
         // グラフ軸設定
-        setAxis(e) {
+        setAxis(e, isOldAxisSetting) {
             const axisSetPointNumber = 2;
 
             // 各軸の設定時のクリック数を取得
             let clickCount = this.clickCountUp();
             // canvasのクリック数により、処理を変更
             if(clickCount <= axisSetPointNumber) {
-                // クリック座標の取得
-                this.getClickPoint(e, this.canvas.axisSetCanvas);
+                if(!isOldAxisSetting) {
+                    // クリック座標の取得
+                    this.getClickPoint(e, this.canvas.axisSetCanvas);
+                    // クリック座標をレスポンシブ対応に変換
+                    this.convertClickPoint(this.canvas.axisSetCanvas);
+                }
                 // クリック座標にプロットポインタを描画する。
                 this.showPlotPoint(this.canvas.context.axisSetting);
                 // 軸設定時のプロット設定
@@ -222,7 +296,7 @@ export default {
                 this.$root.axisSettingDetect.isResetClick = false;
 
                 // 軸設定の描画をリセット
-                this.canvas.context.axisSetting.clearRect(0, 0, this.canvas.graphImageCanvas.width, this.canvas.graphImageCanvas.height);
+                this.canvas.context.axisSetting.clearRect(0, 0, this.canvas.axisSetCanvas.width, this.canvas.axisSetCanvas.height);
             }
         },
 
@@ -277,6 +351,8 @@ export default {
         graphPlot(e) {
             // クリックの座標取得
             this.getClickPoint(e, this.canvas.plotCanvas);
+            // クリック座標をレスポンシブ対応に変換
+            this.convertClickPoint(this.canvas.plotCanvas);
             // クリック座標にプロットポインタを描画する。
             this.showPlotPoint(this.canvas.context.plot);
             // ユーザーが設定したグラフ画像の軸を基準に、プロットポイントの座標変換を行う。
@@ -346,30 +422,32 @@ export default {
 
         // canvas上のクリック座標を取得(レスポンシブのスケール変換あり)
         getClickPoint(e, canvas) {
-            // クリック時の親要素のサイズを取得して、canvasの表示サイズとして扱う。
-            let displayCanvasWidth = canvas.parentElement.clientWidth;
-            let displayCanvasHeight = canvas.parentElement.clientHeight;
-
             // canvasの左上角の座標を取得
             let canvasTopLeftCorner = canvas.getBoundingClientRect();
 
             // クリックした座標(画面左上が基準)をcanvasの座標(canvas描画領域の左上が基準)に変換
-            let clickX = e.clientX - canvasTopLeftCorner.left;
-            let clickY = e.clientY - canvasTopLeftCorner.top;
+            this.canvas.click.x = e.clientX - canvasTopLeftCorner.left;
+            this.canvas.click.y = e.clientY - canvasTopLeftCorner.top;
+        },
+
+        convertClickPoint(canvas) {
+            // クリック時の親要素のサイズを取得して、canvasの表示サイズとして扱う。
+            let displayCanvasWidth = canvas.parentElement.clientWidth;
+            let displayCanvasHeight = canvas.parentElement.clientHeight;
 
             // canvasの描画領域と表示領域の差異の軸補正係数
             let xAxisAdjust = this.canvas.size.drawWidth / displayCanvasWidth;
             let yAxisAdjust = this.canvas.size.drawHeight / displayCanvasHeight;
 
             // クリックした座標をcanvas内の描画値に換算
-            this.plotPoint.onCanvasData.X = clickX * xAxisAdjust;
-            this.plotPoint.onCanvasData.Y = clickY * yAxisAdjust;
+            this.plotPoint.onCanvasData.X = this.canvas.click.x * xAxisAdjust;
+            this.plotPoint.onCanvasData.Y = this.canvas.click.y * yAxisAdjust;
         },
 
         // canvas上の描画データの更新
         updatePlotData() {
             // 描画データのリセット
-            this.canvas.context.plot.clearRect(0, 0, this.canvas.graphImageCanvas.width, this.canvas.graphImageCanvas.height);
+            this.canvas.context.plot.clearRect(0, 0, this.canvas.axisSetCanvas.width, this.canvas.axisSetCanvas.height);
             // 描画データを更新して再描画
             this.showPlotPoint(this.canvas.context.plot, this.getPlotPoint);
         },
@@ -444,17 +522,18 @@ export default {
 .canvas-card {
     padding: 0px;
 }
-canvas{
-    position: absolute;
-}
+
 #plot-layer {
+    position: absolute;
     z-index: 3;
 }
 #axsis-set-layer {
+    position: absolute;
     z-index: 2;
 
 }
-#background-grah-image-layer {
+#background-grah-image {
+    position: absolute;
     z-index: 1;
 }
 </style>

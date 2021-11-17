@@ -21,9 +21,10 @@
                     <image-upload
                         ref="imageUpload"
                         v-on:send-file='setFile($event)'
-                        v-on:show-image='showImage()'
+                        v-on:call-set-canvas='callSetCanvas()'
                         v-on:image-upload='graphImage.isFile = $event'
-                        v-on:set-canvas='graphImage.fileName = $event'>
+                        v-on:set-image='graphImage.data = $event'
+                        >
                     </image-upload>
 
                 </div>
@@ -35,10 +36,13 @@
 
                     <graph-canvas
                         ref="graphCanvas"
-                        :graph-image='graphImage.fileName'
+                        :graph-image='graphImage.data'
                         :axis-setting-detect='axisSettingDetect'
                         :show-canvas-event-detect='showCanvasEventDetect'
                         :axis-value='axisValue'
+
+                        :old-graph-data="{{ json_encode(Session::getOldInput()) }}"
+
 
                         :graph-plot-point='graphPlotPoint'
                         v-on:graph-plot='graphPlotPoint = $event'
