@@ -32,8 +32,8 @@
                     >
                 </canvas>
 
-                <input form="graph_form" type="hidden" name="graph-image-text" :value="getGraphImage" >
-                
+                <input form="graph_form" type="hidden" name="graph_image_text" :value="getGraphImage" >
+
                 <input form="graph_form" type="hidden" name="x_min_plot_x" :value="axisSetting.value.axisX.min.x" required>
                 <input form="graph_form" type="hidden" name="x_min_plot_y" :value="axisSetting.value.axisX.min.y" required>
                 <input form="graph_form" type="hidden" name="x_max_plot_x" :value="axisSetting.value.axisX.max.x" required>
@@ -164,7 +164,7 @@ export default {
             }
             // 画面更新時にグラフ画像のoldデータがあれば表示
             else if(Object.keys(this.oldGraphData).length) {
-                return this.oldGraphData['graph-image-text'];
+                return this.oldGraphData['graph_image_text'];
             } else {
                 return null;
             }

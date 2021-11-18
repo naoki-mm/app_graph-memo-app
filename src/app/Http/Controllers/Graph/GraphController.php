@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Graph;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\Graph\GraphRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ImageFileSave;
 use App\Graph;
@@ -37,21 +38,23 @@ class GraphController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Graph\GraphRequest $request
+     * @param  \App\Graph $graph
+     * @param  App\Services\ImageFileSave $image_file_save
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Graph $graph, ImageFileSave $image_file_save)
+    public function store(GraphRequest $request, Graph $graph, ImageFileSave $image_file_save)
     {
-        // グラフデータ保存処理
+        // グラフ情報保存処理
         $graph->user_id = Auth::id();
         $graph->title = $request->input('title');
         $graph->memo = $request->input('memo');
 
+        // グラフ画像保存
         if ($request->has('graph_image')) {
             $fileName = $image_file_save->saveImage($request->file('graph_image'), false, 'graph_images');
             $graph->image_name = $fileName;
         }
-
         $graph->save();
 
         // グラフプロットデータ保存処理
