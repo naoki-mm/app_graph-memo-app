@@ -354,6 +354,11 @@ export default {
 
         // グラフプロット時の処理
         graphPlot(e) {
+            // 現在のサイドナビが保存タブであれば、プロットは無効化してアラートを出す。
+            if(this.getShowCanvasEventDetect.isSetSave) {
+                alert('グラフをプロットするには「プロットタブ」を開いてください。');
+                return;
+            }
             // クリックの座標取得
             this.getClickPoint(e, this.canvas.plotCanvas);
             // クリック座標をレスポンシブ対応に変換
