@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ImageFileSave;
 use App\Graph;
-use App\AxisSetting;
+use App\AxisPlot;
+use App\AxisValue;
+use App\Canvas;
 use App\PlotData;
 
 class GraphController extends Controller
@@ -40,6 +42,7 @@ class GraphController extends Controller
      */
     public function store(Request $request, Graph $graph, ImageFileSave $image_file_save)
     {
+        // グラフデータ保存処理
         $graph->user_id = Auth::id();
         $graph->title = $request->input('title');
         $graph->memo = $request->input('memo');
@@ -51,15 +54,25 @@ class GraphController extends Controller
 
         $graph->save();
 
-        $axis_setting = new AxisSetting;
-        $axis_setting->graph_id = $graph->id;
-        $axis_setting->fill($request->all());
-        $axis_setting->save();
-
+        // グラフプロットデータ保存処理
         $plot_data = new PlotData;
         $plot_data->graph_id = $graph->id;
-        $plot_data->fill($request->all());
-        $plot_data->save();
+        $plot_data->fill($request->all())->save();
+
+        // 軸設定プロットデータ保存処理
+        $axis_plot = new AxisPlot;
+        $axis_plot->graph_id = $graph->id;
+        $axis_plot->fill($request->all())->save();
+
+        // 軸設定値の保存処理
+        $axis_value = new AxisValue;
+        $axis_value->graph_id = $graph->id;
+        $axis_value->fill($request->all())->save();
+
+        // canvasデータ保存処理
+        $canvas = new Canvas;
+        $canvas->graph_id = $graph->id;
+        $canvas->fill($request->all())->save();
 
         return redirect('graph');
     }

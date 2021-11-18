@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAxisSettingsTable extends Migration
+class CreateAxisValuesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAxisSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('axis_settings', function (Blueprint $table) {
+        Schema::create('axis_values', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('graph_id');
             $table->foreign('graph_id')->references('id')->on('graphs')->onDelete('cascade');
@@ -22,14 +22,6 @@ class CreateAxisSettingsTable extends Migration
             $table->decimal('x_max_value', 15, 10);
             $table->decimal('y_min_value', 15, 10);
             $table->decimal('y_max_value', 15, 10);
-            $table->decimal('x_min_plot_x', 15, 10);
-            $table->decimal('x_min_plot_y', 15, 10);
-            $table->decimal('x_max_plot_x', 15, 10);
-            $table->decimal('x_max_plot_y', 15, 10);
-            $table->decimal('y_min_plot_x', 15, 10);
-            $table->decimal('y_min_plot_y', 15, 10);
-            $table->decimal('y_max_plot_x', 15, 10);
-            $table->decimal('y_max_plot_y', 15, 10);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -42,6 +34,6 @@ class CreateAxisSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('axis_settings');
+        Schema::dropIfExists('axis_values');
     }
 }
