@@ -45,7 +45,8 @@ const app = new Vue({
 
             graphPlotPoint: {
                 graphData: [],
-            }
+            },
+            sideNavTab: 'tab'
         }
     },
     computed: {
@@ -115,11 +116,30 @@ const app = new Vue({
             this.$refs.graphCanvas.resetDrawingSettingAxis();
         },
 
+        // サイドナビタブのクリックによる画面切り替え
+        switchContent(axis, plot, save) {
+            this.switchShowCanvas(axis, plot, save);
+            this.judgeTabMove();
+        },
+
         // canvasの切り替え
         switchShowCanvas(axis, plot, save) {
             this.showCanvasEventDetect.isAxisSetCanvas = axis;
             this.showCanvasEventDetect.isPlotCanvas = plot;
             this.showCanvasEventDetect.isSetSave = save;
+        },
+
+        // 軸設定の完了有無によるタブ切り替え可否の判定
+        judgeTabMove() {
+            if(this.axisValue.xMin && this.axisValue.xMax && this.axisValue.yMin && this.axisValue.yMax
+                && this.axisSettingDetect.isCompleteX && this.axisSettingDetect.isCompleteY) {
+                this.sideNavTab = 'tab';
+                return;
+            } else {
+                alert('軸設定が未完了です。');
+                this.sideNavTab = '';
+                this.switchShowCanvas(true, false, false);
+            }
         },
 
         // テキストエリアの自動スクロール処理
