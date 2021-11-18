@@ -211,6 +211,11 @@ export default {
             let oldAxisAdjustX = this.canvas.size.drawWidth / this.oldGraphData['width'];
             let oldAxisAdjustY = this.canvas.size.drawHeight / this.oldGraphData['height'];
 
+            // データセットされていない値があれば処理を飛ばす。
+            if(this.axisSetting.value[oldAxisName][scale]['x'] === null || this.axisSetting.value[oldAxisName][scale]['y'] === null) {
+                return;
+            }
+
             // プロットデータをセット
             this.plotPoint.onCanvasData.X = this.axisSetting.value[oldAxisName][scale]['x'] * oldAxisAdjustX;
             this.plotPoint.onCanvasData.Y = this.axisSetting.value[oldAxisName][scale]['y'] * oldAxisAdjustY;

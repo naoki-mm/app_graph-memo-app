@@ -35,12 +35,12 @@
 
                     <input
                         type="number"
+                        step="0.0000001"
                         id="x_min_value"
                         name="x_min_value"
                         class="form-control @error('x_min_value') is-invalid @enderror"
                         autocomplete="off"
                         value="{{ old('x_min_value') }}"
-                        required
                         v-model="axisValue.xMin"
                     >
                     <label class="form-label ml-1 mb-1" for="x_min_value">
@@ -59,12 +59,12 @@
 
                     <input
                         type="number"
+                        step="0.0000001"
                         id="x_max_value"
                         name="x_max_value"
                         class="form-control @error('x_max_value') is-invalid @enderror"
                         autocomplete="off"
                         value="{{ old('x_max_value') }}"
-                        required
                         v-model="axisValue.xMax"
                     >
                     <label class="form-label ml-1 mb-1" for="x_max_value">
@@ -112,12 +112,12 @@
 
                     <input
                         type="number"
+                        step="0.0000001"
                         id="y_min_value"
                         name="y_min_value"
                         class="form-control @error('y_min_value') is-invalid @enderror"
                         autocomplete="off"
                         value="{{ old('y_min_value') }}"
-                        required
                         v-model="axisValue.yMin"
                     >
                     <label class="form-label ml-1 mb-1" for="y_min_value">
@@ -136,12 +136,12 @@
 
                     <input
                         type="number"
+                        step="0.0000001"
                         id="y_max_value"
                         name="y_max_value"
                         class="form-control @error('y_max_value') is-invalid @enderror"
                         autocomplete="off"
                         value="{{ old('y_max_value') }}"
-                        required
                         v-model="axisValue.yMax"
                     >
                     <label class="form-label ml-1 mb-1" for="y_max_value">
@@ -158,7 +158,7 @@
         </li>
     </ol>
 
-    <div class="text-right mt-3 mr-1">
+    <div class="text-right mt-4 mr-1">
         <div class="btn btn-link mr-2 pr-0"
             style="color: #3490dc"
             v-on:click="resetSettingAxis">
