@@ -18,7 +18,7 @@ class CreateGraphsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('title');
-            $table->text('memo');
+            $table->text('memo')->nullable();
             $table->string('image_name');
             $table->timestamps();
             $table->softDeletes();

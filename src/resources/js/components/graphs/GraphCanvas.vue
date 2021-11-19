@@ -182,6 +182,9 @@ export default {
     methods: {
         // プロットデータのoldデータをセット
         setOldPlot(textAreaValue) {
+            if(!textAreaValue) {
+                return;
+            }
             // テキストエリア内の一行を取得
             let textAreaLines = textAreaValue.split(/\n/);
 
