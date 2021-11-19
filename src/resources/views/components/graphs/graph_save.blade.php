@@ -12,7 +12,7 @@
                 class="form-control @error('title') is-invalid @enderror"
                 rows="2"
                 autocomplete="off"
-            ></textarea>
+            >{{ old('title') }}</textarea>
 
             @error('title')
                 <span class="invalid-feedback" role="alert">
@@ -34,7 +34,7 @@
                 class="form-control @error('memo') is-invalid @enderror"
                 rows="7"
                 autocomplete="off"
-            ></textarea>
+            >{{ old('memo') }}</textarea>
 
             @error('memo')
                 <span class="invalid-feedback" role="alert">

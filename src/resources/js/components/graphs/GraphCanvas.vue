@@ -180,6 +180,38 @@ export default {
     },
 
     methods: {
+        // プロットデータのoldデータをセット
+        setOldPlot(textAreaValue) {
+            // テキストエリア内の一行を取得
+            let textAreaLines = textAreaValue.split(/\n/);
+
+            // 初期化
+            let textAreaLineComponents = ''
+            this.graphPlotPoint.graphData = [];
+
+            // テキストエリア内の編集をdataへ反映
+            textAreaLines.forEach((textAreaLine) => {
+                // 行区切りのデータをカンマを境にx, yの配列に変換
+                textAreaLineComponents = textAreaLine.split(',');
+
+                // カンマを削除した場合undefinedとなるため、該当する値を空にする。
+                if(typeof textAreaLineComponents[1] === 'undefined') {
+                    textAreaLineComponents[1] = '';
+                }
+                // x, y両方のデータがない(消去)された場合は、配列データを挿入しない。
+                if(!textAreaLineComponents[0] && !textAreaLineComponents[1]) {
+                    return;
+                } else {
+                    // 更新されたデータで配列データを挿入
+                    this.$root.graphPlotPoint.graphData.push({x: textAreaLineComponents[0], y: textAreaLineComponents[1]});
+                }
+
+            });
+            // canvas上の描画データの更新
+            this.updatePlotData();
+        },
+
+
         // 軸設定のoldデータがあれば、軸設定を行う。
         setOldAxis() {
             // x軸の軸設定をプロット
@@ -243,6 +275,7 @@ export default {
             // 軸設定のoldデータがあれば、強制的にクリックイベントを発生させる。
             if(Object.keys(this.oldGraphData).length) {
                 this.setOldAxis();
+                this.setOldPlot(this.oldGraphData['data']);
             }
         },
 
