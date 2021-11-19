@@ -28,4 +28,12 @@ class ProfileChangeRequest extends FormRequest
             'image_name' => ['file', 'image'],
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'ニックネーム',
+            'image_name' => 'アバター画像',
+        ];
+    }
 }

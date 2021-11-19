@@ -32,8 +32,8 @@
                     >
                 </canvas>
 
-                <input form="graph_form" type="hidden" name="graph-image-text" :value="getGraphImage" >
-                
+                <input form="graph_form" type="hidden" name="graph_image_text" :value="getGraphImage" >
+
                 <input form="graph_form" type="hidden" name="x_min_plot_x" :value="axisSetting.value.axisX.min.x" required>
                 <input form="graph_form" type="hidden" name="x_min_plot_y" :value="axisSetting.value.axisX.min.y" required>
                 <input form="graph_form" type="hidden" name="x_max_plot_x" :value="axisSetting.value.axisX.max.x" required>
@@ -164,7 +164,7 @@ export default {
             }
             // 画面更新時にグラフ画像のoldデータがあれば表示
             else if(Object.keys(this.oldGraphData).length) {
-                return this.oldGraphData['graph-image-text'];
+                return this.oldGraphData['graph_image_text'];
             } else {
                 return null;
             }
@@ -180,6 +180,41 @@ export default {
     },
 
     methods: {
+        // プロットデータのoldデータをセット
+        setOldPlot(textAreaValue) {
+            if(!textAreaValue) {
+                return;
+            }
+            // テキストエリア内の一行を取得
+            let textAreaLines = textAreaValue.split(/\n/);
+
+            // 初期化
+            let textAreaLineComponents = ''
+            this.graphPlotPoint.graphData = [];
+
+            // テキストエリア内の編集をdataへ反映
+            textAreaLines.forEach((textAreaLine) => {
+                // 行区切りのデータをカンマを境にx, yの配列に変換
+                textAreaLineComponents = textAreaLine.split(',');
+
+                // カンマを削除した場合undefinedとなるため、該当する値を空にする。
+                if(typeof textAreaLineComponents[1] === 'undefined') {
+                    textAreaLineComponents[1] = '';
+                }
+                // x, y両方のデータがない(消去)された場合は、配列データを挿入しない。
+                if(!textAreaLineComponents[0] && !textAreaLineComponents[1]) {
+                    return;
+                } else {
+                    // 更新されたデータで配列データを挿入
+                    this.$root.graphPlotPoint.graphData.push({x: textAreaLineComponents[0], y: textAreaLineComponents[1]});
+                }
+
+            });
+            // canvas上の描画データの更新
+            this.updatePlotData();
+        },
+
+
         // 軸設定のoldデータがあれば、軸設定を行う。
         setOldAxis() {
             // x軸の軸設定をプロット
@@ -211,10 +246,23 @@ export default {
             let oldAxisAdjustX = this.canvas.size.drawWidth / this.oldGraphData['width'];
             let oldAxisAdjustY = this.canvas.size.drawHeight / this.oldGraphData['height'];
 
+            // データセットされていない値があれば処理を飛ばす。
+            if(this.axisSetting.value[oldAxisName][scale]['x'] === null || this.axisSetting.value[oldAxisName][scale]['y'] === null) {
+                return;
+            }
+
             // プロットデータをセット
             this.plotPoint.onCanvasData.X = this.axisSetting.value[oldAxisName][scale]['x'] * oldAxisAdjustX;
             this.plotPoint.onCanvasData.Y = this.axisSetting.value[oldAxisName][scale]['y'] * oldAxisAdjustY;
             this.setAxis(null, true);
+        },
+
+        // 軸設定値のoldデータをセット
+        setOldAxisValue(value, data) {
+            value.xMin = data['x_min_value'];
+            value.xMax = data['x_max_value'];
+            value.yMin = data['y_min_value'];
+            value.yMax = data['y_max_value'];
         },
 
         // キャンバスをセット
@@ -238,6 +286,8 @@ export default {
             // 軸設定のoldデータがあれば、強制的にクリックイベントを発生させる。
             if(Object.keys(this.oldGraphData).length) {
                 this.setOldAxis();
+                this.setOldAxisValue(this.$root.axisValue, this.oldGraphData);
+                this.setOldPlot(this.oldGraphData['data']);
             }
         },
 
@@ -349,6 +399,11 @@ export default {
 
         // グラフプロット時の処理
         graphPlot(e) {
+            // 現在のサイドナビが保存タブであれば、プロットは無効化してアラートを出す。
+            if(this.getShowCanvasEventDetect.isSetSave) {
+                alert('グラフをプロットするには「プロットタブ」を開いてください。');
+                return;
+            }
             // クリックの座標取得
             this.getClickPoint(e, this.canvas.plotCanvas);
             // クリック座標をレスポンシブ対応に変換

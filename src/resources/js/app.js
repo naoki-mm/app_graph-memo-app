@@ -6,6 +6,7 @@ require('vue-toasted');
 
 Vue.component('avatar-image-change', require('./components/users/AvatarImageChange.vue').default);
 Vue.component('success-notification', require('./components/common/SuccessNotification.vue').default);
+Vue.component('failure-notification', require('./components/graphs/FailureNotification.vue').default);
 Vue.component('image-upload', require('./components/graphs/ImageUpload.vue').default);
 Vue.component('graph-canvas', require('./components/graphs/GraphCanvas.vue').default);
 Vue.component('side-navbar', require('./components/common/SideNavbar.vue').default);
@@ -37,15 +38,16 @@ const app = new Vue({
             },
 
             axisValue: {
-                xMin: '0',
-                xMax: '20',
-                yMin: '0',
-                yMax: '2',
+                xMin: '',
+                xMax: '',
+                yMin: '',
+                yMax: '',
             },
 
             graphPlotPoint: {
                 graphData: [],
-            }
+            },
+            sideNavTab: 'tab'
         }
     },
     computed: {
@@ -115,11 +117,30 @@ const app = new Vue({
             this.$refs.graphCanvas.resetDrawingSettingAxis();
         },
 
+        // サイドナビタブのクリックによる画面切り替え
+        switchContent(axis, plot, save) {
+            this.switchShowCanvas(axis, plot, save);
+            this.judgeTabMove();
+        },
+
         // canvasの切り替え
         switchShowCanvas(axis, plot, save) {
             this.showCanvasEventDetect.isAxisSetCanvas = axis;
             this.showCanvasEventDetect.isPlotCanvas = plot;
             this.showCanvasEventDetect.isSetSave = save;
+        },
+
+        // 軸設定の完了有無によるタブ切り替え可否の判定
+        judgeTabMove() {
+            if(this.axisValue.xMin && this.axisValue.xMax && this.axisValue.yMin && this.axisValue.yMax
+                && this.axisSettingDetect.isCompleteX && this.axisSettingDetect.isCompleteY) {
+                this.sideNavTab = 'tab';
+                return;
+            } else {
+                alert('軸設定が未完了です。');
+                this.sideNavTab = '';
+                this.switchShowCanvas(true, false, false);
+            }
         },
 
         // テキストエリアの自動スクロール処理

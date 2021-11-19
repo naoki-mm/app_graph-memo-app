@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGraphsTable extends Migration
+class CreateCanvasesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateGraphsTable extends Migration
      */
     public function up()
     {
-        Schema::create('graphs', function (Blueprint $table) {
+        Schema::create('canvases', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('title');
-            $table->text('memo')->nullable();
-            $table->string('image_name');
+            $table->unsignedBigInteger('graph_id');
+            $table->foreign('graph_id')->references('id')->on('graphs')->onDelete('cascade');
+            $table->integer('width');
+            $table->integer('height');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +31,6 @@ class CreateGraphsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('graphs');
+        Schema::dropIfExists('canvases');
     }
 }

@@ -16,9 +16,10 @@ export default {
     },
 
     mounted() {
+        // トースト通知の設定
         const options = {
-            theme: "outline",
-            position: "bottom-right",
+            theme: "bubble",
+            position: "top-center",
             duration : 3000,
             fitToScreen : true,
             action: {
@@ -28,13 +29,11 @@ export default {
                 }
             }
         }
-
+        // トースト通知の表示
         this.$toasted.success(this.notificationMessage, options);
     }
 }
 </script>
 
 <style>
-    /* .toasted-container .toasted {
-    } */
 </style>

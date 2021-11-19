@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Graph;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\Graph\GraphRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ImageFileSave;
 use App\Graph;
-use App\AxisSetting;
+use App\AxisPlot;
+use App\AxisValue;
+use App\Canvas;
 use App\PlotData;
 
 class GraphController extends Controller
@@ -35,33 +38,47 @@ class GraphController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Graph\GraphRequest $request
+     * @param  \App\Graph $graph
+     * @param  App\Services\ImageFileSave $image_file_save
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Graph $graph, ImageFileSave $image_file_save)
+    public function store(GraphRequest $request, Graph $graph, ImageFileSave $image_file_save)
     {
+        // グラフ情報保存処理
         $graph->user_id = Auth::id();
         $graph->title = $request->input('title');
         $graph->memo = $request->input('memo');
 
+        // グラフ画像保存
         if ($request->has('graph_image')) {
             $fileName = $image_file_save->saveImage($request->file('graph_image'), false, 'graph_images');
             $graph->image_name = $fileName;
         }
-
         $graph->save();
 
-        $axis_setting = new AxisSetting;
-        $axis_setting->graph_id = $graph->id;
-        $axis_setting->fill($request->all());
-        $axis_setting->save();
-
+        // グラフプロットデータ保存処理
         $plot_data = new PlotData;
         $plot_data->graph_id = $graph->id;
-        $plot_data->fill($request->all());
-        $plot_data->save();
+        $plot_data->fill($request->all())->save();
 
-        return redirect('graph');
+        // 軸設定プロットデータ保存処理
+        $axis_plot = new AxisPlot;
+        $axis_plot->graph_id = $graph->id;
+        $axis_plot->fill($request->all())->save();
+
+        // 軸設定値の保存処理
+        $axis_value = new AxisValue;
+        $axis_value->graph_id = $graph->id;
+        $axis_value->fill($request->all())->save();
+
+        // canvasデータ保存処理
+        $canvas = new Canvas;
+        $canvas->graph_id = $graph->id;
+        $canvas->fill($request->all())->save();
+
+        return redirect('graph')
+            ->with('status', 'グラフデータを登録しました。');;
     }
 
     /**

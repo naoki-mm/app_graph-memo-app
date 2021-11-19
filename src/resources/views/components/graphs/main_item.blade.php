@@ -3,10 +3,11 @@
         style="margin-top: 58px">
     <div class="container-fluid pt-2">
 
-        @if (session('status'))
-            <success-notification
-                :notification='@json(session('status'))'
-            ></success-notification>
+        {{-- バリデーションエラーの共通通知 --}}
+        @if ($errors->any())
+            <failure-notification
+                :errors='{{ $errors }}'
+            ></failure-notification>
         @endif
 
         {{ $main_content }}

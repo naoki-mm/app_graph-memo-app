@@ -21,8 +21,18 @@ class Graph extends Model
         return $this->hasMany('App\PlotData');
     }
 
-    public function axisSetting()
+    public function axisValue()
     {
-        return $this->hasOne('App\AxisSetting');
+        return $this->hasOne('App\AxisValue');
+    }
+
+    public function axisPlot()
+    {
+        return $this->hasOne('App\AxisPlot');
+    }
+
+    public function canvas()
+    {
+        return $this->hasOne('App\Canvas');
     }
 }

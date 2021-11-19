@@ -17,7 +17,6 @@
                 class="form-control @error('data') is-invalid @enderror"
                 rows="15"
                 autocomplete="off"
-                required
                 v-model="showPlotData"
             ></textarea>
             @error('data')
