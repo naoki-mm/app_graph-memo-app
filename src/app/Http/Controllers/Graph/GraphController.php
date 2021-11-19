@@ -77,7 +77,8 @@ class GraphController extends Controller
         $canvas->graph_id = $graph->id;
         $canvas->fill($request->all())->save();
 
-        return redirect('graph');
+        return redirect('graph')
+            ->with('status', 'グラフデータを登録しました。');;
     }
 
     /**

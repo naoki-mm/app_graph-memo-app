@@ -18,7 +18,7 @@ export default {
     mounted() {
         const options = {
             theme: "outline",
-            position: "bottom-right",
+            position: "top-center",
             duration : 3000,
             fitToScreen : true,
             action: {
