@@ -38,10 +38,10 @@ const app = new Vue({
             },
 
             axisValue: {
-                xMin: '0',
-                xMax: '20',
-                yMin: '0',
-                yMax: '2',
+                xMin: '',
+                xMax: '',
+                yMin: '',
+                yMax: '',
             },
 
             graphPlotPoint: {

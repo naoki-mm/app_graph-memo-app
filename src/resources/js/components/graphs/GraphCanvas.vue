@@ -257,6 +257,14 @@ export default {
             this.setAxis(null, true);
         },
 
+        // 軸設定値のoldデータをセット
+        setOldAxisValue(value, data) {
+            value.xMin = data['x_min_value'];
+            value.xMax = data['x_max_value'];
+            value.yMin = data['y_min_value'];
+            value.yMax = data['y_max_value'];
+        },
+
         // キャンバスをセット
         setCanvas() {
             // canvas要素を取得。
@@ -278,6 +286,7 @@ export default {
             // 軸設定のoldデータがあれば、強制的にクリックイベントを発生させる。
             if(Object.keys(this.oldGraphData).length) {
                 this.setOldAxis();
+                this.setOldAxisValue(this.$root.axisValue, this.oldGraphData);
                 this.setOldPlot(this.oldGraphData['data']);
             }
         },
