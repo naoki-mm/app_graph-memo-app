@@ -83,7 +83,7 @@
 
     <div class="text-right mt-3 mr-1">
         <div class="btn btn-link mr-2 pr-0"
-            style="color: #3490dc"
+            style="color: #3490dc; margin-top: 50px"
             v-on:click="resetSettingAxis">
             <strong>軸設定をリセット</strong>
         </div>
@@ -158,9 +158,9 @@
         </li>
     </ol>
 
-    <div class="text-right mt-4 mr-1">
+    <div class="text-right mr-1">
         <div class="btn btn-link mr-2 pr-0"
-            style="color: #3490dc"
+            style="color: #3490dc; margin-top: 50px"
             v-on:click="resetSettingAxis">
             <strong>軸設定をリセット</strong>
         </div>

@@ -50,6 +50,26 @@ class GraphRequest extends FormRequest
             'width' => ['required', 'integer'],
             'height' => ['required', 'integer'],
         ];
+    }
 
+    public function attributes()
+    {
+        return [
+            'title' => 'グラフタイトル',
+            'memo' => 'メモ',
+            'graph_image' => 'グラフ画像',
+            'data' => 'プロットデータ',
+            'x_min_value' => 'x軸(min)の設定値',
+            'x_max_value' => 'x軸(max)の設定値',
+            'y_min_value' => 'y軸(min)の設定値',
+            'y_max_value' => 'y軸(max)の設定値',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'regex' => '整数・小数部はそれぞれ7桁以下(指数表記はNG)で入力してください。',
+        ];
     }
 }
