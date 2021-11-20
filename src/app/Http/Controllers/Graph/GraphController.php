@@ -22,7 +22,9 @@ class GraphController extends Controller
      */
     public function index()
     {
-        return view('graphs.index');
+        $user_id = Auth::id();
+        $graphs = Graph::where('user_id', $user_id)->latest()->paginate(4);
+        return view('graphs.index', compact('graphs'));
     }
 
     /**

@@ -44,19 +44,6 @@
 
         <!-- 右サイドのリスト -->
         <ul class="navbar-nav ms-auto d-flex flex-row">
-            <!-- 通知機能 -->
-            <li class="nav-item">
-                <a
-                    class="nav-link me-3 me-lg-0"
-                    href="#"
-                    role="button"
-                    >
-                    <i class="fas fa-bell"></i>
-                    <span class="badge rounded-pill badge-notification bg-danger"
-                        >1</span
-                    >
-                </a>
-            </li>
 
             <!-- ユーザー -->
             <li class="nav-item dropdown pl-1">
