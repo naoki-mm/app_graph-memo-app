@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    ホーム
+    新規登録
 @endsection
 
 @section('header')
