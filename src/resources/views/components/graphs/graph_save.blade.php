@@ -6,13 +6,13 @@
                 タイトル<sup class="text-danger ml-1" style="font-size: 60%">(必須)</sup>
             </label>
 
-            <textarea
-                id="title"
-                name="title"
-                class="form-control @error('title') is-invalid @enderror"
-                rows="2"
-                autocomplete="off"
-            >{{ old('title') }}</textarea>
+                <textarea
+                    id="title"
+                    name="title"
+                    class="form-control @error('title') is-invalid @enderror"
+                    rows="2"
+                    autocomplete="off"
+                >{{ old('title', $graph->title ?? '') }}</textarea>
 
             @error('title')
                 <span class="invalid-feedback" role="alert">
@@ -28,13 +28,13 @@
                 メモ
             </label>
 
-            <textarea
-                id="memo"
-                name="memo"
-                class="form-control @error('memo') is-invalid @enderror"
-                rows="7"
-                autocomplete="off"
-            >{{ old('memo') }}</textarea>
+                <textarea
+                    id="memo"
+                    name="memo"
+                    class="form-control @error('memo') is-invalid @enderror"
+                    rows="7"
+                    autocomplete="off"
+                >{{ old('memo', $graph->memo ?? '') }}</textarea>
 
             @error('memo')
                 <span class="invalid-feedback" role="alert">
@@ -44,9 +44,11 @@
             <small class="grey-text">300字以内で入力してください</small>
         </div>
 
-        <button class="mt-4 btn btn-block btn-primary">
-            新規保存する
+        <button v-if="isEditOperation" class="mt-4 btn btn-block btn-primary">
+            データを変更する
         </button>
-
+        <button v-else class="mt-4 btn btn-block btn-primary">
+            データを登録する
+        </button>
     </div>
 </div>

@@ -95,6 +95,26 @@ export default {
                 graphData: '',
             })
         },
+
+        initialGraph: {
+            default: '',
+        },
+
+        initialGraphCanvas: {
+            default: '',
+        },
+
+        initialAxisValue: {
+            default: '',
+        },
+
+        initialAxisPlot: {
+            default: '',
+        },
+
+        initialPlotData: {
+            default: '',
+        },
     },
 
     data() {
@@ -123,10 +143,10 @@ export default {
                 },
 
                 value: {
-                    axisX: {min: {x: this.oldGraphData['x_min_plot_x'], y: this.oldGraphData['x_min_plot_y']},
-                            max: {x: this.oldGraphData['x_max_plot_x'], y: this.oldGraphData['x_max_plot_y']}},
-                    axisY: {min: {x: this.oldGraphData['y_min_plot_x'], y: this.oldGraphData['y_min_plot_y']},
-                            max: {x: this.oldGraphData['y_max_plot_x'], y: this.oldGraphData['y_max_plot_y']}}
+                    axisX: {min: {x:'', y: ''},
+                            max: {x:'', y: ''}},
+                    axisY: {min: {x:'', y: ''},
+                            max: {x:'', y: ''}}
                 },
             },
 
@@ -162,24 +182,128 @@ export default {
             if(this.graphImage) {
                 return this.graphImage;
             }
-            // 画面更新時にグラフ画像のoldデータがあれば表示
             else if(Object.keys(this.oldGraphData).length) {
+                // 画面更新時にグラフ画像のoldデータがあれば表示
                 return this.oldGraphData['graph_image_text'];
+            } else if(Object.keys(this.initialGraph).length) {
+                // 画面更新時にグラフ画像の初期データがあれば表示
+                return '/storage/graph_images/' + this.initialGraph['image_name'];
             } else {
                 return null;
             }
         },
+        getOldAxisPlot() {
+            if(Object.keys(this.oldGraphData).length) {
+                // 画面更新時にグラフ画像のoldデータがあれば表示
+                return this.oldGraphData;
+            } else if(Object.keys(this.initialAxisPlot).length) {
+                // 画面更新時にグラフ画像の初期データがあれば表示
+                return this.initialAxisPlot;
+            } else {
+                return null;
+            }
+        }
     },
 
     mounted() {
         // グラフ画像がoldデータがあれば画像・キャンバスの表示設定を行う。
-        if(Object.keys(this.oldGraphData).length) {
+        if(Object.keys(this.oldGraphData).length || Object.keys(this.initialGraph).length) {
             this.$root.graphImage.isFile = true;
             setTimeout(this.setCanvas, 50);
         }
     },
 
     methods: {
+        // キャンバスをセット
+        setCanvas() {
+            // canvas要素を取得。
+            this.canvas.axisSetCanvas = this.$refs.axisSetCanvas;
+            this.canvas.plotCanvas = this.$refs.plotCanvas;
+
+            // キャンバスの表示サイズを親要素のサイズに設定
+            this.setCanvasDisplaySize(this.canvas.axisSetCanvas);
+            this.setCanvasDisplaySize(this.canvas.plotCanvas);
+
+            // キャンバスの描画サイズを変数に代入
+            this.canvas.size.drawWidth = this.canvas.axisSetCanvas.width;
+            this.canvas.size.drawHeight = this.canvas.axisSetCanvas.height;
+
+            // コンテキストの設定
+            this.canvas.context.axisSetting = this.canvas.axisSetCanvas.getContext("2d");
+            this.canvas.context.plot = this.canvas.plotCanvas.getContext("2d");
+
+            // 軸設定のoldデータがあれば、セットする。
+            if(Object.keys(this.oldGraphData).length) {
+                this.setOldAxisValue(this.$root.axisValue, this.oldGraphData);
+                this.setOldAxisPlotValue(this.oldGraphData);
+                this.setOldAxis(this.oldGraphData);
+                this.setOldPlot(this.oldGraphData['data']);
+
+            } else if(Object.keys(this.initialGraph).length) {
+                this.setOldAxisValue(this.$root.axisValue, this.initialAxisValue);
+                this.setOldAxisPlotValue(this.initialAxisPlot);
+                this.setOldAxis(this.initialGraphCanvas);
+                this.setOldPlot(this.initialPlotData[0]['data']);
+                this.$root.isEditOperation = true;
+            }
+        },
+
+        // 軸設定値のoldデータをセット
+        setOldAxisValue(value, data) {
+            value.xMin = data['x_min_value'];
+            value.xMax = data['x_max_value'];
+            value.yMin = data['y_min_value'];
+            value.yMax = data['y_max_value'];
+        },
+
+        // 軸設定のoldプロットデータをセット
+        setOldAxisPlotValue() {
+            this.axisSetting.value =  {axisX: {min: {x: this.getOldAxisPlot['x_min_plot_x'], y: this.getOldAxisPlot['x_min_plot_y']},
+                                                max: {x: this.getOldAxisPlot['x_max_plot_x'], y: this.getOldAxisPlot['x_max_plot_y']}},
+                                        axisY: {min: {x: this.getOldAxisPlot['y_min_plot_x'], y: this.getOldAxisPlot['y_min_plot_y']},
+                                                max: {x: this.getOldAxisPlot['y_max_plot_x'], y: this.getOldAxisPlot['y_max_plot_y']}}}
+        },
+
+        // 軸設定のoldデータがあれば、軸設定を行う。
+        setOldAxis(oldCanvas) {
+            Object.keys(this.axisSetting.value).forEach((oldAxisName) => {
+                Object.keys(this.axisSetting.value[oldAxisName]).forEach((scale) => {
+                    if(oldAxisName === 'axisX') {
+                        // x軸設定プロットの描画
+                        this.setOldAxisPlot(true, false, oldAxisName, scale, oldCanvas);
+                    }
+                    if(oldAxisName === 'axisY') {
+                        // y軸設定プロットの描画
+                        this.setOldAxisPlot(false, true, oldAxisName, scale, oldCanvas);
+                    }
+                });
+
+            })
+                // タブのアクティブ状態を初期に戻す
+                this.$root.axisSettingDetect.isActiveX = true;
+                this.$root.axisSettingDetect.isActiveY = false;
+        },
+
+        setOldAxisPlot(isActiveX, isActiveY, oldAxisName, scale, oldCanvas) {
+            // 軸設定タブの切り替え
+            this.$root.axisSettingDetect.isActiveX = isActiveX;
+            this.$root.axisSettingDetect.isActiveY = isActiveY;
+
+            // oldデータと現在の軸設定時のキャンバス描画サイズの比率を求める（レスポンシブ対応のため）
+            let oldAxisAdjustX = this.canvas.size.drawWidth / oldCanvas['width'];
+            let oldAxisAdjustY = this.canvas.size.drawHeight / oldCanvas['height'];
+
+            // データセットされていない値があれば処理を飛ばす。
+            if(this.axisSetting.value[oldAxisName][scale]['x'] === null || this.axisSetting.value[oldAxisName][scale]['y'] === null) {
+                return;
+            }
+
+            // プロットデータをセット
+            this.plotPoint.onCanvasData.X = this.axisSetting.value[oldAxisName][scale]['x'] * oldAxisAdjustX;
+            this.plotPoint.onCanvasData.Y = this.axisSetting.value[oldAxisName][scale]['y'] * oldAxisAdjustY;
+            this.setAxis(null, true);
+        },
+
         // プロットデータのoldデータをセット
         setOldPlot(textAreaValue) {
             if(!textAreaValue) {
@@ -212,83 +336,6 @@ export default {
             });
             // canvas上の描画データの更新
             this.updatePlotData();
-        },
-
-
-        // 軸設定のoldデータがあれば、軸設定を行う。
-        setOldAxis() {
-            // x軸の軸設定をプロット
-
-            Object.keys(this.axisSetting.value).forEach((oldAxisName) => {
-                Object.keys(this.axisSetting.value[oldAxisName]).forEach((scale) => {
-                    if(oldAxisName === 'axisX') {
-                        // x軸設定プロットの描画
-                        this.setOldAxisPlot(true, false, oldAxisName, scale);
-                    }
-                    if(oldAxisName === 'axisY') {
-                        // y軸設定プロットの描画
-                        this.setOldAxisPlot(false, true, oldAxisName, scale);
-                    }
-                });
-
-            })
-                // タブのアクティブ状態を初期に戻す
-                this.$root.axisSettingDetect.isActiveX = true;
-                this.$root.axisSettingDetect.isActiveY = false;
-        },
-
-        setOldAxisPlot(isActiveX, isActiveY, oldAxisName, scale) {
-            // 軸設定タブの切り替え
-            this.$root.axisSettingDetect.isActiveX = isActiveX;
-            this.$root.axisSettingDetect.isActiveY = isActiveY;
-
-            // oldデータと現在の軸設定時のキャンバス描画サイズの比率を求める（レスポンシブ対応のため）
-            let oldAxisAdjustX = this.canvas.size.drawWidth / this.oldGraphData['width'];
-            let oldAxisAdjustY = this.canvas.size.drawHeight / this.oldGraphData['height'];
-
-            // データセットされていない値があれば処理を飛ばす。
-            if(this.axisSetting.value[oldAxisName][scale]['x'] === null || this.axisSetting.value[oldAxisName][scale]['y'] === null) {
-                return;
-            }
-
-            // プロットデータをセット
-            this.plotPoint.onCanvasData.X = this.axisSetting.value[oldAxisName][scale]['x'] * oldAxisAdjustX;
-            this.plotPoint.onCanvasData.Y = this.axisSetting.value[oldAxisName][scale]['y'] * oldAxisAdjustY;
-            this.setAxis(null, true);
-        },
-
-        // 軸設定値のoldデータをセット
-        setOldAxisValue(value, data) {
-            value.xMin = data['x_min_value'];
-            value.xMax = data['x_max_value'];
-            value.yMin = data['y_min_value'];
-            value.yMax = data['y_max_value'];
-        },
-
-        // キャンバスをセット
-        setCanvas() {
-            // canvas要素を取得。
-            this.canvas.axisSetCanvas = this.$refs.axisSetCanvas;
-            this.canvas.plotCanvas = this.$refs.plotCanvas;
-
-            // キャンバスの表示サイズを親要素のサイズに設定
-            this.setCanvasDisplaySize(this.canvas.axisSetCanvas);
-            this.setCanvasDisplaySize(this.canvas.plotCanvas);
-
-            // キャンバスの描画サイズを変数に代入
-            this.canvas.size.drawWidth = this.canvas.axisSetCanvas.width;
-            this.canvas.size.drawHeight = this.canvas.axisSetCanvas.height;
-
-            // コンテキストの設定
-            this.canvas.context.axisSetting = this.canvas.axisSetCanvas.getContext("2d");
-            this.canvas.context.plot = this.canvas.plotCanvas.getContext("2d");
-
-            // 軸設定のoldデータがあれば、強制的にクリックイベントを発生させる。
-            if(Object.keys(this.oldGraphData).length) {
-                this.setOldAxis();
-                this.setOldAxisValue(this.$root.axisValue, this.oldGraphData);
-                this.setOldPlot(this.oldGraphData['data']);
-            }
         },
 
         // キャンバスの表示サイズのを親要素のサイズに設定

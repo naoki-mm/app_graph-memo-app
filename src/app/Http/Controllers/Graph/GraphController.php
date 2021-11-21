@@ -84,25 +84,14 @@ class GraphController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Graph $graph
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Graph $graph)
     {
-        //
+        return view('graphs.edit', compact('graph'));
     }
 
     /**

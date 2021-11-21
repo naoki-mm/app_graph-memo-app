@@ -15,7 +15,7 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::namespace('Graph')->group(function () {
-        Route::resource('graph', 'GraphController', ['only' => ['index', 'create', 'store']]);
+        Route::resource('graph', 'GraphController', ['only' => ['index', 'create', 'store', 'edit', 'update']]);
     });
     Route::namespace('User')->group(function () {
         Route::resource('user-profile', 'ProfileChangeController', ['only' => ['edit', 'update']]);

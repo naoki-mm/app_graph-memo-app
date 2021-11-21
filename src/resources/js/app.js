@@ -47,7 +47,8 @@ const app = new Vue({
             graphPlotPoint: {
                 graphData: [],
             },
-            sideNavTab: 'tab'
+            sideNavTab: 'tab',
+            isEditOperation: false,
         }
     },
     computed: {
