@@ -250,10 +250,10 @@ export default {
 
         // 軸設定値のoldデータをセット
         setOldAxisValue(value, data) {
-            value.xMin = data['x_min_value'];
-            value.xMax = data['x_max_value'];
-            value.yMin = data['y_min_value'];
-            value.yMax = data['y_max_value'];
+            value.xMin = Number(data['x_min_value']);
+            value.xMax = Number(data['x_max_value']);
+            value.yMin = Number(data['y_min_value']);
+            value.yMax = Number(data['y_max_value']);
         },
 
         // 軸設定のoldプロットデータをセット
