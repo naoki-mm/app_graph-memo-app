@@ -7,6 +7,13 @@
         @drop.prevent="dropFile"
         :class="{enter_drop_area: isDragEnterOver}"
     >
+        <!-- バリデーションエラーのトースト通知 -->
+        <image-failure-notification
+            v-if="isUploadError"
+            :image-errors='errorMessage'
+            @switch-error-flag='isUploadError = $event'
+        ></image-failure-notification>
+
         <div class="card-body w-100
             d-flex align-items-center justify-content-center text-center"
             style="height: 90vmin">
@@ -22,7 +29,6 @@
                     <i class="fas fa-upload mr-2"></i>ファイルを選択
                 </label>
                 <input
-                    v-if="!dragSelect"
                     id="graph_image"
                     type="file"
                     name="graph_image"
@@ -37,12 +43,19 @@
 
 <script>
 export default {
+    props: {
+        graphImageEndpoint: {
+            type: String,
+        }
+    },
+
     data() {
         return {
             isDragEnterOver: false,
             isImageFile: false,
             graphImage: null,
-            dragSelect: false,
+            isUploadError:false,
+            errorMessage: '',
         }
     },
 
@@ -65,13 +78,9 @@ export default {
         dropFile(e) {
             this.isImageFile = true;
             this.isDragEnterOver = false;
-            this.dragSelect = true;
 
             // ドロップした画像オブジェクトの取得
             const files = e.dataTransfer.files;
-
-            // input要素に設定するためのイベント
-            this.$emit("send-file", files);
 
             this.graphImageUpload(files);
         },
@@ -89,6 +98,21 @@ export default {
 
             if(files.length > 0) {
                 const file = files[0];
+
+                // フォームデータを作成して、fileをセットする。
+                const formData = new FormData()
+                formData.append('graph_image',file)
+
+                //  グラフ画像をHTTPリクエスト
+                axios.post(this.graphImageEndpoint,formData)
+                    .catch(e => {
+                        this.errorMessage = e.response.data.errors;
+                        // 画像フラグをfalseにして、親コンポーネントに反映
+                        this.isImageFile = false;
+                        this.$emit("image-upload", this.isImageFile);
+                        this.isUploadError = true;
+                    });
+
                 const reader = new FileReader();
 
                 // 画像ファイルの読み込み完了後にresultにセットされたデータを格納

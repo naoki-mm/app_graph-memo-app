@@ -40,9 +40,6 @@ export default {
                     case 'data':
                         this.showNotification(options, 'プロットデータの入力に誤りがあります。');
                         break;
-                    case 'graph_image':
-                        this.showNotification(options, '画像データが読み込めません');
-                        break;
                     default:
                         this.showNotification(options, '軸設定に誤りがあります。');
                 }

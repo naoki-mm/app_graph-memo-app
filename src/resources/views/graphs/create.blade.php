@@ -15,21 +15,22 @@
         @slot('main_content')
 
             {{-- フォーム --}}
-            <form ref="graphForm" id="graph_form" method="POST" action="{{ route('graph.store') }}" enctype="multipart/form-data">
-                @csrf
                 <div v-show="!graphImage.isFile">
                     <image-upload
                         ref="imageUpload"
-                        v-on:send-file='setFile($event)'
                         v-on:call-set-canvas='callSetCanvas()'
                         v-on:image-upload='graphImage.isFile = $event'
                         v-on:set-image='graphImage.data = $event'
+                        graph-image-endpoint="{{ route('graph.image.save') }}"
                         >
                     </image-upload>
 
                 </div>
 
                 {{--  画像選択 or 画像ドロップ時にcanvasとグラフ読み取りサイドバーを表示  --}}
+            <form ref="graphForm" id="graph_form" method="POST" action="{{ route('graph.store') }}" enctype="multipart/form-data">
+                @csrf
+
                 <div v-show="graphImage.isFile" class="row no-gutters">
 
                     @include('sub_views.graphs.plot_create')
