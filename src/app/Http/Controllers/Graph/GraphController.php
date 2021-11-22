@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Graph\GraphRequest;
 use Illuminate\Support\Facades\Auth;
-use App\Services\ImageFileSave;
 use App\Graph;
 use App\AxisPlot;
 use App\AxisValue;
@@ -45,18 +44,16 @@ class GraphController extends Controller
      * @param  App\Services\ImageFileSave $image_file_save
      * @return \Illuminate\Http\Response
      */
-    public function store(GraphRequest $request, Graph $graph, ImageFileSave $image_file_save)
+    public function store(GraphRequest $request, Graph $graph)
     {
         // グラフ情報保存処理
         $graph->user_id = Auth::id();
         $graph->title = $request->input('title');
         $graph->memo = $request->input('memo');
 
-        // グラフ画像保存
-        if ($request->has('graph_image')) {
-            $fileName = $image_file_save->saveImage($request->file('graph_image'), false, 'graph_images');
-            $graph->image_name = $fileName;
-        }
+        // session取得後に削除
+        $graph_image_name = $request->session()->pull('graph_image_name');
+        $graph->image_name = $graph_image_name;
         $graph->save();
 
         // グラフプロットデータ保存処理

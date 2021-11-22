@@ -26,7 +26,6 @@ class GraphRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:50'],
             'memo' => ['nullable', 'string', 'max:300'],
-            'graph_image' => ['required', 'file', 'image'],
 
             'graph_image_text' => ['required'],
 
@@ -57,7 +56,6 @@ class GraphRequest extends FormRequest
         return [
             'title' => 'グラフタイトル',
             'memo' => 'メモ',
-            'graph_image' => 'グラフ画像',
             'data' => 'プロットデータ',
             'x_min_value' => 'x軸(min)の設定値',
             'x_max_value' => 'x軸(max)の設定値',
