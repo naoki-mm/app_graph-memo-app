@@ -28,6 +28,11 @@
 <body>
     <div id="app">
         @yield('header')
+        @if (session('status'))
+            <success-notification
+                :notification='@json(session('status'))'
+            ></success-notification>
+        @endif
         @yield('content')
         @yield('footer')
     </div>
