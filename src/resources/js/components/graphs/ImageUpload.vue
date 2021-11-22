@@ -7,6 +7,12 @@
         @drop.prevent="dropFile"
         :class="{enter_drop_area: isDragEnterOver}"
     >
+        <!-- バリデーションエラーのトースト通知 -->
+        <image-failure-notification
+            v-if="isUploadError"
+            :image-errors='errorMessage'
+            @switch-error-flag='isUploadError = $event'
+        ></image-failure-notification>
 
         <div class="card-body w-100
             d-flex align-items-center justify-content-center text-center"
@@ -48,6 +54,7 @@ export default {
             isDragEnterOver: false,
             isImageFile: false,
             graphImage: null,
+            isUploadError:false,
             errorMessage: '',
         }
     },
@@ -103,7 +110,7 @@ export default {
                         // 画像フラグをfalseにして、親コンポーネントに反映
                         this.isImageFile = false;
                         this.$emit("image-upload", this.isImageFile);
-
+                        this.isUploadError = true;
                     });
 
                 const reader = new FileReader();
