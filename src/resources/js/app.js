@@ -133,7 +133,7 @@ const app = new Vue({
 
         // 軸設定の完了有無によるタブ切り替え可否の判定
         judgeTabMove() {
-            if(this.axisValue.xMin && this.axisValue.xMax && this.axisValue.yMin && this.axisValue.yMax
+            if(this.axisValue.xMin !== '' && this.axisValue.xMax !== '' && this.axisValue.yMin !== '' && this.axisValue.yMax !== '' 
                 && this.axisSettingDetect.isCompleteX && this.axisSettingDetect.isCompleteY) {
                 this.sideNavTab = 'tab';
                 return;

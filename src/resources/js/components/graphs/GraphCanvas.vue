@@ -258,10 +258,11 @@ export default {
 
         // 軸設定のoldプロットデータをセット
         setOldAxisPlotValue() {
-            this.axisSetting.value =  {axisX: {min: {x: this.getOldAxisPlot['x_min_plot_x'], y: this.getOldAxisPlot['x_min_plot_y']},
-                                                max: {x: this.getOldAxisPlot['x_max_plot_x'], y: this.getOldAxisPlot['x_max_plot_y']}},
-                                        axisY: {min: {x: this.getOldAxisPlot['y_min_plot_x'], y: this.getOldAxisPlot['y_min_plot_y']},
-                                                max: {x: this.getOldAxisPlot['y_max_plot_x'], y: this.getOldAxisPlot['y_max_plot_y']}}}
+            let value = this.getOldAxisPlot;
+            this.axisSetting.value =  {axisX: {min: {x: Number(value['x_min_plot_x']), y: Number(value['x_min_plot_y'])},
+                                                max: {x: Number(value['x_max_plot_x']), y: Number(value['x_max_plot_y'])}},
+                                        axisY: {min: {x: Number(value['y_min_plot_x']), y: Number(value['y_min_plot_y'])},
+                                                max: {x: Number(value['y_max_plot_x']), y: Number(value['y_max_plot_y'])}}}
         },
 
         // 軸設定のoldデータがあれば、軸設定を行う。

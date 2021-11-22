@@ -18,14 +18,14 @@ class CreateAxisPlotsTable extends Migration
             $table->unsignedBigInteger('graph_id');
             $table->foreign('graph_id')->references('id')->on('graphs')->onDelete('cascade');
             // 総桁15の小数点以下10桁
-            $table->decimal('x_min_plot_x', 15, 10);
-            $table->decimal('x_min_plot_y', 15, 10);
-            $table->decimal('x_max_plot_x', 15, 10);
-            $table->decimal('x_max_plot_y', 15, 10);
-            $table->decimal('y_min_plot_x', 15, 10);
-            $table->decimal('y_min_plot_y', 15, 10);
-            $table->decimal('y_max_plot_x', 15, 10);
-            $table->decimal('y_max_plot_y', 15, 10);
+            $table->decimal('x_min_plot_x');
+            $table->decimal('x_min_plot_y');
+            $table->decimal('x_max_plot_x');
+            $table->decimal('x_max_plot_y');
+            $table->decimal('y_min_plot_x');
+            $table->decimal('y_min_plot_y');
+            $table->decimal('y_max_plot_x');
+            $table->decimal('y_max_plot_y');
             $table->timestamps();
             $table->softDeletes();
         });

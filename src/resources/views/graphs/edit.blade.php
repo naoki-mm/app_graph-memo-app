@@ -15,19 +15,9 @@
         @slot('main_content')
 
             {{-- フォーム --}}
-            <form ref="graphForm" id="graph_form" method="POST" action="{{ route('graph.store') }}" enctype="multipart/form-data">
+            <form ref="graphForm" id="graph_form" method="POST" action="{{ route('graph.update', $graph->id) }}" enctype="multipart/form-data">
                 @csrf
-                <div v-show="!graphImage.isFile">
-                    <image-upload
-                        ref="imageUpload"
-                        v-on:send-file='setFile($event)'
-                        v-on:call-set-canvas='callSetCanvas()'
-                        v-on:image-upload='graphImage.isFile = $event'
-                        v-on:set-image='graphImage.data = $event'
-                        >
-                    </image-upload>
-
-                </div>
+                @method('PATCH')
 
                 {{--  画像選択 or 画像ドロップ時にcanvasとグラフ読み取りサイドバーを表示  --}}
                 <div v-show="graphImage.isFile" class="row no-gutters">
