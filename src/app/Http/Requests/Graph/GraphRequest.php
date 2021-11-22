@@ -26,7 +26,7 @@ class GraphRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:50'],
             'memo' => ['nullable', 'string', 'max:300'],
-            'graph_image' => ['required', 'file', 'image'],
+            // 'graph_image' => ['required', 'file', 'image'],
 
             'graph_image_text' => ['required'],
 

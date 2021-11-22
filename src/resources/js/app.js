@@ -1,5 +1,4 @@
-// CDNで読み込んだJQueryと重複するためコメントアウト。
-// require('./bootstrap');
+require('./bootstrap');
 
 window.Vue = require('vue');
 require('vue-toasted');
@@ -148,24 +147,6 @@ const app = new Vue({
             let plotTextArea = this.$refs.plotTextArea;
             let plotTextAreaHeight = plotTextArea.scrollHeight;
             plotTextArea.scrollTo(0, plotTextAreaHeight);
-        },
-
-        // input要素を作成し、ファイル送信の準備をする
-        setFile(sendFile) {
-
-            // input要素を作成
-            const input_data = document.createElement('input');
-
-            // input要素の属性を設定
-            input_data.type = 'file';
-            input_data.name = 'graph_image';
-            input_data.files = sendFile;
-            input_data.accept = 'image/png,image/jpeg,image/gif';
-            input_data.className = 'd-none';
-
-            // formにinputを追加
-            let graphForm = this.$refs.graphForm;
-            graphForm.appendChild(input_data);
         },
 
         // グラフ画像を表示するメソッドの呼び出し
