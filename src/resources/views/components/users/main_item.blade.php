@@ -9,12 +9,6 @@
                     {{ $page_title }}
                 </div>
 
-                @if (session('status'))
-                    <success-notification
-                        :notification='@json(session('status'))'
-                    ></success-notification>
-                @endif
-
                 {{-- フォーム --}}
                 {{ $form }}
 

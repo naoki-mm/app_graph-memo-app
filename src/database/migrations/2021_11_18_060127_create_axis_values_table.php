@@ -18,10 +18,10 @@ class CreateAxisValuesTable extends Migration
             $table->unsignedBigInteger('graph_id');
             $table->foreign('graph_id')->references('id')->on('graphs')->onDelete('cascade');
             // 総桁15の小数点以下10桁
-            $table->decimal('x_min_value', 15, 10);
-            $table->decimal('x_max_value', 15, 10);
-            $table->decimal('y_min_value', 15, 10);
-            $table->decimal('y_max_value', 15, 10);
+            $table->decimal('x_min_value');
+            $table->decimal('x_max_value');
+            $table->decimal('y_min_value');
+            $table->decimal('y_max_value');
             $table->timestamps();
             $table->softDeletes();
         });

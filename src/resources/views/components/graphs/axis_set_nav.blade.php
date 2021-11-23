@@ -25,7 +25,7 @@
             <p class="mb-1">
                 </p>軸の値を下記に入力してください。
                 <i class="fas fa-check-circle"
-                    :class="[axisValue.xMin && axisValue.xMax ? 'green-text': 'grey-text']"
+                    :class="[axisValue.xMin !== '' && axisValue.xMax !== '' ? 'green-text': 'grey-text']"
                 ></i>
             </p>
             {{-- 数値の入力フォーム --}}
@@ -100,7 +100,7 @@
         <li class="mt-3">
             <p class="mb-1">軸の値を下記に入力してください。
                 <i class="fas fa-check-circle"
-                    :class="[axisValue.yMin && axisValue.yMax ? 'green-text': 'grey-text']"
+                    :class="[axisValue.yMin !== '' && axisValue.yMax !== '' ? 'green-text': 'grey-text']"
                 ></i>
             </p>
             {{-- 数値の入力フォーム --}}

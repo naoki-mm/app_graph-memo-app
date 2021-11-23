@@ -5,11 +5,6 @@
 @endsection
 
 @section('header')
-    @if (session('status'))
-        <success-notification
-            :notification='@json(session('status'))'
-        ></success-notification>
-    @endif
     @include('sub_views.graphs.header')
 @endsection
 
@@ -29,9 +24,9 @@
                     src="{{ asset('storage/graph_images/'.$graph->image_name) }}"
                     alt="Card image cap"
                     style="aspect-ratio: 1 / 0.7; width: 100%;">
-                <a href="#!">
+                <a href="{{ route("graph.edit", $graph->id) }}">
                     <div class="mask flex-center rgba-blue-slight">
-                        <h3 class="font-weight-bold">編   集</h3>
+                        <h3 class="font-weight-bold">詳  細</h3>
                     </div>
                 </a>
 

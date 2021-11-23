@@ -14,6 +14,12 @@ use App\PlotData;
 
 class GraphController extends Controller
 {
+    public function __construct()
+    {
+        // "edit"と"update"メソッドにおいて, Policyクラスにて定義した認可機能を適用
+        $this->authorizeResource(Graph::class, 'graph');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -81,37 +87,48 @@ class GraphController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Graph $graph
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Graph $graph)
     {
-        //
+        return view('graphs.edit', compact('graph'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\Graph\GraphRequest $request
+     * @param  \App\Graph $graph
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GraphRequest $request, Graph $graph)
     {
-        //
+        // グラフ情報保存処理
+        $graph->title = $request->input('title');
+        $graph->memo = $request->input('memo');
+        $graph->save();
+
+        // グラフプロットデータ保存処理
+        $graph_plot_data = PlotData::where('graph_id', $graph->id)->first();
+        $graph_plot_data->fill($request->all())->save();
+
+        // 軸設定プロットデータ保存処理
+        $graph_axis_plot = AxisPlot::where('graph_id', $graph->id)->first();
+        $graph_axis_plot->fill($request->all())->save();
+
+        // 軸設定値の保存処理
+        $graph_axis_value = AxisValue::where('graph_id', $graph->id)->first();
+        $graph_axis_value->fill($request->all())->save();
+
+        // canvasデータ保存処理
+        $graph_canvas = Canvas::where('graph_id', $graph->id)->first();
+        $graph_canvas->fill($request->all())->save();
+
+        return redirect()->route('graph.edit', [$graph->id])
+        ->with('status', 'グラフデータを変更しました。');
     }
 
     /**
