@@ -365,19 +365,26 @@ export default {
                 this.showAxisNavText(this.canvas.context.axisSetting);
                 // プロットした値を各軸のmin,maxのデータを配列に格納
                 if(this.getAxisSettingDetect.isActiveX && clickCount === 1) {
-                    this.axisSetting.value.axisX.min = {x:this.plotPoint.onCanvasData.X, y:this.plotPoint.onCanvasData.Y};
+                    this.axisSetting.value.axisX.min = {x:this.axisPlotFloor(this.plotPoint.onCanvasData.X), y:this.axisPlotFloor(this.plotPoint.onCanvasData.Y)};
                 } else if(this.getAxisSettingDetect.isActiveX && clickCount === 2) {
-                    this.axisSetting.value.axisX.max = {x:this.plotPoint.onCanvasData.X, y:this.plotPoint.onCanvasData.Y};
+                    this.axisSetting.value.axisX.max = {x:this.axisPlotFloor(this.plotPoint.onCanvasData.X), y:this.axisPlotFloor(this.plotPoint.onCanvasData.Y)};
                 }
                 if(this.getAxisSettingDetect.isActiveY && clickCount === 1) {
-                    this.axisSetting.value.axisY.min = {x:this.plotPoint.onCanvasData.X, y:this.plotPoint.onCanvasData.Y};
+                    this.axisSetting.value.axisY.min = {x:this.axisPlotFloor(this.plotPoint.onCanvasData.X), y:this.axisPlotFloor(this.plotPoint.onCanvasData.Y)};
                 } else if(this.getAxisSettingDetect.isActiveY && clickCount === 2) {
-                    this.axisSetting.value.axisY.max = {x:this.plotPoint.onCanvasData.X, y:this.plotPoint.onCanvasData.Y};
+                    this.axisSetting.value.axisY.max = {x:this.axisPlotFloor(this.plotPoint.onCanvasData.X), y:this.axisPlotFloor(this.plotPoint.onCanvasData.Y)};
                 }
 
             } else {
                 alert('軸設定を変更する場合は、リセットボタンを押してください。');
             }
+        },
+
+        // 軸設定プロットの桁数調整 (IEEE 754(浮動小数点数演算標準)のずれ補正)
+        axisPlotFloor(value) {
+            const baseMathNumber = 10;
+            let resultValue = Math.floor(value * baseMathNumber) / baseMathNumber;
+            return resultValue
         },
 
         // 軸設定のリセット処理
