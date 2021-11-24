@@ -58,7 +58,7 @@
                     {{-- アバター画像がDBに保存されていれば、その画像を表示。 --}}
                     @if (!empty(auth()->user()->image_name))
                         <img src="/storage/avatar_images/{{ auth()->user()->image_name }}"
-                            class="rounded-circle mr-2 ml-3"
+                            class="rounded-circle mr-2 ml-3 bg-white"
                             style="object-fit: cover; width: 27px; height: 27px;"
                         >
                     {{-- アバター画像がDBに保存されていなければ、初期画像を表示。 --}}
