@@ -77,7 +77,7 @@
 
                             {{-- ログインボタン --}}
                             <div class="form-group">
-                                <button type="submit" class="btn btn-block btn-primary">
+                                <button type="submit" class="btn btn-block btn-custom">
                                     ログイン
                                 </button>
                             </div>

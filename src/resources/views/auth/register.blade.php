@@ -104,7 +104,7 @@
 
                             {{-- 登録ボタン --}}
                             <div class="form-group">
-                                <button type="submit" class="btn btn-block btn-primary">
+                                <button type="submit" class="btn btn-block btn-custom">
                                     アカウント作成
                                 </button>
                             </div>

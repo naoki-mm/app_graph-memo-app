@@ -66,7 +66,7 @@
 
                 {{-- 変更ボタン --}}
                 <div class="form-group mt-5">
-                    <button type="submit" class="btn btn-block btn-primary">
+                    <button type="submit" class="btn btn-block btn-custom">
                         変更する
                     </button>
                 </div>

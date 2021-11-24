@@ -2,7 +2,7 @@
 <nav
     id="main-navbar"
     {{-- navbar-expand-lgを削除 --}}
-    class="navbar navbar-light bg-white fixed-top"
+    class="navbar navbar-light fixed-top"
     :class="{'navbar-expand-lg': !graphImage.isFile}"
     >
     <!-- コンテナ -->
@@ -19,7 +19,7 @@
 
         <!-- ハンバーガーボタン -->
         <button
-            class="navbar-toggler mr-auto mt-2"
+            class="navbar-toggler mr-auto mt-2 text-white"
             type="button"
             data-toggle="collapse"
             data-target="#sidebarMenu"
@@ -31,13 +31,13 @@
         </button>
 
         <!-- 検索フォーム -->
-        <form class="d-none d-md-flex input-group w-auto my-auto">
+        <form class="d-none d-md-flex input-group w-auto mx-auto">
             <input
                 autocomplete="off"
                 type="search"
                 class="form-control rounded"
                 placeholder='Search...'
-                style="min-width: 225px"
+                style="min-width: 250px"
                 />
             <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
         </form>
@@ -48,7 +48,7 @@
             <!-- ユーザー -->
             <li class="nav-item dropdown pl-1">
                 <a
-                    class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
+                    class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center text-white"
                     id="navbarDropdownMenuLink"
                     role="button"
                     data-toggle="dropdown"
@@ -58,18 +58,18 @@
                     {{-- アバター画像がDBに保存されていれば、その画像を表示。 --}}
                     @if (!empty(auth()->user()->image_name))
                         <img src="/storage/avatar_images/{{ auth()->user()->image_name }}"
-                            class="rounded-circle mr-1"
-                            style="object-fit: cover; width: 24px; height: 24px;"
+                            class="rounded-circle mr-2 ml-3"
+                            style="object-fit: cover; width: 27px; height: 27px;"
                         >
                     {{-- アバター画像がDBに保存されていなければ、初期画像を表示。 --}}
                     @else
                         <img src="/images/avatar-default.svg"
-                            class="rounded-circle mr-1"
-                            style="object-fit: cover; width: 24px; height: 24px;"
+                            class="rounded-circle mr-2 ml-3"
+                            style="object-fit: cover; width: 27px; height: 27px;"
                         >
                     @endif
 
-                    <span>
+                    <span class="user-name d-none d-sm-inline">
                         {{ auth()->user()->name }}
                     </span>
                 </a>

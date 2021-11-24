@@ -1,12 +1,12 @@
 <div class="mt-4">
     <div class="mb-3 btn rounded-pill btn-block"
-        :class="{'btn-primary': axisSettingDetect.isActiveX}"
+        :class="{'btn-custom': axisSettingDetect.isActiveX}"
         v-on:click="axisSettingDetect.isActiveX = true; axisSettingDetect.isActiveY = false">
         横(x)軸を設定する
     </div>
 
     <div class="btn rounded-pill btn-block"
-        :class="{'btn-primary': axisSettingDetect.isActiveY}"
+        :class="{'btn-custom': axisSettingDetect.isActiveY}"
         v-on:click="axisSettingDetect.isActiveY = true; axisSettingDetect.isActiveX = false">
         縦(y)軸を設定する
     </div>
@@ -80,8 +80,8 @@
     </ol>
 
     <div class="text-right mt-3 mr-1">
-        <div class="btn btn-link mr-2 pr-0"
-            style="color: #3490dc; margin-top: 60px"
+        <div class="btn btn-link mr-2 pr-0 axis-reset-link"
+            style="margin-top: 60px"
             v-on:click="resetSettingAxis">
             <strong>軸設定をリセット</strong>
         </div>
@@ -155,8 +155,8 @@
     </ol>
 
     <div class="text-right mr-1">
-        <div class="btn btn-link mr-2 pr-0"
-            style="color: #3490dc; margin-top: 60px"
+        <div class="btn btn-link mr-2 pr-0 axis-reset-link"
+            style="margin-top: 60px"
             v-on:click="resetSettingAxis">
             <strong>軸設定をリセット</strong>
         </div>

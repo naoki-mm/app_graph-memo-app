@@ -3,7 +3,7 @@
         <!-- サイドバー -->
         <nav
             id="sidebarMenu"
-            class="collapse navbar-collapse bg-white"
+            class="collapse navbar-collapse"
             :class="{'d-lg-block': !isImage, sidebar: !isImage, 'none-sidebar': isImage}"
         >
             <!-- サイドに固定 -->

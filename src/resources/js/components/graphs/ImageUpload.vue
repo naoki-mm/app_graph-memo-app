@@ -25,7 +25,7 @@
                     <p class="h2 drag-drop-info">ここにファイルをドロップ</p>
                     <p class="h4 my-5">または</p>
                 </div>
-                <label for="graph_image" class="btn btn-success btn-success btn-block" style="font-size: 1.4rem">
+                <label for="graph_image" class="btn btn-custom btn-block" style="font-size: 1.4rem">
                     <i class="fas fa-upload mr-2"></i>ファイルを選択
                 </label>
                 <input
@@ -143,7 +143,7 @@ export default {
 /* ドロップエリアがアクティブになった時の設定 */
 .enter_drop_area {
     border: dashed 3px #42A5F5;
-    color: #42A5F5;
+    color: #4F81B9;
     background-color: #E3F2FD;
 }
 
