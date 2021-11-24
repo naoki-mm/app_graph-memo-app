@@ -44,10 +44,10 @@
             <small class="grey-text">300字以内で入力してください</small>
         </div>
 
-        <button v-if="isEditOperation" class="mt-4 btn btn-block btn-primary">
+        <button v-if="isEditOperation" class="mt-4 btn btn-block btn-custom">
             データを変更する
         </button>
-        <button v-else class="mt-4 btn btn-block btn-primary">
+        <button v-else class="mt-4 btn btn-block btn-custom">
             データを登録する
         </button>
     </div>

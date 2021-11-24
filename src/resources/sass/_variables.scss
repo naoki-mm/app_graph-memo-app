@@ -1,5 +1,6 @@
 // Body
 $body-bg: #f8fafc;
+$body-color : #495057;
 
 // Typography
 $font-family-sans-serif: 'Nunito', sans-serif;
@@ -17,3 +18,22 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+$primary: #4F81B9;
+
+#main-navbar, .user-name {
+    background-color: $primary;
+
+}
+
+.user-name {
+    color: white;
+}
+
+.axis-reset-link {
+    color: $primary;
+}
+
+#sidebarMenu, btn{
+    background-color: white;
+}

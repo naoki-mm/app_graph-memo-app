@@ -3,7 +3,7 @@
         <div class="card-body graph-sidebar-card w-100">
             <ul class="nav nav-tabs nav-pills graph-nav-pills" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="axis-tab" data-toggle="tab"
+                    <a class="nav-link active passiveContent" id="axis-tab" data-toggle="tab"
                         href="#axis" role="tab" aria-controls="axis" aria-selected="true"
                         v-on:click="switchContent(true, false, false)"
                         >
@@ -11,7 +11,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="plot-tab" :data-toggle="sideNavTab"
+                    <a class="nav-link passiveContent" id="plot-tab" :data-toggle="sideNavTab"
                         href="#plot" role="tab" aria-controls="plot" aria-selected="false"
                         v-on:click="switchContent(false, true, false)"
                         >
@@ -19,7 +19,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="save-tab" :data-toggle="sideNavTab"
+                    <a class="nav-link passiveContent" id="save-tab" :data-toggle="sideNavTab"
                         href="#save" role="tab" aria-controls="save" aria-selected="false"
                         v-on:click="switchContent(false, true, true)"
                         >

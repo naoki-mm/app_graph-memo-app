@@ -1,46 +1,84 @@
 @media (min-width: 991.98px) {
-  .main-layout {
+    .main-layout {
     padding-left: 240px; /* サイドバーを考慮 */
-  }
+    }
 }
 
 /* グラフサイドバーの調整 */
 @media (max-width: 991.98px) {
-  .graph-sidebar-card {
+    .graph-sidebar-card {
     height: 50vmin;
-  }
+    }
 }
 
 /* グラフサイドバーの調整 */
 @media (min-width: 991.98px) {
-  .graph-sidebar-card{
+    .graph-sidebar-card{
     height: 90vmin;
-  }
+    }
 }
 
+/* 軸設定タブのアクティブ時のリンク書式 */
 .graph-nav-pills .nav-link.active, .graph-nav-pills .show > .nav-link {
-  color: #3490dc;
-  font-weight: bold;
-  border: transparent;
-  background-color: transparent;
-  border-bottom: 0.3rem solid #3490dc;
-  border-radius: 0.01rem;
-  height: 86%;
+    color: #548ac7;
+    font-weight: bold;
+    border: transparent;
+    background-color: transparent;
+    border-bottom: 0.3rem solid rgb(84, 138, 199, 0.9);
+    border-radius: 0.01rem;
+    height: 86%;
 }
 
+/* 軸設定タブの非アクティブ時のリンク書式 */
+.passiveContent {
+    color: rgba(141, 139, 139, 0.7);
+    font-weight: bold;
+}
+
+/* 軸設定タブ */
 #axis-tab, #plot-tab, #save-tab {
-  padding: 8px 0px;
-  margin: 0px 10px
+    padding: 8px 0px;
+    margin: 0px 10px
 }
 
 /* input要素のスピンボタン削除 (Chrome, Safari) */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* input要素のスピンボタン削除 (FireFox, IE) */
 input[type="number"] {
-  -moz-appearance:textfield;
+    -moz-appearance:textfield;
+}
+
+/* ボタンの書式 (通常時) */
+.btn-custom,
+.btn-custom.disabled, .btn-custom:disabled {
+    color: #fff;
+    background-color: #4F81B9;
+    border-color: #4F81B9;
+}
+
+/* ボタンの書式(focusされた時の枠線の色) */
+.btn-custom:focus, .btn-custom.focus,
+.btn-custom:not(:disabled):not(.disabled):active:focus, .btn-custom:not(:disabled):not(.disabled).active:focus,
+.show > .btn-custom.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(123, 185, 255, 0.87);
+}
+
+/* ボタンの書式 (hover時（マウスカーソルを重ねた時）の色（通常より濃いor暗めの色を指定)） */
+.btn-custom:hover {
+    color: #fff;
+    background-color: #2f73c0;
+    border-color: #2f73c0;
+}
+
+/* ボタンの書式 (active時の色（hover時と同等かさらに濃いor暗めの色を指定)） */
+.btn-custom:not(:disabled):not(.disabled):active, .btn-custom:not(:disabled):not(.disabled).active,
+.show > .btn-custom.dropdown-toggle {
+    color: #fff;
+    background-color: #1c4e86;
+    border-color: #1c4e86;
 }
