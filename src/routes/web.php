@@ -17,6 +17,7 @@ Route::middleware(['auth'])->group(function () {
     Route::namespace('Graph')->group(function () {
         Route::resource('graph', 'GraphController', ['expect' => ['show']]);
         Route::post('graph-image-save', 'GraphImageSaveController')->name('graph.image.save');
+        Route::put('favorite-update/{graph}', 'FavoriteUpdateController')->name('favorite.update');
     });
     Route::namespace('User')->group(function () {
         Route::resource('user-profile', 'ProfileChangeController', ['only' => ['edit', 'update']]);

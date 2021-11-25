@@ -41,6 +41,14 @@
                 <!--Text-->
                 <p class="card-text">{{ $graph->memo }}</p>
 
+                <div class="card-text">
+                    <graph-favorite
+                        :initial-is-favorite = '@json($graph->favorite)'
+                        favorite-update-endpoint="{{ route('favorite.update',  $graph->id) }}"
+                    >
+                    </graph-favorite>
+                </div>
+
             </div>
             <!-- Card footer -->
             <div class="ml-4 pt-3">
