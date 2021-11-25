@@ -42,13 +42,20 @@
                 <p class="card-text">{{ $graph->memo }}</p>
 
             </div>
-            <!-- Card footer -->
+
             <div class="ml-4 pt-3">
-                <ul class="list-unstyled list-inline font-small">
-                    <li class="list-inline-item"><i class="far fa-star pr-1"></i></li>
-                    <li class="list-inline-item pr-2">{{ $graph->created_at->format('Y/m/d') }}</li>
+                <ul class="list-unstyled list-inline">
+                    <li class="list-inline-item">
+                        <graph-favorite
+                            :initial-is-favorite = '@json($graph->favorite)'
+                            favorite-update-endpoint="{{ route('favorite.update',  $graph->id) }}"
+                        >
+                        </graph-favorite>
+                    </li>
+                    <li class="list-inline-item pr-2"></li>
                 </ul>
             </div>
+            {{ $graph->created_at->format('Y/m/d') }}
         </div>
     </div>
     @endforeach

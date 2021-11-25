@@ -14,6 +14,7 @@ class Graph extends Model
         'title',
         'memo',
         'image_name',
+        'favorite'
     ];
 
     public function plotData()

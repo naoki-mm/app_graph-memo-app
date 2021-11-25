@@ -9,6 +9,7 @@ Vue.component('failure-notification', require('./components/graphs/FailureNotifi
 Vue.component('image-failure-notification', require('./components/graphs/imageFailureNotification.vue').default);
 Vue.component('image-upload', require('./components/graphs/ImageUpload.vue').default);
 Vue.component('graph-canvas', require('./components/graphs/GraphCanvas.vue').default);
+Vue.component('graph-favorite', require('./components/graphs/GraphFavorite.vue').default);
 Vue.component('side-navbar', require('./components/common/SideNavbar.vue').default);
 
 // vue-toastedの読み込み
@@ -133,7 +134,7 @@ const app = new Vue({
 
         // 軸設定の完了有無によるタブ切り替え可否の判定
         judgeTabMove() {
-            if(this.axisValue.xMin !== '' && this.axisValue.xMax !== '' && this.axisValue.yMin !== '' && this.axisValue.yMax !== '' 
+            if(this.axisValue.xMin !== '' && this.axisValue.xMax !== '' && this.axisValue.yMin !== '' && this.axisValue.yMax !== ''
                 && this.axisSettingDetect.isCompleteX && this.axisSettingDetect.isCompleteY) {
                 this.sideNavTab = 'tab';
                 return;
