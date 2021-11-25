@@ -43,16 +43,30 @@
 
             </div>
 
-            <div class="ml-4 pt-3">
+            <div class="ml-4 pt-3 text-center">
                 <ul class="list-unstyled list-inline">
+
+                    {{-- お気に入りボタン --}}
                     <li class="list-inline-item">
                         <graph-favorite
                             :initial-is-favorite = '@json($graph->favorite)'
-                            favorite-update-endpoint="{{ route('favorite.update',  $graph->id) }}"
+                            favorite-update-endpoint="{{ route('favorite.update', $graph->id) }}"
                         >
                         </graph-favorite>
                     </li>
-                    <li class="list-inline-item pr-2"></li>
+
+                    {{-- 削除ボタン --}}
+                    <li class="list-inline-item ml-5">
+                        <button form="delete-button" type="submit" class="btn m-0 p-1 shadow-none">
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                    </li>
+
+                    <!--削除用のフォーム -->
+                    <form id="delete-button" method="POST" action="{{ route('graph.destroy', $graph->id) }}">
+                        @method('DELETE')
+                        @csrf
+                    </form>
                 </ul>
             </div>
             {{ $graph->created_at->format('Y/m/d') }}

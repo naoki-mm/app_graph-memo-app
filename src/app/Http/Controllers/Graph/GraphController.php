@@ -83,7 +83,7 @@ class GraphController extends Controller
         $canvas->fill($request->all())->save();
 
         return redirect('graph')
-            ->with('status', 'グラフデータを登録しました。');;
+            ->with('status', 'グラフデータを登録しました。');
     }
 
     /**
@@ -134,11 +134,13 @@ class GraphController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Graph $graph
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Graph $graph)
     {
-        //
+        $graph->delete();
+        return redirect('graph')
+            ->with('status', 'グラフデータを削除しました。');
     }
 }
