@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Graph;
 use App\Http\Controllers\Controller;
 use App\Graph;
 
-class TrashRestoreController extends Controller
+class TrashDestroyController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -16,9 +16,9 @@ class TrashRestoreController extends Controller
     public function __invoke($id)
     {
         $graph = Graph::onlyTrashed()
-                ->findOrFail($id);
-        $graph->restore();
+            ->findOrFail($id);
+        $graph->forceDelete();
         return redirect()->route('trash.index')
-            ->with('status', 'グラフデータを復元しました。');
+            ->with('status', 'グラフデータを完全に削除しました。');
     }
 }

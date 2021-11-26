@@ -23,7 +23,9 @@ Route::middleware(['auth'])->group(function () {
         // ゴミ箱の中身を表示
         Route::get('trash-index', 'TrashIndexController')->name('trash.index');
         // ゴミ箱のデータを復元
-        Route::put('trash-restore/{graph}', 'TrashRestoreController')->name('trash.restore');
+        Route::put('trash-restore/{id}', 'TrashRestoreController')->name('trash.restore');
+        // ゴミ箱のデータを完全削除
+        Route::delete('trash-destroy/{id}', 'TrashDestroyController')->name('trash.destroy');
 
     });
     Route::namespace('User')->group(function () {

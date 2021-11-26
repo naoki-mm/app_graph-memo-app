@@ -38,7 +38,37 @@
             </div>
 
             <div class="ml-4 pt-3 text-center">
+                <ul class="list-unstyled list-inline">
 
+                    {{-- 復元ボタン --}}
+                    <li class="list-inline-item">
+                        <button form="restore-button" type="submit" class="btn m-0 p-1 shadow-none">
+                            <i class="fas fa-trash-restore fa-lg"></i>
+                        </button>
+                    </li>
+
+                    {{-- 完全削除ボタン --}}
+                    <li class="list-inline-item ml-5">
+                        <button form="delete-button" type="submit" class="btn m-0 p-1 shadow-none">
+                            <span class="fa-stack">
+                                <i class="fas fa-trash fa-stack-1x fa-lg"></i>
+                                <i class="fas fa-times fa-stack-1x fa-xs text-white"></i>
+                            </span>
+                        </button>
+                    </li>
+
+                    <!--復元用のフォーム -->
+                    <form id="restore-button" method="POST" action="{{ route('trash.restore', $graph->id) }}">
+                        @method('PUT')
+                        @csrf
+                    </form>
+
+                    <!--完全削除用のフォーム -->
+                    <form id="delete-button" method="POST" action="{{ route('trash.destroy', $graph->id) }}">
+                        @method('DELETE')
+                        @csrf
+                    </form>
+                </ul>
             </div>
             {{ $graph->created_at->format('Y/m/d') }}
         </div>
