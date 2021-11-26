@@ -18,6 +18,7 @@ class TrashRestoreController extends Controller
         $graph = Graph::onlyTrashed()
                 ->findOrFail($id);
         $graph->restore();
+        $graph->favorite = 0;
         return redirect()->route('trash.index')
             ->with('status', 'グラフデータを復元しました。');
     }
