@@ -11,6 +11,7 @@ use App\AxisPlot;
 use App\AxisValue;
 use App\Canvas;
 use App\PlotData;
+use App\Tag;
 
 class GraphController extends Controller
 {
@@ -81,6 +82,12 @@ class GraphController extends Controller
         $canvas = new Canvas;
         $canvas->graph_id = $graph->id;
         $canvas->fill($request->all())->save();
+
+        // タグデータの保存(DBに存在しなければ)とグラフデータとの紐付け
+        $request->tags->each(function ($tagName) use ($graph) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $graph->tags()->attach($tag);
+        });
 
         return redirect('graph')
             ->with('status', 'グラフデータを登録しました。');

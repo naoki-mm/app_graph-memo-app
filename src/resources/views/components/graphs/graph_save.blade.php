@@ -44,6 +44,15 @@
             <small class="grey-text">300字以内で入力してください</small>
         </div>
 
+        <div class="form-group">
+            <graph-tags-input></graph-tags-input>
+            @if ($errors->has('tags'))
+                <span class="text-danger">
+                    <small><strong>{{ $errors->first('tags') }}</strong></small>
+                </span>
+            @endif
+        </div>
+
         <button v-if="isEditOperation" class="mt-4 btn btn-block btn-custom">
             データを変更する
         </button>

@@ -48,6 +48,8 @@ class GraphRequest extends FormRequest
 
             'width' => ['required', 'integer'],
             'height' => ['required', 'integer'],
+
+            'tags' => 'json|regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u',
         ];
     }
 
@@ -61,6 +63,7 @@ class GraphRequest extends FormRequest
             'x_max_value' => 'x軸(max)の設定値',
             'y_min_value' => 'y軸(min)の設定値',
             'y_max_value' => 'y軸(max)の設定値',
+            'tags' => 'タグ'
         ];
     }
 
@@ -68,6 +71,16 @@ class GraphRequest extends FormRequest
     {
         return [
             'regex' => '整数・小数部はそれぞれ7桁以下(指数表記はNG)で入力してください。',
+            'tags.regex' => ':attribute にスペースとスラッシュ(/)は含めないでください。'
         ];
+    }
+
+    public function passedValidation()
+    {
+        $this->tags = collect(json_decode($this->tags))
+            ->slice(0, 5)
+            ->map(function ($requestTag) {
+                return $requestTag->text;
+            });
     }
 }
