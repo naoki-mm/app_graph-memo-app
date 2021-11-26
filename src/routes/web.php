@@ -16,8 +16,17 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::namespace('Graph')->group(function () {
         Route::resource('graph', 'GraphController', ['expect' => ['show']]);
+        // 画像の一時保持
         Route::post('graph-image-save', 'GraphImageSaveController')->name('graph.image.save');
+        // お気に入りフラグの変更
         Route::put('favorite-update/{graph}', 'FavoriteUpdateController')->name('favorite.update');
+        // ゴミ箱の中身を表示
+        Route::get('trash-index', 'TrashIndexController')->name('trash.index');
+        // ゴミ箱のデータを復元
+        Route::put('trash-restore/{id}', 'TrashRestoreController')->name('trash.restore');
+        // ゴミ箱のデータを完全削除
+        Route::delete('trash-destroy/{id}', 'TrashDestroyController')->name('trash.destroy');
+
     });
     Route::namespace('User')->group(function () {
         Route::resource('user-profile', 'ProfileChangeController', ['only' => ['edit', 'update']]);

@@ -28,7 +28,7 @@
         </a>
 
         <a
-        href="#"
+        href="{{ route('trash.index') }}"
         class="list-group-item list-group-item-action py-2 ripple"
         ><i class="fas fa-trash fa-fw me-3 mr-2"></i><span>ゴミ箱</span></a
         >

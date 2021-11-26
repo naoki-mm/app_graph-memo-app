@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    ホーム
+    ゴミ箱
 @endsection
 
 @section('header')
@@ -24,12 +24,6 @@
                     src="{{ asset('storage/graph_images/'.$graph->image_name) }}"
                     alt="Card image cap"
                     style="aspect-ratio: 1 / 0.7; width: 100%;">
-                <a href="{{ route("graph.edit", $graph->id) }}">
-                    <div class="mask flex-center rgba-blue-slight">
-                        <h3 class="font-weight-bold">詳  細</h3>
-                    </div>
-                </a>
-
             </div>
 
             <!--Card content-->
@@ -46,24 +40,31 @@
             <div class="ml-4 pt-3 text-center">
                 <ul class="list-unstyled list-inline">
 
-                    {{-- お気に入りボタン --}}
+                    {{-- 復元ボタン --}}
                     <li class="list-inline-item">
-                        <graph-favorite
-                            :initial-is-favorite = '@json($graph->favorite)'
-                            favorite-update-endpoint="{{ route('favorite.update', $graph->id) }}"
-                        >
-                        </graph-favorite>
-                    </li>
-
-                    {{-- 削除ボタン --}}
-                    <li class="list-inline-item ml-5">
-                        <button form="delete-button" type="submit" class="btn m-0 p-1 shadow-none">
-                            <i class="far fa-trash-alt"></i>
+                        <button form="restore-button" type="submit" class="btn m-0 p-1 shadow-none">
+                            <i class="fas fa-trash-restore fa-lg"></i>
                         </button>
                     </li>
 
-                    <!--削除用のフォーム -->
-                    <form id="delete-button" method="POST" action="{{ route('graph.destroy', $graph->id) }}">
+                    {{-- 完全削除ボタン --}}
+                    <li class="list-inline-item ml-5">
+                        <button form="delete-button" type="submit" class="btn m-0 p-1 shadow-none">
+                            <span class="fa-stack">
+                                <i class="fas fa-trash fa-stack-1x fa-lg"></i>
+                                <i class="fas fa-times fa-stack-1x fa-xs text-white"></i>
+                            </span>
+                        </button>
+                    </li>
+
+                    <!--復元用のフォーム -->
+                    <form id="restore-button" method="POST" action="{{ route('trash.restore', $graph->id) }}">
+                        @method('PUT')
+                        @csrf
+                    </form>
+
+                    <!--完全削除用のフォーム -->
+                    <form id="delete-button" method="POST" action="{{ route('trash.destroy', $graph->id) }}">
                         @method('DELETE')
                         @csrf
                     </form>
