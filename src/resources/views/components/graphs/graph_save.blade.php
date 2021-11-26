@@ -45,7 +45,10 @@
         </div>
 
         <div class="form-group">
-            <graph-tags-input></graph-tags-input>
+            <graph-tags-input
+                :initial-tags='@json($tags ?? [])'>
+            </graph-tags-input>
+
             @if ($errors->has('tags'))
                 <span class="text-danger">
                     <small><strong>{{ $errors->first('tags') }}</strong></small>

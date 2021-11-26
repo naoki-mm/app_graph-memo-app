@@ -101,7 +101,10 @@ class GraphController extends Controller
      */
     public function edit(Graph $graph)
     {
-        return view('graphs.edit', compact('graph'));
+        $tags = $graph->tags->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+        return view('graphs.edit', compact('graph', 'tags'));
     }
 
     /**
@@ -133,6 +136,13 @@ class GraphController extends Controller
         // canvasデータ保存処理
         $graph_canvas = Canvas::where('graph_id', $graph->id)->first();
         $graph_canvas->fill($request->all())->save();
+
+        // タグ更新処理
+        $graph->tags()->detach();
+        $request->tags->each(function ($tagName) use ($graph) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $graph->tags()->attach($tag);
+        });
 
         return redirect()->route('graph.edit', [$graph->id])
         ->with('status', 'グラフデータを変更しました。');
