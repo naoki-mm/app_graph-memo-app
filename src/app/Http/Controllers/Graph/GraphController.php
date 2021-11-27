@@ -40,7 +40,14 @@ class GraphController extends Controller
      */
     public function create()
     {
-        return view('graphs.create');
+        // タグ情報を取得
+        $allTags = Tag::all()->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
+        return view('graphs.create', [
+            'allTags' => $allTags,
+        ]);
     }
 
     /**
@@ -104,7 +111,13 @@ class GraphController extends Controller
         $tags = $graph->tags->map(function ($tag) {
             return ['text' => $tag->name];
         });
-        return view('graphs.edit', compact('graph', 'tags'));
+
+        // タグ情報を取得
+        $allTags = Tag::all()->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
+        return view('graphs.edit', compact('graph', 'tags', 'allTags'));
     }
 
     /**
