@@ -10,6 +10,7 @@ Vue.component('image-failure-notification', require('./components/graphs/imageFa
 Vue.component('image-upload', require('./components/graphs/ImageUpload.vue').default);
 Vue.component('graph-canvas', require('./components/graphs/GraphCanvas.vue').default);
 Vue.component('graph-favorite', require('./components/graphs/GraphFavorite.vue').default);
+Vue.component('graph-tags-input', require('./components/graphs/GraphTagsInput.vue').default);
 Vue.component('side-navbar', require('./components/common/SideNavbar.vue').default);
 
 // vue-toastedの読み込み

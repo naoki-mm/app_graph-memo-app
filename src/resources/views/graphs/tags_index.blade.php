@@ -15,7 +15,7 @@
         @slot('main_content')
 
 <div class="row row-cols-1 row-cols-md-2 no-gutters">
-    @foreach ($graphs as $graph)
+    @foreach ($tag->graphs as $graph)
     <div class="col mb-2 px-1">
         <div class="card h-100">
             <!--Card image-->
@@ -89,11 +89,12 @@
         </div>
     </div>
     @endforeach
+
 </div>
 
-<div class="d-flex align-items-center justify-content-center">
-    {{ $graphs->links() }}
-</div>
+{{-- <div class="d-flex align-items-center justify-content-center">
+    {{ $tag->graphs->links() }}
+</div> --}}
 
         @endslot
 

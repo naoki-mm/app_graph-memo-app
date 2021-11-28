@@ -36,4 +36,9 @@ class Graph extends Model
     {
         return $this->hasOne('App\Canvas');
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag')->withTimestamps();
+    }
 }

@@ -42,28 +42,4 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Graph');
     }
-
-    // UserモデルからPlotDataモデルへの直接アクセス
-    public function plotData()
-    {
-        return $this->hasManyThrough('App\PlotData', 'App\Graph');
-    }
-
-    // UserモデルからAxisSettingモデルへの直接アクセス
-    public function axisValue()
-    {
-        return $this->hasOneThrough('App\AxisValue', 'App\Graph');
-    }
-
-    // UserモデルからAxisSettingモデルへの直接アクセス
-    public function axisPlot()
-    {
-        return $this->hasOneThrough('App\AxisPlot', 'App\Graph');
-    }
-
-    // UserモデルからAxisSettingモデルへの直接アクセス
-    public function canvas()
-    {
-        return $this->hasOneThrough('App\Canvas', 'App\Graph');
-    }
 }

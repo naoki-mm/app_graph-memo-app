@@ -11,6 +11,7 @@ use App\AxisPlot;
 use App\AxisValue;
 use App\Canvas;
 use App\PlotData;
+use App\Tag;
 
 class GraphController extends Controller
 {
@@ -29,7 +30,13 @@ class GraphController extends Controller
     {
         $user_id = Auth::id();
         $graphs = Graph::where('user_id', $user_id)->latest()->paginate(4);
-        return view('graphs.index', compact('graphs'));
+
+        // タグ情報を取得
+        $all_tags = Tag::all()->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
+        return view('graphs.index', compact('graphs', 'all_tags'));
     }
 
     /**
@@ -39,7 +46,14 @@ class GraphController extends Controller
      */
     public function create()
     {
-        return view('graphs.create');
+        // タグ情報を取得
+        $allTags = Tag::all()->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
+        return view('graphs.create', [
+            'allTags' => $allTags,
+        ]);
     }
 
     /**
@@ -82,6 +96,12 @@ class GraphController extends Controller
         $canvas->graph_id = $graph->id;
         $canvas->fill($request->all())->save();
 
+        // タグデータの保存(DBに存在しなければ)とグラフデータとの紐付け
+        $request->tags->each(function ($tagName) use ($graph) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $graph->tags()->attach($tag);
+        });
+
         return redirect('graph')
             ->with('status', 'グラフデータを登録しました。');
     }
@@ -94,7 +114,16 @@ class GraphController extends Controller
      */
     public function edit(Graph $graph)
     {
-        return view('graphs.edit', compact('graph'));
+        $tags = $graph->tags->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
+        // タグ情報を取得
+        $allTags = Tag::all()->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
+        return view('graphs.edit', compact('graph', 'tags', 'allTags'));
     }
 
     /**
@@ -126,6 +155,13 @@ class GraphController extends Controller
         // canvasデータ保存処理
         $graph_canvas = Canvas::where('graph_id', $graph->id)->first();
         $graph_canvas->fill($request->all())->save();
+
+        // タグ更新処理
+        $graph->tags()->detach();
+        $request->tags->each(function ($tagName) use ($graph) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $graph->tags()->attach($tag);
+        });
 
         return redirect()->route('graph.edit', [$graph->id])
         ->with('status', 'グラフデータを変更しました。');

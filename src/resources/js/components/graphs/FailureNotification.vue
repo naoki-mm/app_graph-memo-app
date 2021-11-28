@@ -33,8 +33,11 @@ export default {
         if(this.errors) {
             // Laravelから返ってきたエラーメッセージを検索し、条件に合うメッセージを表示
             Object.keys(this.errors).forEach((error) => {
+                                    console.log(error);
                 switch(error) {
-                    case 'title' || 'memo':
+                    case 'title':
+                    case 'memo':
+                    case 'tags':
                         this.showNotification(options, '保存タブの入力に誤りがあります。');
                         break;
                     case 'data':
