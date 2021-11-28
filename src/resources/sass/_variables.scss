@@ -21,8 +21,12 @@ $cyan: #6cb2eb;
 
 $primary: #4F81B9;
 
-#main-navbar, .user-name {
-    background-color: $primary;
+#main-navbar {
+    background:
+        linear-gradient(90deg, #7e898fdc 0%, #636C75 100%),
+        radial-gradient(at top, rgba(255, 255, 255, 0.452) 0%, rgba(2, 2, 2, 0.55) 93%),
+        radial-gradient(at top, rgba(255, 255, 255, 0.397) 0%, rgba(3, 3, 3, 0.08) 63%);
+    background-blend-mode: multiply, screen;
 
 }
 
