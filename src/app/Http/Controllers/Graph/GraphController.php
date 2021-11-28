@@ -30,7 +30,13 @@ class GraphController extends Controller
     {
         $user_id = Auth::id();
         $graphs = Graph::where('user_id', $user_id)->latest()->paginate(4);
-        return view('graphs.index', compact('graphs'));
+
+        // タグ情報を取得
+        $all_tags = Tag::all()->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
+        return view('graphs.index', compact('graphs', 'all_tags'));
     }
 
     /**

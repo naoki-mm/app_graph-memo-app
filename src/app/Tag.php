@@ -9,4 +9,9 @@ class Tag extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function graphs()
+    {
+        return $this->belongsToMany('App\Graph')->withTimestamps();
+    }
 }
