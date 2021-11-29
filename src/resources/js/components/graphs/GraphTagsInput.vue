@@ -9,6 +9,7 @@
             v-model="tag"
             :tags="tags"
             :autocomplete-items="filteredItems"
+            :add-on-key="[13, 32]"
             @tags-changed="newTags => tags = newTags"
         />
         <small class="grey-text">タグは5個以内としてください。</small>
@@ -62,11 +63,10 @@ export default {
 </style>
 <style lang="css">
     .vue-tags-input .ti-tag {
-        background: transparent;
-        border: 1px solid #747373;
-        color: #747373;
-        margin-right: 4px;
-        border-radius: 0px;
-        font-size: 13px;
+        /* bg-color:tribute */
+        background-image: radial-gradient(at top right, #B7B6BB 0%, #E8EAE9 100%);
+        color: black;
+        border-radius: 0.25rem;
+        box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
     }
 </style>
