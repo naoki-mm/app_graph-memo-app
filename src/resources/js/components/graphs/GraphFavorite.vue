@@ -1,6 +1,6 @@
 <template>
-    <button type="button" class="btn m-0 p-1 shadow-none">
-        <i class="fa-star"
+    <button type="button" class="bi-btn btn m-0 p-1 shadow-none">
+        <i class="bi"
             :class="favoriteClass"
             @click="updateFavorite()"
         >
@@ -22,12 +22,9 @@ export default {
         return {
             isFavorite: this.initialIsFavorite,
             favoriteClass: {
-                far: !this.initialIsFavorite,
-                fas: this.initialIsFavorite,
+                'bi-star': !this.initialIsFavorite,
+                'bi-star-fill': this.initialIsFavorite,
                 'favorite-star': this.initialIsFavorite,
-                animated: this.initialIsFavorite,
-                flip: this.initialIsFavorite,
-                fast: this.initialIsFavorite,
             },
         };
     },
@@ -53,7 +50,7 @@ export default {
 <style>
 /* お気に入りアイコンのスタイル */
 .favorite-star {
-    color: rgb(255, 230, 0);
-    text-shadow: 0 0 2px #000;
+    color: rgb(255, 230, 0) !important;
+    text-shadow: 0 0 2px #000 !important;
 }
 </style>

@@ -27,8 +27,8 @@ $primary: #4F81B9;
         radial-gradient(at top, rgba(255, 255, 255, 0.452) 0%, rgba(2, 2, 2, 0.55) 93%),
         radial-gradient(at top, rgba(255, 255, 255, 0.397) 0%, rgba(3, 3, 3, 0.08) 63%);
     background-blend-mode: multiply, screen;
-
 }
+
 
 .user-name {
     color: white;
@@ -40,4 +40,104 @@ $primary: #4F81B9;
 
 #sidebarMenu, btn{
     background-color: white;
+}
+
+.index-card {
+    // cardホバー時のアクション
+    &:hover {
+        box-shadow: 0 0 10px gray;
+    }
+    & a {
+        // カード内のaタグの装飾無効化
+        & {
+            color : inherit !important;
+            text-decoration : none !important;
+            cursor: pointer !important;
+        }
+        // カード内のaタグをホバーした時に編集アイコンをアクティブにする
+        &:hover ~ .index-card-footer .index-ul .index-li .bi-btn {
+            & {
+                background: rgba(228, 218, 218, 0.7);
+                border-radius: 50%;
+            }
+            & .bi-pencil {
+                color: green;
+            }
+        }
+    }
+}
+
+// ゴミ箱ページ表示時にaタグの書式を無効化
+.no_active_a  {
+    // cardホバー時のアクション
+    &:hover {
+        box-shadow: 0 0 10px gray;
+    }
+    & a {
+        // カード内のaタグの装飾無効化
+        & {
+            color : inherit !important;
+            text-decoration : none !important;
+            cursor: default !important;
+        }
+    }
+}
+
+/* グラフ一覧のフッター背景色 */
+.index-card-footer {
+    background:
+        linear-gradient(90deg, #7e898fdc 0%, #636C75 100%),
+        radial-gradient(at top, rgba(255, 255, 255, 0.452) 0%, rgba(122, 118, 118, 0.55) 93%),
+        radial-gradient(at top, rgba(255, 255, 255, 0.397) 0%, rgba(136, 130, 130, 0.08) 63%);
+    background-blend-mode: multiply, screen;
+}
+
+/* グラフ一覧のフッターアイコン */
+.card-footer i {
+    font-size: 1rem;
+    color: white;
+}
+
+/* グラフ一覧のフッターアイコン (ホバー時) */
+.card-footer .bi-btn {
+    & {
+        // 背景色を正円にするためbtn属性のサイズを変更
+        width: 35px;
+    }
+    &:hover {
+        background: rgba(228, 218, 218, 0.7);
+        border-radius: 50%;
+    }
+    &:hover > .bi-trash {
+        color: rgb(255, 102, 0);
+    }
+    &:hover > .bi-pencil {
+        color: green;
+    }
+    &:hover > .bi-star {
+        color: rgb(255, 230, 0);
+    }
+}
+
+/* ゴミ箱のフッターアイコン (ホバー時) */
+.card-footer .trash-btn {
+    & {
+        width: 46px;
+        height: 46px;
+    }
+    &:hover {
+        background: rgba(228, 218, 218, 0.7);
+        border-radius: 50%;
+    }
+    &:hover .fa-stack > .fa-times {
+        color: rgb(255, 102, 0) !important;
+    }
+    &:hover > .fa-trash-restore {
+        color: green;
+    }
+}
+
+// ゴミ箱完全削除のアイコン
+.trash-x-mark {
+    color: grey !important;
 }
