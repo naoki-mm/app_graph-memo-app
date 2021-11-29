@@ -9,6 +9,7 @@
             v-model="tag"
             :tags="tags"
             :autocomplete-items="filteredItems"
+            :add-on-key="[13, 32]"
             @tags-changed="newTags => tags = newTags"
         />
         <small class="grey-text">タグは5個以内としてください。</small>
