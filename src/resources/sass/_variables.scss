@@ -21,6 +21,11 @@ $cyan: #6cb2eb;
 
 $primary: #4F81B9;
 
+.navbar-sub-contents {
+    border-left: 3px solid rgba(228, 227, 227, 0.616);
+    margin-left: 3px;
+}
+
 #main-navbar {
     background:
         linear-gradient(90deg, #7e898fdc 0%, #636C75 100%),
