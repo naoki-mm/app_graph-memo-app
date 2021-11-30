@@ -39,7 +39,7 @@
                             @if($loop->first)
                                 <div class="pb-2 pl-3">
                                 @endif
-                                    <a href="{{ route('tag.index', ['name' => $tag_array['text']]) }}" class="d-inline-block badge badge-light p-1 mr-1 mt-1">
+                                    <a href="{{ route('tag.index', ['name' => $tag_array['text']]) }}" class="tag-badge d-inline-block badge badge-light p-1 mr-1 mt-1">
                                         {{ $tag_array['text'] ?? [] }}
                                     </a>
                                 @if($loop->last)

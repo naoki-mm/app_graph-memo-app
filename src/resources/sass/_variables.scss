@@ -21,6 +21,7 @@ $cyan: #6cb2eb;
 
 $primary: #4F81B9;
 
+// サイドナビの縦線
 .navbar-sub-contents {
     border-left: 3px solid rgba(228, 227, 227, 0.616);
     margin-left: 3px;
@@ -145,4 +146,9 @@ $primary: #4F81B9;
 // ゴミ箱完全削除のアイコン
 .trash-x-mark {
     color: grey !important;
+}
+
+/* バッジの色 */
+.tag-badge {
+    background-color: rgba(247, 244, 244, 0.925) !important;
 }
