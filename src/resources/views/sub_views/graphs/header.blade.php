@@ -29,7 +29,7 @@
 
         <div class="list-group-item py-0" aria-current="true">
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div class="pl-2 my-1 navbar-sub-contents">
+                <div class="pl-2 mb-1 navbar-sub-contents">
                     <p class="mb-0 pl-2"><i class="bi bi-star-fill mr-1"></i>お気に入り</p>
                     <hr class="my-1">
                     <p class="mb-1 pl-2"><i class="bi bi-tags-fill mr-1"></i>タグ一覧</p>
