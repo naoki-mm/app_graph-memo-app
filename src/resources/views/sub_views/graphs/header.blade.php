@@ -30,8 +30,19 @@
         <div class="list-group-item py-0" aria-current="true">
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div class="pl-2 mb-1 navbar-sub-contents">
-                    <p class="mb-0 pl-2"><i class="bi bi-star-fill mr-1"></i>お気に入り</p>
+
+                    <a href="{{ route('graph.index') }}" class="mb-0 pl-2"><i class="bi bi-grid-3x3-gap-fill mr-1"></i></i>全てのメモを表示</a>
                     <hr class="my-1">
+
+                    <p class="mb-0 pl-2"><i class="fas fa-sort-amount-up mr-1"></i>新しい順</p>
+                    <hr class="my-1">
+
+                    <p class="mb-0 pl-2 mb-2"><i class="fas fa-sort-amount-down mr-1"></i>古い順</p>
+                    <hr class="my-1">
+
+                    <a href="{{ route('favorite.search') }}" class="mb-0 pl-2"><i class="bi bi-star-fill mr-1"></i>お気に入り</a>
+                    <hr class="my-1">
+
                     <p class="mb-1 pl-2"><i class="bi bi-tags-fill mr-1"></i>タグ一覧</p>
                     {{-- タグ一覧表示 --}}
                     @isset($all_tags)
@@ -39,7 +50,7 @@
                             @if($loop->first)
                                 <div class="pb-2 pl-3">
                                 @endif
-                                    <a href="{{ route('tag.index', ['name' => $tag_array['text']]) }}" class="tag-badge d-inline-block badge badge-light p-1 mr-1 mt-1">
+                                    <a href="{{ route('tag.search', ['name' => $tag_array['text']]) }}" class="tag-badge d-inline-block badge badge-light p-1 mr-1 mt-1">
                                         {{ $tag_array['text'] ?? [] }}
                                     </a>
                                 @if($loop->last)
@@ -52,10 +63,6 @@
                             {{ $tag->graphs->count() }}件
                         </div>
                     @endisset
-                    <hr class="my-1">
-                    <p class="mb-0 pl-2"><i class="fas fa-sort-amount-up mr-1"></i>新しい順</p>
-                    <hr class="my-1">
-                    <p class="mb-0 pl-2 mb-2"><i class="fas fa-sort-amount-down mr-1"></i>古い順</p>
                 </div>
 
             </div>

@@ -23,11 +23,15 @@ class GraphController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
+     * @pram Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // セッション削除
+        $request->session()->forget('favorite');
+        $request->session()->forget('tag_name');
+
         $user_id = Auth::id();
         $graphs = Graph::where('user_id', $user_id)->latest()->paginate(4);
 

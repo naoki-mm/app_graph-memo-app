@@ -83,3 +83,10 @@ input[type="number"] {
     border-color: #1c4e86;
 }
 
+/* サイドナビのaタグの書式無効化 */
+.navbar-sub-contents a {
+    color : inherit !important;
+    text-decoration : none !important;
+}
+
+
