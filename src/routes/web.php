@@ -27,7 +27,9 @@ Route::middleware(['auth'])->group(function () {
         // ゴミ箱のデータを完全削除
         Route::delete('trash-destroy/{id}', 'TrashDestroyController')->name('trash.destroy');
         // タグ絞り込み
-        Route::get('tags/{name}', 'TagIndexController')->name('tag.index');
+        Route::get('tags/{name}', 'TagSearchController')->name('tag.search');
+        // お気に入り絞り込み
+        Route::get('favorite-index', 'FavoriteSearchController')->name('favorite.search');
 
     });
     Route::namespace('User')->group(function () {

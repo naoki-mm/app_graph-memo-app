@@ -12,6 +12,7 @@ use App\AxisValue;
 use App\Canvas;
 use App\PlotData;
 use App\Tag;
+use App\User;
 
 class GraphController extends Controller
 {
@@ -23,18 +24,21 @@ class GraphController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
+     * @pram Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // セッション削除
+        $request->session()->forget('favorite');
+        $request->session()->forget('tag_name');
+
         $user_id = Auth::id();
         $graphs = Graph::where('user_id', $user_id)->latest()->paginate(4);
 
         // タグ情報を取得
-        $all_tags = Tag::all()->map(function ($tag) {
-            return ['text' => $tag->name];
-        });
+        $user = new User;
+        $all_tags = $user->all_tags;
 
         return view('graphs.index', compact('graphs', 'all_tags'));
     }
@@ -47,12 +51,11 @@ class GraphController extends Controller
     public function create()
     {
         // タグ情報を取得
-        $allTags = Tag::all()->map(function ($tag) {
-            return ['text' => $tag->name];
-        });
+        $user = new User;
+        $all_tags = $user->all_tags;
 
         return view('graphs.create', [
-            'allTags' => $allTags,
+            'all_tags' => $all_tags,
         ]);
     }
 
@@ -119,11 +122,10 @@ class GraphController extends Controller
         });
 
         // タグ情報を取得
-        $allTags = Tag::all()->map(function ($tag) {
-            return ['text' => $tag->name];
-        });
+        $user = new User;
+        $all_tags = $user->all_tags;
 
-        return view('graphs.edit', compact('graph', 'tags', 'allTags'));
+        return view('graphs.edit', compact('graph', 'tags', 'all_tags'));
     }
 
     /**
