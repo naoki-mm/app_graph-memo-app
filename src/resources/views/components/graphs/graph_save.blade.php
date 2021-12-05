@@ -47,7 +47,7 @@
         <div class="form-group">
             <graph-tags-input
                 :initial-tags='@json($tags ?? [])'
-                :autocomplete-items='@json($allTags ?? [])'>
+                :autocomplete-items='@json($all_tags ?? [])'>
             </graph-tags-input>
 
             @if ($errors->has('tags'))

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Graph;
 use App\Tag;
+use App\User;
 
 class TagSearchController extends Controller
 {
@@ -63,11 +64,9 @@ class TagSearchController extends Controller
             ['path' => $request->url()]
         );
 
-
         // タグ情報を取得
-        $all_tags = Tag::all()->map(function ($tag) {
-            return ['text' => $tag->name];
-        });
+        $user = new User;
+        $all_tags = $user->all_tags;
 
         return view('graphs.index', ['graphs' => $graphs_paginate, 'all_tags' => $all_tags]);
     }
