@@ -52,7 +52,7 @@
                         </div>
                         @endif
                     @endforeach
-                    <footer class="py-1"><small>作成日：{{ $graph->created_at->format('Y/m/d') }}</small></footer>
+                    <footer class="py-1"><small>更新日時：{{ $graph->updated_at->format('Y/m/d H:i') }}</small></footer>
                 @else
                     <footer class="py-1"><small>削除日：{{ $graph->deleted_at->format('Y/m/d') }}</small></footer>
                 @endif
