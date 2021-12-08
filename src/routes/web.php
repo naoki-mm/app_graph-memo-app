@@ -30,6 +30,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('tags/{name}', 'TagSearchController')->name('tag.search');
         // お気に入り絞り込み
         Route::get('favorite-index', 'FavoriteSearchController')->name('favorite.search');
+        // ソート機能
+        Route::get('sort-index/{order}', 'IndexSortController')->name('index.sort');
 
     });
     Route::namespace('User')->group(function () {

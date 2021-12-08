@@ -34,10 +34,10 @@
                     <a href="{{ route('graph.index') }}" class="mb-0 pl-2"><i class="bi bi-grid-3x3-gap-fill mr-1"></i></i>全てのメモを表示</a>
                     <hr class="my-1">
 
-                    <p class="mb-0 pl-2"><i class="fas fa-sort-amount-up mr-1"></i>新しい順</p>
+                    <a href="{{ route('index.sort', ['order' => 'desc']) }}" class="mb-0 pl-2"><i class="fas fa-sort-amount-up mr-1"></i>新しい順</a>
                     <hr class="my-1">
 
-                    <p class="mb-0 pl-2 mb-2"><i class="fas fa-sort-amount-down mr-1"></i>古い順</p>
+                    <a href="{{ route('index.sort', ['order' => 'asc']) }}" class="mb-0 pl-2 mb-2"><i class="fas fa-sort-amount-down mr-1"></i>古い順</a>
                     <hr class="my-1">
 
                     <a href="{{ route('favorite.search') }}" class="mb-0 pl-2"><i class="bi bi-star-fill mr-1"></i>お気に入り</a>

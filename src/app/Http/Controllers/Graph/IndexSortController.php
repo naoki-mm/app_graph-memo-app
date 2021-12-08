@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Graph;
 use App\User;
 
-class FavoriteSearchController extends Controller
+class IndexSortController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -15,16 +15,11 @@ class FavoriteSearchController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(string $order, Request $request)
     {
         if (is_null($request->page)) {
-            if ($request->session()->has('favorite')) {
-                // セッション削除
-                $request->session()->forget('favorite');
-            } else {
-                // セッション保存
-                $request->session()->put('favorite', 1);
-            }
+            // セッション保存
+            $request->session()->put('index_order', $order);
         }
 
         // 絞り込み,ソートの結果(paginate有り)を取得

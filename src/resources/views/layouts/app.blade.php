@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>
-        @yield('title') | {{ config('app.name') }})
+        @yield('title') | {{ config('app.name') }}
     </title>
 
     <!-- MDB 4.19.1 CSS-->
