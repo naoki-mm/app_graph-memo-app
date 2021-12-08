@@ -17,11 +17,14 @@
                 <a  href="{{ route("graph.edit", $graph->id) }}" class="view overlay mt-1">
                     <img
                         class="card-img-top"
-                        src="{{ asset('storage/graph_images/'.$graph->image_name) }}"
+                        src="{{ Storage::disk('s3')->url('graph_images/'.$graph->image_name) }}"
                         alt="Card image cap"
                         style="aspect-ratio: 1 / 0.7; width: 100%;">
-
+                        {{-- ローカルの画像保存先
+                        src="{{ asset('storage/graph_images/'.$graph->image_name) }}" --}}
                 </a>
+
+
 
                 {{-- Card content --}}
                 <a href="{{ route("graph.edit", $graph->id) }}" class="card-body pb-0">

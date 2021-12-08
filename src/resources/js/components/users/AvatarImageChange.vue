@@ -29,19 +29,25 @@ export default {
     props: {
         imageName: {
             type: String,
-            dfault: '/images/avatar-default.svg'
+            default: 'user-default.svg'
+            // ローカルの保存先
+            // default: '/images/avatar-default.svg'
         },
     },
     data() {
         return {
-            avatarImage: '/storage/avatar_images/' + this.imageName
+            avatarImage: 'https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/avatar_images/' + this.imageName
+            // ローカルの保存先
+            // avatarImage: '/storage/avatar_images/' + this.imageName
         };
     },
 
     mounted() {
         // アバター画像が登録されていなければ、デフォルト画像を設定する。
         if(this.imageName === null) {
-            const defaultAvatarImage = '/images/avatar-default.svg';
+            const defaultAvatarImage = 'https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/avatar_images/user-default.svg';
+            // ローカルの保存先
+            // const defaultAvatarImage = '/images/avatar-default.svg';
             this.avatarImage = defaultAvatarImage;
         }
     },

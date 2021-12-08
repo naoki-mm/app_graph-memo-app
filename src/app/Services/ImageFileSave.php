@@ -28,7 +28,7 @@ class ImageFileSave
         }
 
         // 画像をstorageの指定フォルダに格納
-        $file_path = Storage::disk('public')
+        $file_path = Storage::disk('s3')  //ローカルに保存する場合はs3→public
         ->putFile($directory_name, new File($temp_path));
 
         return basename($file_path);

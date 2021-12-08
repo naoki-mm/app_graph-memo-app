@@ -187,7 +187,9 @@ export default {
                 return this.oldGraphData['graph_image_text'];
             } else if(Object.keys(this.initialGraph).length) {
                 // 画面更新時にグラフ画像の初期データがあれば表示
-                return '/storage/graph_images/' + this.initialGraph['image_name'];
+                return 'https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/graph_images/' + this.initialGraph['image_name'];
+                // ローカルの画像表示場合
+                // return '/storage/graph_images/' + this.initialGraph['image_name'];
             } else {
                 return null;
             }
