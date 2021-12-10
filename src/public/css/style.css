@@ -20,11 +20,11 @@
 
 /* 軸設定タブのアクティブ時のリンク書式 */
 .graph-nav-pills .nav-link.active, .graph-nav-pills .show > .nav-link {
-    color: #548ac7;
+    color: #049b43;
     font-weight: bold;
     border: transparent;
     background-color: transparent;
-    border-bottom: 0.3rem solid rgb(84, 138, 199, 0.9);
+    border-bottom: 0.3rem solid #04ac4a;
     border-radius: 0.01rem;
     height: 86%;
 }
@@ -57,30 +57,30 @@ input[type="number"] {
 .btn-custom,
 .btn-custom.disabled, .btn-custom:disabled {
     color: #fff;
-    background-color: #4F81B9;
-    border-color: #4F81B9;
+    background-color: #04ac4a;
+    border-color: #04ac4a;
 }
 
 /* ボタンの書式(focusされた時の枠線の色) */
 .btn-custom:focus, .btn-custom.focus,
 .btn-custom:not(:disabled):not(.disabled):active:focus, .btn-custom:not(:disabled):not(.disabled).active:focus,
 .show > .btn-custom.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem rgba(123, 185, 255, 0.87);
+    box-shadow: 0 0 0 0.2rem rgba(2, 177, 75, 0.733)
 }
 
 /* ボタンの書式 (hover時（マウスカーソルを重ねた時）の色（通常より濃いor暗めの色を指定)） */
 .btn-custom:hover {
     color: #fff;
-    background-color: #2f73c0;
-    border-color: #2f73c0;
+    background-color: #049b43;
+    border-color: #049b43;
 }
 
 /* ボタンの書式 (active時の色（hover時と同等かさらに濃いor暗めの色を指定)） */
 .btn-custom:not(:disabled):not(.disabled):active, .btn-custom:not(:disabled):not(.disabled).active,
 .show > .btn-custom.dropdown-toggle {
     color: #fff;
-    background-color: #1c4e86;
-    border-color: #1c4e86;
+    background-color: #03923e;
+    border-color: #03923e;
 }
 
 /* サイドナビのaタグの書式無効化 */
@@ -90,7 +90,7 @@ input[type="number"] {
 }
 
 .main-bar-content {
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 .sidebar-hr {
@@ -107,7 +107,32 @@ input[type="number"] {
     border: #d8dfe7 solid 1px;
 }
 
+/* スイッチオン時(disabled)の背景色 */
+.custom-switch .custom-control-input:disabled:checked ~ .custom-control-label::before {
+    background-color: #0d8b4256;
+}
+
 /* スイッチオン時の円の背景色 */
 .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
     background-color: #f8fafc;
+}
+
+/* スイッチオン時(active)の背景色 */
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    border-color: #03b34c;
+    background-color: #03bd51;
+}
+
+/* スイッチオン時(disabled)のボーダーカラー */
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    border-color: #04ac4a33;
+}
+
+/* ページネーションの色 */
+.pagination .page-item.active .page-link {
+    color: #fff;
+    background-color: #03bd51;
+    border-radius: 75%;
 }
