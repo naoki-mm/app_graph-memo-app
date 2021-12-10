@@ -51,6 +51,8 @@ const app = new Vue({
             },
             sideNavTab: 'tab',
             isEditOperation: false,
+
+            isToggleAngleDown: true,
         }
     },
     computed: {

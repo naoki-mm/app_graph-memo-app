@@ -17,9 +17,12 @@
                         </li>
                         {{-- トグルボタン --}}
                         <li class="list-inline-item" style="margin-left: 30px">
-                            <i class="fas fa-angle-down"
+                            <i
+                                class="fas"
+                                :class="{'fa-angle-down': isToggleAngleDown, 'fa-angle-right': !isToggleAngleDown}"
                                 data-toggle="collapse" data-target="#collapseOne"
-                                aria-expanded="true" aria-controls="collapseOne">
+                                aria-expanded="true" aria-controls="collapseOne"
+                                v-on:click="isToggleAngleDown = !isToggleAngleDown">
                             </i>
                         </li>
                     </ul>
