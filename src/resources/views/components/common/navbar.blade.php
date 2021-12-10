@@ -10,7 +10,8 @@
         <!-- ロゴ -->
         <a class="navbar-brand mr-1" href="{{ route('graph.index') }}">
             <img
-                src="{{ asset('images/logo.png')}}"
+                src="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/plotemo_logo.svg"
+                width="130"
                 height="25"
                 alt=""
                 loading="lazy"
