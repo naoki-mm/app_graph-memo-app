@@ -89,4 +89,25 @@ input[type="number"] {
     text-decoration : none !important;
 }
 
+.main-bar-content {
+    font-size: 1rem;
+}
 
+.sidebar-hr {
+    margin: 6px 0px;
+}
+
+/* スイッチオフ時の円の背景色 */
+.custom-switch .custom-control-label::after {
+    background-color: #d8dfe7;
+}
+
+/* スイッチオフ時のボーダー色 */
+.custom-control-label::before {
+    border: #d8dfe7 solid 1px;
+}
+
+/* スイッチオン時の円の背景色 */
+.custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+    background-color: #f8fafc;
+}

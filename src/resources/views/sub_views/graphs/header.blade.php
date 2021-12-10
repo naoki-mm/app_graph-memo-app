@@ -11,8 +11,8 @@
                     <ul class="list-unstyled list-inline mb-0">
                         {{-- メモ一覧遷移リンク --}}
                         <li class="list-inline-item">
-                            <a href="{{ route('graph.index') }}" class="list-group-item-action">
-                                <i class="fas fa-sticky-note me-3 mr-2"></i></i></i><span>プロットメモ</span>
+                            <a href="{{ route('graph.index') }}" class="list-group-item-action main-bar-content">
+                                <i class="fas fa-sticky-note me-2 mr-1"></i></i></i><span>プロットメモ</span>
                             </a>
                         </li>
                         {{-- トグルボタン --}}
@@ -31,26 +31,65 @@
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div class="pl-2 mb-1 navbar-sub-contents">
 
-                    <a href="{{ route('graph.index') }}" class="mb-0 pl-2"><i class="bi bi-grid-3x3-gap-fill mr-1"></i></i>全てのメモを表示</a>
-                    <hr class="my-1">
+                    {{-- 全てのメモ --}}
+                    <div class="pl-4 custom-switch" style="margin-left: 13px">
+                        <input type="checkbox" onclick="location.href='{{ route('graph.index') }}'"
+                            class="custom-control-input" id="customSwitchesAll"
+                            {{ session('favorite') || session('tag_name')  ? '' : 'checked disabled' }}
+                        >
+                        <label class="custom-control-label" for="customSwitchesAll">全てのメモを表示</label>
+                    </div>
+                    <hr class="sidebar-hr">
 
-                    <a href="{{ route('index.sort', ['order' => 'desc']) }}" class="mb-0 pl-2"><i class="fas fa-sort-amount-up mr-1"></i>新しい順</a>
-                    <hr class="my-1">
+                    @if(session('index_order') === 'desc')
+                        {{-- 新しい順に並べ替え --}}
+                        <div class="pl-4 custom-switch" style="margin-left: 13px">
+                            <input type="checkbox" onclick="location.href='{{ route('index.sort', ['order' => 'desc']) }}'"
+                                class="custom-control-input" id="customSwitchesNew"
+                            >
+                            <label class="custom-control-label" for="customSwitchesNew">新しい順に表示中</label>
+                        </div>
 
-                    <a href="{{ route('index.sort', ['order' => 'asc']) }}" class="mb-0 pl-2 mb-2"><i class="fas fa-sort-amount-down mr-1"></i>古い順</a>
-                    <hr class="my-1">
+                    @elseif(session('index_order') === 'asc')
+                        {{-- 古い順に並べ替え --}}
+                        <div class="pl-4 custom-switch" style="margin-left: 13px">
+                            <input type="checkbox" onclick="location.href='{{ route('index.sort', ['order' => 'asc']) }}'"
+                                class="custom-control-input" id="customSwitchesOld" checked
+                            >
+                            <label class="custom-control-label" for="customSwitchesOld">古い順に表示中</label>
+                        </div>
+                    @endif
 
-                    <a href="{{ route('favorite.search') }}" class="mb-0 pl-2"><i class="bi bi-star-fill mr-1"></i>お気に入り</a>
-                    <hr class="my-1">
+                    <hr class="sidebar-hr">
 
-                    <p class="mb-1 pl-2"><i class="bi bi-tags-fill mr-1"></i>タグ一覧</p>
+                    {{-- お気に入り絞り込み --}}
+                    <div class="pl-4 custom-switch" style="margin-left: 13px">
+                        <input type="checkbox" onclick="location.href='{{ route('favorite.search') }}'"
+                            class="custom-control-input" id="customSwitchesFavorite"
+                            {{ session('favorite') ? 'checked': '' }}
+                        >
+                        <label class="custom-control-label" for="customSwitchesFavorite">お気に入り</label>
+                    </div>
+
+                    {{-- タグ絞り込み --}}
+                    <div class="pl-4 pb-1 custom-switch" style="margin-left: 13px">
+                        <input type="checkbox" onclick="location.href='{{ route('tag.search', ['name' => session('tag_name') ?? 'a']) }}'"
+                            class="custom-control-input" id="customSwitchesTag"
+                            {{ session('tag_name') ? 'checked': 'disabled' }}
+                        >
+                        <label class="custom-control-label" for="customSwitchesTag">タグ検索</label>
+                    </div>
+
                     {{-- タグ一覧表示 --}}
                     @isset($all_tags)
                         @foreach($all_tags as $tag_array)
                             @if($loop->first)
-                                <div class="pb-2 pl-3">
+                                <div class="pb-3 pl-3">
                                 @endif
-                                    <a href="{{ route('tag.search', ['name' => $tag_array['text']]) }}" class="tag-badge d-inline-block badge badge-light p-1 mr-1 mt-1">
+                                    <a href="{{ route('tag.search', ['name' => $tag_array['text']]) }}"
+                                        class="badge tag-badge d-inline-block p-1 mr-1 mt-1"
+                                        id="{{ session('tag_name') ===  $tag_array['text'] ? 'badge-active-style': '' }}"
+                                        >
                                         {{ $tag_array['text'] ?? [] }}
                                     </a>
                                 @if($loop->last)
@@ -58,11 +97,7 @@
                             @endif
                         @endforeach
                     @endisset
-                    @isset($tag)
-                        <div>
-                            {{ $tag->graphs->count() }}件
-                        </div>
-                    @endisset
+
                 </div>
 
             </div>
@@ -70,7 +105,7 @@
 
         <a
         href="{{ route('graph.create') }}"
-        class="list-group-item list-group-item-action py-2 ripple"
+        class="list-group-item list-group-item-action py-2 ripple main-bar-content"
         aria-current="true"
         >
         <i class="fas fa-plus-square me-3 mr-2"></i><span>新規作成</span>
@@ -78,7 +113,7 @@
 
         <a
         href="{{ route('trash.index') }}"
-        class="list-group-item list-group-item-action py-2 ripple"
+        class="list-group-item list-group-item-action py-2 ripple main-bar-content"
         ><i class="fas fa-trash-alt me-3 mr-2"></i><span>ゴミ箱</span></a
         >
     </side-navbar>
