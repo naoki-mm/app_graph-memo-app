@@ -19,13 +19,12 @@ $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
 
-$primary: #4F81B9;
+$primary: #03bd51;
 
 // サイドナビの縦線
 .navbar-sub-contents {
     border-left: 3px solid rgba(228, 227, 227, 0.616);
     margin-left: 3px;
-    font-size: 0.8rem;
 }
 
 #main-navbar {
@@ -152,4 +151,10 @@ $primary: #4F81B9;
 /* バッジの色 */
 .tag-badge {
     background-color: rgba(247, 244, 244, 0.925) !important;
+}
+
+/* バッジの色(アクティブ時) */
+#badge-active-style {
+    color: white !important;
+    background-color: #03bd51 !important;
 }

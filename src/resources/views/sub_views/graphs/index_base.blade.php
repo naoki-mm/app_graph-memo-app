@@ -47,7 +47,8 @@
                         <div class="pt-0 pb-0 pl-3">
                             <div class="card-text line-height">
                         @endif
-                            <a href="{{ route('tag.search', ['name' => $tag->name]) }}" class="tag-badge d-inline-block badge badge-light p-1 mr-1 mt-1">
+                            <a href="{{ route('tag.search', ['name' => $tag->name]) }}" class="tag-badge d-inline-block badge badge-light p-1 mr-1 mt-1"
+                                id="{{ session('tag_name') === $tag->name ? 'badge-active-style': '' }}">
                                 {{ $tag->name }}
                             </a>
                         @if($loop->last)

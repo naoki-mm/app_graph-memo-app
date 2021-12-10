@@ -19,7 +19,16 @@ class IndexSortController extends Controller
     {
         if (is_null($request->page)) {
             // セッション保存
-            $request->session()->put('index_order', $order);
+            $check_sort_session = $request->session()->get('index_order');
+            if($check_sort_session === $order) {
+                if ($check_sort_session === 'asc') {
+                    $request->session()->put('index_order', 'desc');
+                } else if ($check_sort_session === 'desc') {
+                    $request->session()->put('index_order', 'asc');
+                }
+            } else {
+                $request->session()->put('index_order', $order);
+            }
         }
 
         // 絞り込み,ソートの結果(paginate有り)を取得

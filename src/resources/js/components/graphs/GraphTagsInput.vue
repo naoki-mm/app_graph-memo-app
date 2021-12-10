@@ -64,7 +64,7 @@ export default {
 <style lang="css">
     .vue-tags-input .ti-tag {
         /* bg-color:tribute */
-        background-image: radial-gradient(at top right, #B7B6BB 0%, #E8EAE9 100%);
+        background-color: rgba(247, 244, 244, 0.925);
         color: black;
         border-radius: 0.25rem;
         box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
