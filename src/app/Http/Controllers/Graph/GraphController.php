@@ -43,7 +43,9 @@ class GraphController extends Controller
         $user = new User;
         $all_tags = $user->all_tags;
 
-        return view('graphs.index', compact('graphs', 'all_tags'));
+        $index_active_flag = true;
+
+        return view('graphs.index', compact('graphs', 'all_tags', 'index_active_flag'));
     }
 
     /**
@@ -58,7 +60,7 @@ class GraphController extends Controller
         $all_tags = $user->all_tags;
 
         return view('graphs.create', [
-            'all_tags' => $all_tags,
+            'all_tags' => $all_tags, 'create_active_flag' => true
         ]);
     }
 

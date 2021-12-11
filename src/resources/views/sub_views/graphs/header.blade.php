@@ -5,7 +5,10 @@
     {{-- サイドバーの読み込みと個別のリストを定義 --}}
     <side-navbar :is-image-file='graphImage.isFile' >
 
-        <div class="list-group-item list-group-item-action border-0" aria-current="true">
+        <div class="list-group-item list-group-item-action border-0
+                {{ $index_active_flag ?? ''  ? 'custom-active' : '' }}"
+                aria-current="true"
+                >
             <div class="accordion" id="accordionExample">
                 <div id="headingOne">
                     <ul class="list-unstyled list-inline mb-0">
@@ -32,10 +35,10 @@
 
         <div class="list-group-item py-0" aria-current="true">
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div class="pl-2 mb-1 navbar-sub-contents">
+                <div class="pl-2 mb-2 navbar-sub-contents">
 
                     {{-- 全てのメモ --}}
-                    <div class="pl-4 custom-switch" style="margin-left: 13px">
+                    <div class="pl-4 mt-2 custom-switch" style="margin-left: 13px">
                         <input type="checkbox" onclick="location.href='{{ route('graph.index') }}'"
                             class="custom-control-input" id="customSwitchesAll"
                             {{ session('favorite') || session('tag_name')  ? '' : 'checked disabled' }}
@@ -108,16 +111,19 @@
 
         <a
         href="{{ route('graph.create') }}"
-        class="list-group-item list-group-item-action py-2 ripple main-bar-content"
-        aria-current="true"
-        >
+        class="list-group-item list-group-item-action py-2 ripple main-bar-content
+            {{ $create_active_flag ?? ''  ? 'custom-active' : '' }}"
+            aria-current="true"
+            >
         <i class="fas fa-plus-square me-3 mr-2"></i><span>新規作成</span>
         </a>
 
         <a
         href="{{ route('trash.index') }}"
-        class="list-group-item list-group-item-action py-2 ripple main-bar-content"
-        ><i class="fas fa-trash-alt me-3 mr-2"></i><span>ゴミ箱</span></a
+        class="list-group-item list-group-item-action py-2 ripple main-bar-content
+            {{ $trash_active_flag ?? ''  ? 'custom-active' : '' }}"
+            >
+        <i class="fas fa-trash-alt me-3 mr-2"></i><span>ゴミ箱</span></a
         >
     </side-navbar>
 </header>

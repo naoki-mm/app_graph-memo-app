@@ -16,7 +16,7 @@
 
             @include('sub_views.graphs.index_base',
                     ['graphs_select' => $graphs,
-                    'is_trash' => true])
+                    'is_trash' => true,])
 
         @endslot
 

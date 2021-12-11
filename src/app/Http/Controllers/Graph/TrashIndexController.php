@@ -17,6 +17,9 @@ class TrashIndexController extends Controller
     {
         $user_id = Auth::id();
         $graphs = Graph::onlyTrashed()->where('user_id', $user_id)->latest()->paginate(4);
-        return view('graphs.trash_index', compact('graphs'));
+
+        $trash_active_flag = true;
+
+        return view('graphs.trash_index', compact('graphs', 'trash_active_flag'));
     }
 }

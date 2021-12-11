@@ -24,7 +24,9 @@ class ProfileChangeController extends Controller
      */
     public function edit(User $user_profile)
     {
-        return view('users.profile_edit', compact('user_profile'));
+        $profile_active_flag = true;
+
+        return view('users.profile_edit', compact('user_profile', 'profile_active_flag'));
     }
 
     /**
