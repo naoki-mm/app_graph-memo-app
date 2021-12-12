@@ -648,4 +648,8 @@ export default {
     position: absolute;
     z-index: 1;
 }
+
+canvas:hover {
+    cursor: crosshair;
+}
 </style>
