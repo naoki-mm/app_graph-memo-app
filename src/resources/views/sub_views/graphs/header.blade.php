@@ -41,7 +41,7 @@
                     <div class="pl-4 mt-2 custom-switch" style="margin-left: 13px">
                         <input type="checkbox" onclick="location.href='{{ route('graph.index') }}'"
                             class="custom-control-input" id="customSwitchesAll"
-                            {{ session('favorite') || session('tag_name')  ? '' : 'checked disabled' }}
+                            @if($index_active_flag ?? '') {{ session('favorite') || session('tag_name') ? '' : 'checked disabled' }} @endif
                         >
                         <label class="custom-control-label" for="customSwitchesAll">全てのメモを表示</label>
                     </div>
@@ -55,6 +55,7 @@
                             >
                             <label class="custom-control-label" for="customSwitchesNew">新しい順に表示中</label>
                         </div>
+                        <hr class="sidebar-hr">
 
                     @elseif(session('index_order') === 'asc')
                         {{-- 古い順に並べ替え --}}
@@ -64,9 +65,10 @@
                             >
                             <label class="custom-control-label" for="customSwitchesOld">古い順に表示中</label>
                         </div>
-                    @endif
+                        <hr class="sidebar-hr">
 
-                    <hr class="sidebar-hr">
+                    @else
+                    @endif
 
                     {{-- お気に入り絞り込み --}}
                     <div class="pl-4 custom-switch" style="margin-left: 13px">

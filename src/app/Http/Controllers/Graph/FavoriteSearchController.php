@@ -27,6 +27,10 @@ class FavoriteSearchController extends Controller
             }
         }
 
+        if (!$request->session()->has('index_order')) {
+            $request->session()->put('index_order', 'desc');
+        }
+
         // 絞り込み,ソートの結果(paginate有り)を取得
         $graphs = new Graph;
         $graphs_search_sort_result = $graphs->getSearchAndSortResult($request);

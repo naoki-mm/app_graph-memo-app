@@ -53,8 +53,13 @@ class GraphController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        // セッション削除
+        $request->session()->forget('favorite');
+        $request->session()->forget('tag_name');
+        $request->session()->forget('index_order');
+
         // タグ情報を取得
         $user = new User;
         $all_tags = $user->all_tags;
