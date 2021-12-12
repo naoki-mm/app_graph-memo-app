@@ -39,6 +39,8 @@ class IndexSortController extends Controller
         $user = new User;
         $all_tags = $user->all_tags;
 
-        return view('graphs.index', ['graphs' => $graphs_search_sort_result, 'all_tags' => $all_tags]);
+        $index_flag = true;
+
+        return view('graphs.index', ['graphs' => $graphs_search_sort_result, 'all_tags' => $all_tags, 'index_active_flag' => true]);
     }
 }

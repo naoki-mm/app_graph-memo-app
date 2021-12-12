@@ -43,7 +43,9 @@ class GraphController extends Controller
         $user = new User;
         $all_tags = $user->all_tags;
 
-        return view('graphs.index', compact('graphs', 'all_tags'));
+        $index_active_flag = true;
+
+        return view('graphs.index', compact('graphs', 'all_tags', 'index_active_flag'));
     }
 
     /**
@@ -51,14 +53,19 @@ class GraphController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        // セッション削除
+        $request->session()->forget('favorite');
+        $request->session()->forget('tag_name');
+        $request->session()->forget('index_order');
+
         // タグ情報を取得
         $user = new User;
         $all_tags = $user->all_tags;
 
         return view('graphs.create', [
-            'all_tags' => $all_tags,
+            'all_tags' => $all_tags, 'create_active_flag' => true
         ]);
     }
 

@@ -124,10 +124,35 @@ input[type="number"] {
     background-color: #03bd51;
 }
 
+/* スイッチオフ時(hover)のマウスポインター */
+.custom-control-input:hover ~ .custom-control-label:hover {
+    cursor: pointer;
+}
+
+/* スイッチオフ時(disable, hover)のマウスポインター */
+.custom-control-input:disabled:hover ~ .custom-control-label:hover {
+    cursor: default;
+}
+
+/* スイッチオフ時(disable, checked, hover)のマウスポインター */
+.custom-control-input:checked:disabled:hover ~ .custom-control-label:hover {
+    cursor: default;
+}
+
+/* スイッチオン時(active, hover)のマウスポインター */
+.custom-control-input:checked:hover ~ .custom-control-label:hover {
+    cursor: pointer;
+}
+
 /* スイッチオン時(disabled)のボーダーカラー */
 .custom-control-input:checked ~ .custom-control-label::before {
     color: #fff;
     border-color: #04ac4a33;
+}
+
+/* スイッチオン時(disabled)のボーダーカラー */
+.custom-switch .custom-control-input:disabled:checked:hover ~ .custom-control-label:hover {
+    cursor: default;
 }
 
 /* ページネーションの色 */
@@ -135,4 +160,25 @@ input[type="number"] {
     color: #fff;
     background-color: #03bd51;
     border-radius: 75%;
+}
+
+/* サイドバーのボーダー削除 */
+.list-group-item {
+    border: none !important;
+}
+
+/* サイドバーの主項目ホバー時の装飾 */
+.list-group-item-action:hover, .list-group-item-action:focus {
+    z-index: 1;
+    color: #495057;
+    text-decoration: none;
+    background-color: #dad6d656;
+    border-radius: 5px !important;
+}
+
+/* サイドバーの主項目アクティブ時の装飾 */
+.list-group-item.custom-active {
+    background-color: #cac8c86c;
+    border-radius: 5px !important;
+    border: none !important;
 }

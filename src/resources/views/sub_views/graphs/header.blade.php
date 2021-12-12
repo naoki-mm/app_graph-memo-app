@@ -5,14 +5,17 @@
     {{-- サイドバーの読み込みと個別のリストを定義 --}}
     <side-navbar :is-image-file='graphImage.isFile' >
 
-        <div class="list-group-item list-group-item-action border-0" aria-current="true">
+        <div class="list-group-item list-group-item-action border-0
+                {{ $index_active_flag ?? ''  ? 'custom-active' : '' }}"
+                aria-current="true"
+                >
             <div class="accordion" id="accordionExample">
                 <div id="headingOne">
                     <ul class="list-unstyled list-inline mb-0">
                         {{-- メモ一覧遷移リンク --}}
                         <li class="list-inline-item">
                             <a href="{{ route('graph.index') }}" class="list-group-item-action main-bar-content">
-                                <i class="fas fa-sticky-note me-2 mr-1"></i></i></i><span>プロットメモ</span>
+                                <i class="fas fa-file-signature  fa-fw me-2 mr-1"></i><span>プロットメモ</span>
                             </a>
                         </li>
                         {{-- トグルボタン --}}
@@ -32,13 +35,13 @@
 
         <div class="list-group-item py-0" aria-current="true">
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div class="pl-2 mb-1 navbar-sub-contents">
+                <div class="pl-2 mb-2 navbar-sub-contents">
 
                     {{-- 全てのメモ --}}
-                    <div class="pl-4 custom-switch" style="margin-left: 13px">
+                    <div class="pl-4 mt-2 custom-switch" style="margin-left: 13px">
                         <input type="checkbox" onclick="location.href='{{ route('graph.index') }}'"
                             class="custom-control-input" id="customSwitchesAll"
-                            {{ session('favorite') || session('tag_name')  ? '' : 'checked disabled' }}
+                            @if($index_active_flag ?? '') {{ session('favorite') || session('tag_name') ? '' : 'checked disabled' }} @endif
                         >
                         <label class="custom-control-label" for="customSwitchesAll">全てのメモを表示</label>
                     </div>
@@ -52,6 +55,7 @@
                             >
                             <label class="custom-control-label" for="customSwitchesNew">新しい順に表示中</label>
                         </div>
+                        <hr class="sidebar-hr">
 
                     @elseif(session('index_order') === 'asc')
                         {{-- 古い順に並べ替え --}}
@@ -61,9 +65,10 @@
                             >
                             <label class="custom-control-label" for="customSwitchesOld">古い順に表示中</label>
                         </div>
-                    @endif
+                        <hr class="sidebar-hr">
 
-                    <hr class="sidebar-hr">
+                    @else
+                    @endif
 
                     {{-- お気に入り絞り込み --}}
                     <div class="pl-4 custom-switch" style="margin-left: 13px">
@@ -108,16 +113,19 @@
 
         <a
         href="{{ route('graph.create') }}"
-        class="list-group-item list-group-item-action py-2 ripple main-bar-content"
-        aria-current="true"
-        >
+        class="list-group-item list-group-item-action py-2 ripple main-bar-content
+            {{ $create_active_flag ?? ''  ? 'custom-active' : '' }}"
+            aria-current="true"
+            >
         <i class="fas fa-plus-square me-3 mr-2"></i><span>新規作成</span>
         </a>
 
         <a
         href="{{ route('trash.index') }}"
-        class="list-group-item list-group-item-action py-2 ripple main-bar-content"
-        ><i class="fas fa-trash-alt me-3 mr-2"></i><span>ゴミ箱</span></a
+        class="list-group-item list-group-item-action py-2 ripple main-bar-content
+            {{ $trash_active_flag ?? ''  ? 'custom-active' : '' }}"
+            >
+        <i class="fas fa-trash-alt me-3 mr-2"></i><span>ゴミ箱</span></a
         >
     </side-navbar>
 </header>

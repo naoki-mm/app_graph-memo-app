@@ -23,7 +23,9 @@ class EmailChangeController extends Controller
      */
     public function edit(User $user_email)
     {
-        return view('users.email_edit', compact('user_email'));
+        $email_active_flag = true;
+
+        return view('users.email_edit', compact('user_email', 'email_active_flag'));
     }
 
     /**

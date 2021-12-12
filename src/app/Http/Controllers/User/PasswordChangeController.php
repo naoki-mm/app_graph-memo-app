@@ -24,7 +24,9 @@ class PasswordChangeController extends Controller
      */
     public function edit(User $user_password)
     {
-        return view('users.password_edit', compact('user_password'));
+        $password_active_flag = true;
+
+        return view('users.password_edit', compact('user_password', 'password_active_flag'));
     }
 
     /**
