@@ -9,8 +9,10 @@
         class="list-group-item list-group-item-action py-2 ripple"
         aria-current="true"
         >
-        <i class="fas fas fa-home fa-fw me-3 mr-2"></i><span>ホーム</span>
+        <i class="fas fa-file-signature  fa-fw me-2 mr-1"></i><span>メモ一覧に戻る</span>
         </a>
+
+        <hr class="sidebar-hr mt-1 mb-1">
 
         <a
         href="{{ route("user-profile.edit", auth()->user()->id) }}"
@@ -36,7 +38,7 @@
         {{ $password_active_flag ?? ''  ? 'custom-active' : '' }}"
         aria-current="true"
         >
-        <i class="fas fa-unlock-alt fa-fw me-3 mr-2"></i><span>パスワード変更</span>
+        <i class="fas fa-lock fa-fw me-3 mr-2"></i><span>パスワード変更</span>
         </a>
 
         <a

@@ -15,7 +15,7 @@
                         {{-- メモ一覧遷移リンク --}}
                         <li class="list-inline-item">
                             <a href="{{ route('graph.index') }}" class="list-group-item-action main-bar-content">
-                                <i class="fas fa-sticky-note me-2 mr-1"></i></i></i><span>プロットメモ</span>
+                                <i class="fas fa-file-signature  fa-fw me-2 mr-1"></i><span>プロットメモ</span>
                             </a>
                         </li>
                         {{-- トグルボタン --}}
