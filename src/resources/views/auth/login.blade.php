@@ -29,7 +29,7 @@
                             {{-- メールアドレスの入力フォーム --}}
                             <div class="form-group">
                                 <label class="form-label" for="email">
-                                    <sup class="text-danger mr-1" style="font-size: 60%">＊</sup>メールアドレス
+                                    <sup class="text-danger mr-1" style="font-size: 60%">(必須)</sup>メールアドレス
                                 </label>
 
                                 <input
@@ -48,7 +48,7 @@
                             {{-- パスワードの入力フォーム --}}
                             <div class="form-group">
                                 <label class="form-label" for="password">
-                                    <sup class="text-danger mr-1" style="font-size: 60%">＊</sup>パスワード
+                                    <sup class="text-danger mr-1" style="font-size: 60%">(必須)</sup>パスワード
                                 </label>
 
                                 <input

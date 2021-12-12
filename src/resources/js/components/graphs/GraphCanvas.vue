@@ -8,14 +8,14 @@
                 style="height: 90vmin">
 
                 <img
-                    id="background-grah-image"
+                    id="background-graph-image"
                     ref="backGroundGraphImage"
                     :src="getGraphImage"
                     class="w-100 h-100"
                 >
 
                 <canvas
-                    id="axsis-set-layer"
+                    id="axis-set-layer"
                     ref="axisSetCanvas"
                     class="w-100 h-100"
                     v-show="getShowCanvasEventDetect.isAxisSetCanvas"
@@ -155,7 +155,7 @@ export default {
                     X: 0,
                     Y: 0,
                 },
-                converGraphData: {
+                convertGraphData: {
                     X: 0,
                     Y: 0,
                 },
@@ -479,7 +479,7 @@ export default {
         setArrayPlotData() {
             let currentPlot = this.getPlotPoint;
 
-            currentPlot.graphData.push({x: this.plotPoint.converGraphData.X, y: this.plotPoint.converGraphData.Y});
+            currentPlot.graphData.push({x: this.plotPoint.convertGraphData.X, y: this.plotPoint.convertGraphData.Y});
             this.$emit("graph-plot", currentPlot);
             this.$emit("scroll-text-area");
         },
@@ -502,16 +502,16 @@ export default {
             let plotHypotenuseCos = plotHypotenuse * Math.cos(plotPointAngle);
 
             // 対辺と隣辺に軸補正係数を掛けて, プロットデータの変換値を計算してdataにセット。
-            this.plotPoint.converGraphData.X = plotHypotenuseCos * scaleAdjustValueX;
-            this.plotPoint.converGraphData.Y = plotHypotenuseSin * scaleAdjustValueY;
+            this.plotPoint.convertGraphData.X = plotHypotenuseCos * scaleAdjustValueX;
+            this.plotPoint.convertGraphData.Y = plotHypotenuseSin * scaleAdjustValueY;
         },
 
         // データ表示の桁数調整
         setDigits() {
             const plotPointRoundDigits = 3;
             // 小数点以下の桁数を指定した値で四捨五入して表示。
-            this.plotPoint.converGraphData.X = this.plotPoint.converGraphData.X.toFixed(plotPointRoundDigits);
-            this.plotPoint.converGraphData.Y = this.plotPoint.converGraphData.Y.toFixed(plotPointRoundDigits);
+            this.plotPoint.convertGraphData.X = this.plotPoint.convertGraphData.X.toFixed(plotPointRoundDigits);
+            this.plotPoint.convertGraphData.Y = this.plotPoint.convertGraphData.Y.toFixed(plotPointRoundDigits);
         },
 
         // canvasとグラフ軸のスケール変換
@@ -639,13 +639,17 @@ export default {
     position: absolute;
     z-index: 3;
 }
-#axsis-set-layer {
+#axis-set-layer {
     position: absolute;
     z-index: 2;
 
 }
-#background-grah-image {
+#background-graph-image {
     position: absolute;
     z-index: 1;
+}
+
+canvas:hover {
+    cursor: crosshair;
 }
 </style>
