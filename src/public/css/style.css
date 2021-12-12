@@ -124,10 +124,35 @@ input[type="number"] {
     background-color: #03bd51;
 }
 
+/* スイッチオフ時(hover)のマウスポインター */
+.custom-control-input:hover ~ .custom-control-label:hover {
+    cursor: pointer;
+}
+
+/* スイッチオフ時(disable, hover)のマウスポインター */
+.custom-control-input:disabled:hover ~ .custom-control-label:hover {
+    cursor: default;
+}
+
+/* スイッチオフ時(disable, checked, hover)のマウスポインター */
+.custom-control-input:checked:disabled:hover ~ .custom-control-label:hover {
+    cursor: default;
+}
+
+/* スイッチオン時(active, hover)のマウスポインター */
+.custom-control-input:checked:hover ~ .custom-control-label:hover {
+    cursor: pointer;
+}
+
 /* スイッチオン時(disabled)のボーダーカラー */
 .custom-control-input:checked ~ .custom-control-label::before {
     color: #fff;
     border-color: #04ac4a33;
+}
+
+/* スイッチオン時(disabled)のボーダーカラー */
+.custom-switch .custom-control-input:disabled:checked:hover ~ .custom-control-label:hover {
+    cursor: default;
 }
 
 /* ページネーションの色 */
