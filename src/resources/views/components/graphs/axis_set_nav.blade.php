@@ -1,4 +1,4 @@
-<div class="mt-4 btn-group" role="group" aria-label="Basic example">
+<div class="mt-4 btn-group d-flex align-items-center justify-content-center" role="group" aria-label="axis-graph-group">
     <div class="btn mr-0"
         :class="{'btn-custom': axisSettingDetect.isActiveX}"
         v-on:click="axisSettingDetect.isActiveX = true; axisSettingDetect.isActiveY = false">
