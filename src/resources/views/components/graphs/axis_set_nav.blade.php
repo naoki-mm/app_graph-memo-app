@@ -1,29 +1,28 @@
-<div class="mt-4">
-    <div class="mb-3 btn rounded-pill btn-block"
+<div class="mt-4 btn-group" role="group" aria-label="Basic example">
+    <div class="btn mr-0"
         :class="{'btn-custom': axisSettingDetect.isActiveX}"
         v-on:click="axisSettingDetect.isActiveX = true; axisSettingDetect.isActiveY = false">
-        横(x)軸を設定する
+        <i class="bi bi-three-dots mr-1"></i>x軸の設定
     </div>
 
-    <div class="btn rounded-pill btn-block"
+    <div class="btn"
         :class="{'btn-custom': axisSettingDetect.isActiveY}"
         v-on:click="axisSettingDetect.isActiveY = true; axisSettingDetect.isActiveX = false">
-        縦(y)軸を設定する
+        <i class="bi bi-three-dots-vertical mr-1"></i>y軸の設定
     </div>
 </div>
 
 <div class="axis-setting-nav"
     v-show="axisSettingDetect.isActiveX">
-    <ol class="mt-5 pl-3 mb-3">
-        <li>グラフ上で横軸の最小値、最大値を順にクリックしてください。
+    <ol class="mt-4 pl-3 mb-3">
+        <li>グラフ上で x軸 の最小値、最大値を順にクリックしてください。
             <i class="fas fa-check-circle"
                 :class="[axisSettingDetect.isCompleteX ? 'green-text': 'grey-text']"
             ></i>
         </li>
 
-        <li class="mt-3">
-            <p class="mb-1">
-                </p>軸の値を下記に入力してください。
+        <li class="mt-4">
+            <p class="mb-2">軸の値を下記に入力してください。
                 <i class="fas fa-check-circle"
                     :class="[axisValue.xMin !== '' && axisValue.xMax !== '' ? 'green-text': 'grey-text']"
                 ></i>
@@ -90,15 +89,15 @@
 
 <div class="axis-setting-nav"
     v-show="axisSettingDetect.isActiveY">
-    <ol class="mt-5 pl-3 mb-3">
-        <li>グラフ上で縦軸の最小値、最大値を順にクリックしてください。
+    <ol class="mt-4 pl-3 mb-3">
+        <li>グラフ上で y軸 の最小値、最大値を順にクリックしてください。
             <i class="fas fa-check-circle"
                 :class="[axisSettingDetect.isCompleteY ? 'green-text': 'grey-text']"
             ></i>
         </li>
 
-        <li class="mt-3">
-            <p class="mb-1">軸の値を下記に入力してください。
+        <li class="mt-4">
+            <p class="mb-2">軸の値を下記に入力してください。
                 <i class="fas fa-check-circle"
                     :class="[axisValue.yMin !== '' && axisValue.yMax !== '' ? 'green-text': 'grey-text']"
                 ></i>
@@ -158,7 +157,7 @@
         <div class="btn btn-link mr-2 pr-0 axis-reset-link"
             style="margin-top: 60px"
             v-on:click="resetSettingAxis">
-            <strong>軸設定をリセット</strong>
+            <strong>軸設定をリセットする</strong>
         </div>
     </div>
 </div>
