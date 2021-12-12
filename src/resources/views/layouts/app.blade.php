@@ -10,6 +10,8 @@
         @yield('title') | {{ config('app.name') }}
     </title>
 
+    <link rel="icon" type="image/png" href="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/favicon.png" />
+    <link rel="icon" size="any" type="image/svg+xml" href="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/plotemo_favicon.svg">
     <!-- MDB 4.19.1 CSS-->
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
