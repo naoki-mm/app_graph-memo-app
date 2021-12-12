@@ -37,7 +37,7 @@ class GraphController extends Controller
         $request->session()->put('index_order', 'desc');
 
         $user_id = Auth::id();
-        $graphs = Graph::where('user_id', $user_id)->orderBy('updated_at', 'desc')->paginate(4);
+        $graphs = Graph::where('user_id', $user_id)->orderBy('updated_at', 'desc')->paginate(12);
 
         // タグ情報を取得
         $user = new User;
