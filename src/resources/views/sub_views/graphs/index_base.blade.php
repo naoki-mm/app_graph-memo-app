@@ -24,8 +24,6 @@
                         src="{{ asset('storage/graph_images/'.$graph->image_name) }}" --}}
                 </a>
 
-
-
                 {{-- Card content --}}
                 <a href="{{ route("graph.edit", $graph->id) }}" class="card-body pb-0">
                     <blockquote class="blockquote card-text">
@@ -76,12 +74,29 @@
 
                         {{-- 完全削除ボタン --}}
                         <li class="list-inline-item mx-auto">
-                            <button form="delete-button" type="submit" class="trash-btn btn m-0 p-1 shadow-none">
-                                <span class="fa-stack">
-                                    <i class="fas fa-trash fa-stack-1x"></i>
-                                    <i class="fas fa-times fa-stack-1x trash-x-mark"></i>
-                                </span>
-                            </button>
+                            @component('components.common.warning_modal')
+
+                                @slot('modal_view_button')
+                                    <button type="button" class="trash-btn btn m-0 p-1 shadow-none" data-toggle="modal" data-target="#centralModalWarning">
+                                        <span class="fa-stack">
+                                            <i class="fas fa-trash fa-stack-1x"></i>
+                                            <i class="fas fa-times fa-stack-1x trash-x-mark"></i>
+                                        </span>
+                                    </button>
+                                @endslot
+
+                                @slot('modal_header')
+                                    メモ削除の確認
+                                @endslot
+
+                                @slot('modal_body')
+                                    削除したメモは復元できません。よろしいですか？
+                                @endslot
+
+                                @slot('modal_submit_button')
+                                    <button form="delete-button" type="submit" class="py-2 btn btn-warning white-text" style="padding: 8px 32.5px">O K</button>
+                                @endslot
+                            @endcomponent
                         </li>
 
                         <!--復元用のフォーム -->
@@ -115,9 +130,27 @@
 
                         {{-- 削除ボタン --}}
                         <li class="list-inline-item mx-auto">
-                            <button form="delete-button" type="submit" class="bi-btn btn m-0 p-1 shadow-none">
-                                <i class="bi bi-trash"></i>
-                            </button>
+                            @component('components.common.warning_modal')
+
+                                @slot('modal_view_button')
+                                    <button type="button" class="bi-btn btn m-0 p-1 shadow-none" data-toggle="modal" data-target="#centralModalWarning">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+
+                                @endslot
+
+                                @slot('modal_header')
+                                    メモ削除の確認
+                                @endslot
+
+                                @slot('modal_body')
+                                    メモをゴミ箱に移動します。よろしいですか？
+                                @endslot
+
+                                @slot('modal_submit_button')
+                                    <button form="delete-button" type="submit" class="py-2 btn btn-warning white-text" style="padding: 8px 32.5px">O K</button>
+                                @endslot
+                            @endcomponent
                         </li>
 
                         <!--削除用のフォーム -->
