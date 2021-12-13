@@ -20,6 +20,8 @@
                     class="w-100 h-100"
                     v-show="getShowCanvasEventDetect.isAxisSetCanvas"
                     @click="setAxis"
+                    data-toggle="modal"
+                    data-target="#centralModalWarning"
                     >
                 </canvas>
 
@@ -29,8 +31,44 @@
                     class="w-100 h-100"
                     v-show="getShowCanvasEventDetect.isPlotCanvas"
                     @click="graphPlot"
+                    data-toggle="modal"
+                    data-target="#centralModalWarning"
                     >
                 </canvas>
+
+                <!-- Central Modal Medium Warning -->
+                <div v-if="modalBodyContent" class="modal fade" id="centralModalWarning" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                        aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-notify modal-warning" role="document">
+                        <!--Content-->
+                        <div class="modal-content">
+                        <!--Header-->
+                            <div class="modal-header">
+                                <p class="heading lead ml-3">確認</p>
+
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" class="white-text">&times;</span>
+                                </button>
+                            </div>
+
+                            <!--Body-->
+                            <div class="modal-body">
+                                <div class="text-center">
+                                    <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
+                                    <p v-html="modalBodyContent"></p>
+                                </div>
+                            </div>
+
+                            <!--Footer-->
+                            <div class="modal-footer justify-content-center" role="group" aria-label="modal-button">
+                                <button type="button" class="py-2 mr-4 btn btn-outline-warning" data-dismiss="modal">OK</button>
+                            </div>
+                        <!--/.Content-->
+                        </div>
+                    </div>
+                </div>
+                <!-- Central Modal Medium Warning-->
+
 
                 <input form="graph_form" type="hidden" name="graph_image_text" :value="getGraphImage" >
 
@@ -160,6 +198,8 @@ export default {
                     Y: 0,
                 },
             },
+
+            modalBodyContent: '',
         }
     },
 
@@ -355,6 +395,9 @@ export default {
             let clickCount = this.clickCountUp();
             // canvasのクリック数により、処理を変更
             if(clickCount <= axisSetPointNumber) {
+                // モーダル表示の初期化
+                this.modalBodyContent = '';
+
                 if(!isOldAxisSetting) {
                     // クリック座標の取得
                     this.getClickPoint(e, this.canvas.axisSetCanvas);
@@ -378,7 +421,7 @@ export default {
                 }
 
             } else {
-                alert('軸設定を変更する場合は、リセットボタンを押してください。');
+                this.modalBodyContent = 'この軸は既に設定済みです。<br>設定を変更する場合は、リセットボタンを押してください。<br>';
             }
         },
 
@@ -456,9 +499,12 @@ export default {
 
         // グラフプロット時の処理
         graphPlot(e) {
+            // モーダル表示の初期化
+            this.modalBodyContent = '';
+            
             // 現在のサイドナビが保存タブであれば、プロットは無効化してアラートを出す。
             if(this.getShowCanvasEventDetect.isSetSave) {
-                alert('グラフをプロットするには「プロットタブ」を開いてください。');
+                this.modalBodyContent = 'グラフのプロットを反映する場合は「プロット」タブを開いてください';
                 return;
             }
             // クリックの座標取得
@@ -633,6 +679,12 @@ export default {
 <style>
 .canvas-card {
     padding: 0px;
+}
+#modal-layer {
+    position: absolute;
+    z-index: 4;
+    background-color: rgba(255, 255, 255, 0);
+    border: 0px rgba(255, 255, 255, 0);
 }
 
 #plot-layer {
