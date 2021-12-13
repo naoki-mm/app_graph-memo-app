@@ -2,7 +2,7 @@
     {{ $modal_view_button }}
 
 <!-- Central Modal Medium Warning -->
-<div class="modal fade" id="centralModalWarning" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="{{ $modal_view_id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-notify modal-warning" role="document">
         <!--Content-->

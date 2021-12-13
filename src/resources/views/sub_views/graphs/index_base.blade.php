@@ -67,9 +67,14 @@
                     @if($is_trash)
                         {{-- 復元ボタン --}}
                         <li class="list-inline-item mx-auto">
-                            <button form="restore-button" type="submit" class="trash-btn btn m-0 p-2 shadow-none">
-                                <i class="fas fa-trash-restore"></i>
-                            </button>
+                        <!--復元用のフォーム -->
+                            <form method="POST" action="{{ route('trash.restore', $graph->id) }}">
+                                @method('PUT')
+                                @csrf
+                                <button type="submit" class="trash-btn btn m-0 p-2 shadow-none">
+                                    <i class="fas fa-trash-restore"></i>
+                                </button>
+                            </form>
                         </li>
 
                         {{-- 完全削除ボタン --}}
@@ -77,12 +82,16 @@
                             @component('components.common.warning_modal')
 
                                 @slot('modal_view_button')
-                                    <button type="button" class="trash-btn btn m-0 p-1 shadow-none" data-toggle="modal" data-target="#centralModalWarning">
+                                    <button type="button" class="trash-btn btn m-0 p-1 shadow-none" data-toggle="modal" data-target="{{ '#centralModalWarning'.$graph->id }}">
                                         <span class="fa-stack">
                                             <i class="fas fa-trash fa-stack-1x"></i>
                                             <i class="fas fa-times fa-stack-1x trash-x-mark"></i>
                                         </span>
                                     </button>
+                                @endslot
+                                
+                                @slot('modal_view_id')
+                                    {{ 'centralModalWarning'.$graph->id }}
                                 @endslot
 
                                 @slot('modal_header')
@@ -94,22 +103,15 @@
                                 @endslot
 
                                 @slot('modal_submit_button')
-                                    <button form="delete-button" type="submit" class="py-2 btn btn-warning white-text" style="padding: 8px 32.5px">O K</button>
+                                    <!--完全削除用のフォーム -->
+                                    <form method="POST" action="{{ route('trash.destroy', $graph->id) }}">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="py-2 btn btn-warning white-text" style="padding: 8px 32.5px">O K</button>
+                                    </form>
                                 @endslot
                             @endcomponent
                         </li>
-
-                        <!--復元用のフォーム -->
-                        <form id="restore-button" method="POST" action="{{ route('trash.restore', $graph->id) }}">
-                            @method('PUT')
-                            @csrf
-                        </form>
-
-                        <!--完全削除用のフォーム -->
-                        <form id="delete-button" method="POST" action="{{ route('trash.destroy', $graph->id) }}">
-                            @method('DELETE')
-                            @csrf
-                        </form>
 
                     @else
                         {{-- お気に入りボタン --}}
@@ -133,10 +135,13 @@
                             @component('components.common.warning_modal')
 
                                 @slot('modal_view_button')
-                                    <button type="button" class="bi-btn btn m-0 p-1 shadow-none" data-toggle="modal" data-target="#centralModalWarning">
+                                    <button type="button" class="bi-btn btn m-0 p-1 shadow-none" data-toggle="modal" data-target="{{ '#centralModalWarning'.$graph->id }}">
                                         <i class="bi bi-trash"></i>
                                     </button>
+                                @endslot
 
+                                @slot('modal_view_id')
+                                    {{ 'centralModalWarning'.$graph->id }}
                                 @endslot
 
                                 @slot('modal_header')
@@ -148,16 +153,15 @@
                                 @endslot
 
                                 @slot('modal_submit_button')
-                                    <button form="delete-button" type="submit" class="py-2 btn btn-warning white-text" style="padding: 8px 32.5px">O K</button>
+                                    <!--削除用のフォーム -->
+                                    <form method="POST" action="{{ route('graph.destroy', $graph->id) }}">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="py-2 btn btn-warning white-text" style="padding: 8px 32.5px">O K</button>
+                                    </form>
                                 @endslot
                             @endcomponent
                         </li>
-
-                        <!--削除用のフォーム -->
-                        <form id="delete-button" method="POST" action="{{ route('graph.destroy', $graph->id) }}">
-                            @method('DELETE')
-                            @csrf
-                        </form>
                     @endif
                 </ul>
             </div>
