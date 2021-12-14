@@ -49,10 +49,12 @@ const app = new Vue({
             graphPlotPoint: {
                 graphData: [],
             },
-            sideNavTab: 'tab',
+            sideNavTab: '',
             isEditOperation: false,
 
             isToggleAngleDown: true,
+
+            modalBodyContent: '',
         }
     },
     computed: {
@@ -140,10 +142,10 @@ const app = new Vue({
             if(this.axisValue.xMin !== '' && this.axisValue.xMax !== '' && this.axisValue.yMin !== '' && this.axisValue.yMax !== ''
                 && this.axisSettingDetect.isCompleteX && this.axisSettingDetect.isCompleteY) {
                 this.sideNavTab = 'tab';
+                this.modalBodyContent = '';
                 return;
             } else {
-                alert('軸設定が未完了です。');
-                this.sideNavTab = '';
+                this.modalBodyContent = '軸設定が未完了です。<br>x軸、y軸の設定を行ってください。';
                 this.switchShowCanvas(true, false, false);
             }
         },
