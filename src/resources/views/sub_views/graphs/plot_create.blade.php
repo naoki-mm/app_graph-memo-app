@@ -11,16 +11,30 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link passiveContent" id="plot-tab" :data-toggle="sideNavTab"
+                    <a v-if="!modalBodyContent" class="nav-link passiveContent" id="plot-tab" :data-toggle="sideNavTab"
                         href="#plot" role="tab" aria-controls="plot" aria-selected="false"
+                        v-on:click="switchContent(false, true, false)"
+                        >
+                        プロット
+                    </a>
+                    <a v-if="modalBodyContent" class="nav-link passiveContent" id="plot-tab" data-toggle="modal"
+                        data-target="#axisModalWarning" href="#plot" role="tab"
+                        aria-controls="plot" aria-selected="false"
                         v-on:click="switchContent(false, true, false)"
                         >
                         プロット
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link passiveContent" id="save-tab" :data-toggle="sideNavTab"
+                    <a v-if="!modalBodyContent" class="nav-link passiveContent" id="save-tab" :data-toggle="sideNavTab"
                         href="#save" role="tab" aria-controls="save" aria-selected="false"
+                        v-on:click="switchContent(false, true, true)"
+                        >
+                        保存
+                    </a>
+                    <a v-if="modalBodyContent" class="nav-link passiveContent" id="save-tab" data-toggle="modal"
+                        data-target="#axisModalWarning" href="#save" role="tab"
+                        aria-controls="save" aria-selected="false"
                         v-on:click="switchContent(false, true, true)"
                         >
                         保存
@@ -45,6 +59,39 @@
                 <div class="tab-pane fade" id="save" role="tabpanel" aria-labelledby="save-tab">
                     @include('components.graphs.graph_save')
                 </div>
+
+                <!-- Central Modal Medium Warning -->
+                <div v-if="modalBodyContent" class="modal fade" id="axisModalWarning" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                        aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-notify modal-warning" role="document">
+                        <!--Content-->
+                        <div class="modal-content">
+                        <!--Header-->
+                            <div class="modal-header">
+                                <p class="heading lead ml-3">確認</p>
+
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" class="white-text">&times;</span>
+                                </button>
+                            </div>
+
+                            <!--Body-->
+                            <div class="modal-body">
+                                <div class="text-center">
+                                    <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
+                                    <p v-html="modalBodyContent"></p>
+                                </div>
+                            </div>
+
+                            <!--Footer-->
+                            <div class="modal-footer justify-content-center" role="group" aria-label="modal-button">
+                                <button type="button" class="py-2 mr-4 btn btn-outline-warning" data-dismiss="modal">OK</button>
+                            </div>
+                        <!--/.Content-->
+                        </div>
+                    </div>
+                </div>
+                <!-- Central Modal Medium Warning-->
 
             </div>
 
