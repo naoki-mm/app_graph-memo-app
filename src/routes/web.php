@@ -13,6 +13,8 @@
 
 Auth::routes();
 
+Route::get('/', 'ShowTopPageController')->name('top.show')->middleware('guest');
+
 Route::middleware(['auth'])->group(function () {
     Route::namespace('Graph')->group(function () {
         Route::resource('graph', 'GraphController', ['expect' => ['show']]);
@@ -34,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('sort-index/{order}', 'IndexSortController')->name('index.sort');
 
     });
+
     Route::namespace('User')->group(function () {
         Route::resource('user-profile', 'ProfileChangeController', ['only' => ['edit', 'update']]);
         Route::resource('user-email', 'EmailChangeController', ['only' => ['edit', 'update']]);
