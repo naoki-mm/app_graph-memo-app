@@ -6,7 +6,7 @@ html,
 body,
 header,
 .view {
-    height: 93%;
+    height: 95%;
 }
 
 @media (max-width: 740px) {
@@ -60,3 +60,10 @@ h6 {
     background: linear-gradient(to 45deg, rgba(34, 36, 35, 0.65), rgba(45, 48, 45, 0.63) 100%) !important;
 }
 
+#authNavbar{
+    background:
+        linear-gradient(90deg, #6d777cdc 0%, #596169 100%),
+        radial-gradient(at top, rgba(199, 197, 197, 0.452) 0%, rgba(2, 2, 2, 0.55) 93%),
+        radial-gradient(at top, rgba(177, 175, 175, 0.397) 0%, rgba(3, 3, 3, 0.08) 63%) !important;
+    background-blend-mode: multiply, screen !important;
+}
