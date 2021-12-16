@@ -1,0 +1,62 @@
+body {
+    background-color: rgb(248, 248, 248);
+}
+
+html,
+body,
+header,
+.view {
+    height: 93%;
+}
+
+@media (max-width: 740px) {
+    html,
+    body,
+    header,
+    .view {
+        height: 1000px;
+    }
+}
+@media (min-width: 800px) and (max-width: 850px) {
+    html,
+    body,
+    header,
+    .view {
+        height: 600px;
+    }
+}
+
+.btn .fa {
+    margin-left: 3px;
+}
+
+.top-nav-collapse {
+    background-color: rgb(68, 72, 74) !important;
+}
+
+.navbar:not(.top-nav-collapse) {
+    background: transparent !important;
+}
+
+@media (max-width: 991px) {
+    .navbar:not(.top-nav-collapse) {
+        background: rgb(68, 72, 74) !important;
+    }
+}
+
+.btn-white {
+    color: black !important;
+}
+
+h6 {
+    line-height: 1.7;
+}
+
+.rgba-gradient {
+    background: -moz-linear-gradient(45deg, rgba(34, 36, 35, 0.65), rgba(45, 48, 45, 0.63) 100%) !important;
+    background: -webkit-linear-gradient(45deg, rgba(34, 36, 35, 0.65), rgba(45, 48, 45, 0.63) 100%) !important;
+    background: -webkit-gradient(linear, 45deg, from(rgba(34, 36, 35, 0.65)), to(rgba(45, 48, 45, 0.63))) !important;
+    background: -o-linear-gradient(45deg, rgba(34, 36, 35, 0.65), rgba(45, 48, 45, 0.63) 100%) !important;
+    background: linear-gradient(to 45deg, rgba(34, 36, 35, 0.65), rgba(45, 48, 45, 0.63) 100%) !important;
+}
+

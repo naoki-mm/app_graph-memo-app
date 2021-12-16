@@ -43,6 +43,6 @@ class LoginController extends Controller
     // ログアウト時の遷移先をオーバーライド
     protected function loggedOut(Request $request)
     {
-        return redirect()->route('graph.index');
+        return redirect()->route('top.show');
     }
 }
