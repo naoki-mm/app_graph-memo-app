@@ -26,7 +26,7 @@ export default {
     props: {
         isImageFile: {
             type: Boolean,
-            dfault: false
+            default: false
         },
     },
 

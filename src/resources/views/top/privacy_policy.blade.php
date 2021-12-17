@@ -24,7 +24,7 @@
             <div class="container-fluid pb-5">
                 <div class="row justify-content-center">
                     <div class="col-lg-10 col-xl-7">
-                        <div class="card mx-auto p-4" style="background-color:rgba(255, 255, 255, 0.932)">
+                        <div class="card mx-auto p-sm-1 p-md-4" style="background-color:rgba(255, 255, 255, 0.932)">
                             <div class="card-body">
                                 <h3 class="font-weight-bold text-center border-bottom mb-5 pb-3">
                                     プライバシーポリシー

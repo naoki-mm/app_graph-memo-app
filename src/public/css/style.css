@@ -1,3 +1,4 @@
+
 @media (min-width: 991.98px) {
     .main-layout {
     padding-left: 240px; /* サイドバーを考慮 */
@@ -5,16 +6,21 @@
 }
 
 /* グラフサイドバーの調整 */
-@media (max-width: 991.98px) {
+@media (max-width: 700px) {
     .graph-sidebar-card {
-    height: 50vmin;
+    height: 600px !important;
     }
 }
 
 /* グラフサイドバーの調整 */
+@media (max-width: 991.98px) {
+    .graph-sidebar-card {
+    height: 70vmin;
+    }
+}
 @media (min-width: 991.98px) {
-    .graph-sidebar-card{
-    height: 90vmin;
+    .graph-sidebar-card {
+        height: 90vmin;
     }
 }
 

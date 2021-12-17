@@ -20,13 +20,14 @@
 
             <!-- ドロップ領域の表示内容 -->
             <div>
-                <div class="d-none d-sm-block">
-                    <i class="fas fa-cloud-upload-alt fa-8x mb-4" style="color: #BDBDBD"></i>
+                <div>
+                    <i class="d-none d-sm-block fas fa-cloud-upload-alt fa-8x mb-1 mb-md-3 mb-lg-4" style="color: #BDBDBD"></i>
+                    <i class="d-block d-sm-none fas fa-cloud-upload-alt fa-4x mb-2 mb-md-3 mb-lg-4" style="color: #BDBDBD"></i>
                     <p class="h2 drag-drop-info">ここにファイルをドロップ</p>
-                    <p class="h4 my-5">または</p>
+                    <p class="h4 my-sm-1 my-md-3 my-lg-5">または</p>
                 </div>
-                <label for="graph_image" class="btn btn-custom btn-block" style="font-size: 1.4rem">
-                    <i class="fas fa-upload mr-2"></i>ファイルを選択
+                <label for="graph_image" class="btn btn-custom btn-block h3">
+                    <i class="fas fa-upload mr-md-2"></i>ファイルを選択
                 </label>
                 <input
                     id="graph_image"
