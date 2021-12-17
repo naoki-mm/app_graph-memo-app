@@ -1,0 +1,115 @@
+$enable-responsive-font-sizes: true;
+
+html,
+body,
+header,
+.view {
+    height: 95%;
+}
+
+@media (max-width: 575.98px) {
+	h1, .h1 {
+		font-size: 1.7rem !important;
+	}
+
+	h2, .h2 {
+		font-size: 1.4rem !important;
+	}
+
+	h3, .h3 {
+		font-size: 1.25rem !important;
+	}
+
+	h4, .h4 {
+		font-size: 1.1rem !important;
+	}
+
+	h5, .h5 {
+		font-size: 1rem !important;
+	}
+
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+	h1, .h1  {
+		font-size: 2.2rem !important
+	}
+
+	h2, .h2 {
+		font-size: 1.6rem !important;
+	}
+
+	h3, .h3 {
+		font-size: 1.4rem !important;
+	}
+
+	h4, .h4 {
+		font-size: 1.15rem !important;
+	}
+	h5, .h5 {
+		font-size: 1.12rem !important;
+	}
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+	h1, .h1  {
+		font-size: 2.5rem !important
+	}
+
+	h2, .h2 {
+		font-size: 1.8rem !important;
+	}
+
+	h3, .h3 {
+		font-size:1.5 rem !important;
+	}
+
+	h4, .h4 {
+		font-size: 1.2rem !important;
+	}
+	h5, .h5 {
+		font-size: 1.1rem !important;
+	}
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+	h1, .h1  {
+		font-size: 2.7rem !important
+	}
+
+	h2, .h2 {
+		font-size: 1.9rem !important;
+	}
+
+	h3, .h3 {
+		font-size: 1.62rem !important;
+	}
+
+	h4, .h4 {
+		font-size: 1.37rem !important;
+	}
+	h5, .h5 {
+		font-size: 1.2rem !important;
+	}
+}
+
+@media (min-width: 1200px) {
+	h1, .h1  {
+		font-size: 2.6rem !important
+	}
+
+	h2, .h2 {
+		font-size: 2rem !important;
+	}
+
+	h3, .h3 {
+		font-size: 1.63rem !important;
+	}
+
+	h4, .h4 {
+		font-size: 1.4rem !important;
+	}
+	h5, .h5 {
+		font-size: 1.2rem !important;
+	}
+}

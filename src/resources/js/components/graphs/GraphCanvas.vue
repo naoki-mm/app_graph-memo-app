@@ -1,6 +1,6 @@
 <template>
     <!-- canvas -->
-    <div class="col-12 col-lg-9 pl-lg-2 pt-2 pt-lg-0">
+    <div class="col-12 col-lg-9 col-xl-8 pl-lg-2 pt-2 pt-lg-0">
 
         <div class="card">
             <div class="canvas-card card-body w-100
@@ -501,7 +501,7 @@ export default {
         graphPlot(e) {
             // モーダル表示の初期化
             this.modalBodyContent = '';
-            
+
             // 現在のサイドナビが保存タブであれば、プロットは無効化してアラートを出す。
             if(this.getShowCanvasEventDetect.isSetSave) {
                 this.modalBodyContent = 'グラフのプロットを反映する場合は「プロット」タブを開いてください';

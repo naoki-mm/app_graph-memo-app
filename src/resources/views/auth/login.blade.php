@@ -8,15 +8,15 @@
 
     @component('components.common.top_header', ['login_view_flag' => true, 'register_view_flag' => false, 'user_policy_flag' => false, 'privacy_policy_flag' => false])
         @slot('header_content')
-            <div class="container-fluid" style="padding-top:130px">
+            <div class="container-fluid" style="padding-top:100px">
                 <div class="row justify-content-center">
-                    <div class="col-sm-7 col-xl-4">
+                    <div class="col-sm-7 col-md-6 col-xl-5">
                         <div class="card mx-auto">
                             <div class="card-body">
-                                <div class="font-weight-bold text-center border-bottom pb-3" style="font-size: 24px">ログイン</div>
+                                <h3 class="font-weight-bold text-center border-bottom pb-3">ログイン</h3>
 
                                 {{-- フォーム --}}
-                                <form method="POST" action="{{ route('login') }}" class="p-5">
+                                <form method="POST" action="{{ route('login') }}" class="p-0 py-3 p-sm-3 p-md-2 p-lg-5">
                                     @csrf
 
                                     @if ($errors->any())

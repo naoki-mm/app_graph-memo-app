@@ -1,5 +1,5 @@
-<div class="col-12 col-lg-3">
-    <div class="card overflow-auto">
+<div class="col-12 col-md-12 col-lg-3 col-xl-4">
+    <div class="card overflow-auto px-0 px-sm-3 px-md-5 px-lg-0 px-xl-3">
         <div class="card-body graph-sidebar-card w-100">
             <ul class="nav nav-tabs nav-pills graph-nav-pills" id="myTab" role="tablist">
                 <li class="nav-item">
