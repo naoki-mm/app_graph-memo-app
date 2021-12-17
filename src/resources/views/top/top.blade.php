@@ -6,7 +6,7 @@
 
 @section('content')
 
-    @component('components.common.top_header', ['login_view_flag' => false, 'register_view_flag' => false])
+    @component('components.common.top_header', ['login_view_flag' => false, 'register_view_flag' => false, 'user_policy_flag' => false, 'privacy_policy_flag' => false])
         @slot('header_content')
             <div class="view" style="background-image: url('https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/top_background.jpg');
                     background-repeat: no-repeat; background-size: cover; background-position: center center;">
@@ -98,7 +98,7 @@
         <div class="container" style="margin-top: 120px">
             <div class="row my-5 justify-content-center">
                 <div class="col-12 text-center mb-5">
-                    <h1 class="border-bottom">ー 利用シーン ー</h1>
+                    <h1 class="border-bottom">ー 役立つ場面 ー</h1>
                 </div>
 
                 <div class="col-12 text-left mb-5">
@@ -139,7 +139,7 @@
                 </div>
 
                 <div class="col-12 text-center my-5">
-                    <a class="h5 btn btn-success mr-4 font-weight-bold" style="padding: 20px 50px">無料で登録</a>
+                    <a class="h5 btn btn-success mr-4 font-weight-bold" href="{{ route('register') }}" style="padding: 20px 50px">無料で登録</a>
                     <a class="h5 btn btn-outline-success font-weight-bold bg-white" style="padding: 20px 50px">機能を試す</a>
                     <h4 class="mt-3 ml-3">
                         <a href="{{ route('login') }}" class="border-bottom border-success font-weight-bold">すでにアカウトをお持ちですか？ログイン</a>

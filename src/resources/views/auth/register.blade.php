@@ -6,7 +6,7 @@
 
 @section('content')
 
-    @component('components.common.top_header', ['register_view_flag' => true, 'login_view_flag' => false])
+    @component('components.common.top_header', ['register_view_flag' => true, 'login_view_flag' => false, 'user_policy_flag' => false, 'privacy_policy_flag' => false])
         @slot('header_content')
             <div class="container-fluid" style="padding-top:110px">
                 <div class="row justify-content-center">

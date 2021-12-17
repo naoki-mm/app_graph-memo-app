@@ -13,7 +13,13 @@
 
 Auth::routes();
 
-Route::get('/', 'ShowTopPageController')->name('top.show')->middleware('guest');
+Route::middleware(['guest'])->group(function () {
+    Route::namespace('Top')->group(function () {
+        Route::get('/', 'ShowTopPageController')->name('top.show');
+        Route::get('user-policy', 'ShowUserPolicyController')->name('user_policy.show');
+        Route::get('privacy-policy', 'ShowPrivacyPolicyController')->name('privacy_policy.show');
+    });
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::namespace('Graph')->group(function () {
@@ -36,7 +42,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('sort-index/{order}', 'IndexSortController')->name('index.sort');
 
     });
-
     Route::namespace('User')->group(function () {
         Route::resource('user-profile', 'ProfileChangeController', ['only' => ['edit', 'update']]);
         Route::resource('user-email', 'EmailChangeController', ['only' => ['edit', 'update']]);

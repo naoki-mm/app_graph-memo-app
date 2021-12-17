@@ -1,7 +1,7 @@
 
 <header>
     {{-- ナビバー --}}
-    @if($login_view_flag || $register_view_flag)
+    @if($login_view_flag || $register_view_flag || $user_policy_flag || $privacy_policy_flag)
         <nav class="navbar navbar-expand-lg fixed-top navbar-dark" id="authNavbar">
     @else
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
@@ -26,7 +26,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item {{ $login_view_flag || $register_view_flag ? '' : 'active' }}">
-                        <a class="nav-link" href="{{ route('top.show') }}">Home
+                        <a class="nav-link" href="{{ route('top.show') }}">ホーム
                         </a>
                     </li>
                     <li class="nav-item {{ $register_view_flag ? 'active' : '' }}">

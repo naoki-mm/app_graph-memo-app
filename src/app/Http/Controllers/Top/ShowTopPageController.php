@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Top;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ShowTopPageController extends Controller
@@ -13,6 +14,6 @@ class ShowTopPageController extends Controller
      */
     public function __invoke()
     {
-        return view('top');
+        return view('top.top');
     }
 }
