@@ -36,7 +36,7 @@
                         </ol>
                         <div class="mt-4 text-center">
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="delete-confirm-check"
+                                <input name="user_delete_check" value="true" form="user-delete-form" type="checkbox" class="custom-control-input" id="delete-confirm-check"
                                     v-on:click="isDeleteCheck = !isDeleteCheck">
                                 <label class="custom-control-label" for="delete-confirm-check">
                                     上記事項に同意の上、退会手続きを行います。
@@ -48,7 +48,7 @@
                             </p>
                         </div>
 
-                        <form method="POST" action="{{ route('delete-account.destroy', $delete_account->id) }}" class="">
+                        <form id="user-delete-form" method="POST" action="{{ route('delete-account.destroy', $delete_account->id) }}">
                             @method('DELETE')
                             @csrf
                             {{-- 変更ボタン --}}

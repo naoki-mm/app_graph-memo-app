@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\User\AccountDeleteRequest;
 use App\User;
 
 class DeleteAccountController extends Controller
@@ -34,7 +34,7 @@ class DeleteAccountController extends Controller
      * @param  User  $delete_account
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $delete_account)
+    public function destroy(AccountDeleteRequest $request, User $delete_account)
     {
         $delete_account->delete();
         Auth::logout();
