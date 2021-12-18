@@ -23,7 +23,7 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::namespace('Graph')->group(function () {
-        Route::resource('graph', 'GraphController', ['expect' => ['show']]);
+        Route::resource('graph', 'GraphController', ['except' => ['show']]);
         // 画像の一時保持
         Route::post('graph-image-save', 'GraphImageSaveController')->name('graph.image.save');
         // お気に入りフラグの変更

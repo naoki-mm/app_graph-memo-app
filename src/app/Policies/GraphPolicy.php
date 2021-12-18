@@ -51,9 +51,9 @@ class GraphPolicy
      * @param  \App\Graph  $graph
      * @return mixed
      */
-    public function delete(User $user, Graph $graph)
+    public function delete(User $login_user, Graph $request_graph)
     {
-        return true;
+        return $login_user->id === $request_graph->user_id;
     }
 
     /**
@@ -63,9 +63,9 @@ class GraphPolicy
      * @param  \App\Graph  $graph
      * @return mixed
      */
-    public function restore(User $user, Graph $graph)
+    public function restore(User $login_user, Graph $request_graph)
     {
-        return true;
+        return $login_user->id === $request_graph->user_id;
     }
 
     /**
@@ -75,8 +75,8 @@ class GraphPolicy
      * @param  \App\Graph  $graph
      * @return mixed
      */
-    public function forceDelete(User $user, Graph $graph)
+    public function forceDelete(User $login_user, Graph $request_graph)
     {
-        return true;
+        return $login_user->id === $request_graph->user_id;
     }
 }
