@@ -36,6 +36,13 @@ class DeleteAccountController extends Controller
      */
     public function destroy(AccountDeleteRequest $request, User $delete_account)
     {
+        $guest_user_id = 1;
+        // ゲストユーザーの処理防止
+        if($guest_user_id === Auth::id()) {
+            return redirect()->route('delete-account.edit', [$guest_user_id])
+                ->with('user_error_message', 'ゲストユーザーは退会することができません。');
+        }
+
         $delete_account->delete();
         Auth::logout();
         return redirect('/');
