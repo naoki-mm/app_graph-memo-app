@@ -18,7 +18,7 @@ class GraphController extends Controller
 {
     public function __construct()
     {
-        // "edit"と"update"メソッドにおいて, Policyクラスにて定義した認可機能を適用
+        // "edit", "update", "destroy"アクションにおいて, Policyクラスにて定義した認可機能を適用
         $this->authorizeResource(Graph::class, 'graph');
     }
 

@@ -17,7 +17,11 @@ class TrashDestroyController extends Controller
     {
         $graph = Graph::onlyTrashed()
             ->findOrFail($id);
+
+        $this->authorize('restore', $graph);
+        
         $graph->forceDelete();
+
         return redirect()->route('trash.index')
             ->with('status', 'グラフデータを完全に削除しました。');
     }
