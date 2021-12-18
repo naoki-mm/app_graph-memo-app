@@ -9,6 +9,12 @@ use App\User;
 
 class DeleteAccountController extends Controller
 {
+    public function __construct()
+    {
+        // "edit"と"destroy"アクションにおいて, Policyクラスにて定義した認可機能を適用
+        $this->authorizeResource(User::class, 'delete_account');
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

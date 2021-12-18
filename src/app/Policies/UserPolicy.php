@@ -20,4 +20,9 @@ class UserPolicy
     {
         return $login_user->id === $request_user->id;
     }
+
+    public function delete(User $login_user, User $request_user)
+    {
+        return $login_user->id === $request_user->id;
+    }
 }
