@@ -42,9 +42,9 @@
         </a>
 
         <a
-        href="#"
-        class="list-group-item list-group-item-action py-2 ripple"
-        {{-- {{ $index_active_flag ?? ''  ? 'custom-active' : '' }}" --}}
+        href="{{ route("delete-account.edit", auth()->user()->id) }}"
+        class="list-group-item list-group-item-action py-2 ripple
+        {{ $delete_active_flag ?? ''  ? 'custom-active' : '' }}"
         >
         <i class="fas fa-user-slash fa-fw me-3 mr-2"></i><span>退会</span>
         </a>

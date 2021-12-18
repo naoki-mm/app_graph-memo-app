@@ -53,6 +53,7 @@ const app = new Vue({
             isEditOperation: false,
 
             isToggleAngleDown: true,
+            isDeleteCheck: true,
 
             modalBodyContent: '',
         }
