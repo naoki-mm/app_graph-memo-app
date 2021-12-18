@@ -12,6 +12,7 @@
 */
 
 Auth::routes();
+Route::get('guest-login', 'Auth\LoginController@guestLogin')->name('guest.login');
 
 Route::middleware(['guest'])->group(function () {
     Route::namespace('Top')->group(function () {

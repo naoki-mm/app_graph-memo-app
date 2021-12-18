@@ -36,7 +36,7 @@
                         <a class="nav-link" href="{{ route('login') }}">ログイン</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">ゲストログイン</a>
+                        <a class="nav-link" href="{{ route('guest.login') }}">ゲストログイン</a>
                     </li>
                 </ul>
             </div>
