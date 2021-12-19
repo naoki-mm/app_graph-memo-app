@@ -41,7 +41,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('favorite-index', 'FavoriteSearchController')->name('favorite.search');
         // ソート機能
         Route::get('sort-index/{order}', 'IndexSortController')->name('index.sort');
-
+        // CSVダウンロード
+        Route::get('download-csv/{graph}', 'DownloadCsvController')->name('csv.download');
     });
     Route::namespace('User')->group(function () {
         Route::resource('user-profile', 'ProfileChangeController', ['only' => ['edit', 'update']]);

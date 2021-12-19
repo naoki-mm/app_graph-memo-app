@@ -79,4 +79,9 @@ class GraphPolicy
     {
         return $login_user->id === $request_graph->user_id;
     }
+
+    public function csvDownload(User $login_user, Graph $request_graph)
+    {
+        return $login_user->id === $request_graph->user_id;
+    }
 }

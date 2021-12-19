@@ -18,7 +18,7 @@ class TrashDestroyController extends Controller
         $graph = Graph::onlyTrashed()
             ->findOrFail($id);
 
-        $this->authorize('restore', $graph);
+        $this->authorize('forceDelete', $graph);
         
         $graph->forceDelete();
 

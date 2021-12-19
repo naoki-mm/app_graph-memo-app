@@ -89,7 +89,7 @@
                                         </span>
                                     </button>
                                 @endslot
-                                
+
                                 @slot('modal_view_id')
                                     {{ 'centralModalWarning'.$graph->id }}
                                 @endslot
@@ -114,6 +114,20 @@
                         </li>
 
                     @else
+                        {{-- 編集ボタン --}}
+                        <li class="index-li list-inline-item mx-auto">
+                            <a href="{{ route("graph.edit", $graph->id) }}" class="bi-btn btn m-0 p-1 shadow-none">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        </li>
+
+                        {{-- csvダウンロードボタン --}}
+                        <li class="list-inline-item mx-auto">
+                            <a href="{{ route("csv.download", $graph->id) }}" class="bi-btn btn m-0 p-1 shadow-none">
+                                <i class="bi bi-download"></i>
+                            </a>
+                        </li>
+                        
                         {{-- お気に入りボタン --}}
                         <li class="list-inline-item mx-auto">
                             <graph-favorite
@@ -121,13 +135,6 @@
                                 favorite-update-endpoint="{{ route('favorite.update', $graph->id) }}"
                             >
                             </graph-favorite>
-                        </li>
-
-                        {{-- 編集ボタン --}}
-                        <li class="index-li list-inline-item mx-auto">
-                            <a href="{{ route("graph.edit", $graph->id) }}" class="bi-btn btn m-0 p-1 shadow-none">
-                                <i class="bi bi-pencil"></i>
-                            </a>
                         </li>
 
                         {{-- 削除ボタン --}}
