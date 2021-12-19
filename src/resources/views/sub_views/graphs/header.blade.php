@@ -37,75 +37,88 @@
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div class="pl-2 mb-2 navbar-sub-contents">
 
+                    {{-- キーワード検索 --}}
+                    @if(isset($search_keyword))
+                        <div class="pl-4 mt-2 custom-switch" style="margin-left: 13px">
+                            <input type="checkbox" onclick="location.href='{{ route('keyword.search') }}'"
+                                class="custom-control-input" id="customSwitchesKeyword"
+                                @if($index_active_flag ?? '') {{ session('favorite') || session('tag_name') ? '' : 'checked' }} @endif
+                            >
+                            <label class="custom-control-label" for="customSwitchesKeyword">キーワード検索</label>
+                        </div>
+                        <hr class="sidebar-hr">
+                    @endif
+
                     {{-- 全てのメモ --}}
                     <div class="pl-4 mt-2 custom-switch" style="margin-left: 13px">
                         <input type="checkbox" onclick="location.href='{{ route('graph.index') }}'"
                             class="custom-control-input" id="customSwitchesAll"
-                            @if($index_active_flag ?? '') {{ session('favorite') || session('tag_name') ? '' : 'checked disabled' }} @endif
+                            @if($index_active_flag ?? '') {{ isset($search_keyword) || session('favorite') || session('tag_name') ? '' : 'checked disabled' }} @endif
                         >
                         <label class="custom-control-label" for="customSwitchesAll">全てのメモを表示</label>
                     </div>
-                    <hr class="sidebar-hr">
 
-                    @if(session('index_order') === 'desc')
-                        {{-- 新しい順に並べ替え --}}
-                        <div class="pl-4 custom-switch" style="margin-left: 13px">
-                            <input type="checkbox" onclick="location.href='{{ route('index.sort', ['order' => 'desc']) }}'"
-                                class="custom-control-input" id="customSwitchesNew"
-                            >
-                            <label class="custom-control-label" for="customSwitchesNew">新しい順に表示中</label>
-                        </div>
+                    @if(empty($search_keyword))
                         <hr class="sidebar-hr">
+                        @if(session('index_order') === 'desc')
+                            {{-- 新しい順に並べ替え --}}
+                            <div class="pl-4 custom-switch" style="margin-left: 13px">
+                                <input type="checkbox" onclick="location.href='{{ route('index.sort', ['order' => 'desc']) }}'"
+                                    class="custom-control-input" id="customSwitchesNew"
+                                >
+                                <label class="custom-control-label" for="customSwitchesNew">新しい順に表示中</label>
+                            </div>
+                            <hr class="sidebar-hr">
 
-                    @elseif(session('index_order') === 'asc')
-                        {{-- 古い順に並べ替え --}}
+                        @elseif(session('index_order') === 'asc')
+                            {{-- 古い順に並べ替え --}}
+                            <div class="pl-4 custom-switch" style="margin-left: 13px">
+                                <input type="checkbox" onclick="location.href='{{ route('index.sort', ['order' => 'asc']) }}'"
+                                    class="custom-control-input" id="customSwitchesOld" checked
+                                >
+                                <label class="custom-control-label" for="customSwitchesOld">古い順に表示中</label>
+                            </div>
+                            <hr class="sidebar-hr">
+
+                        @else
+                        @endif
+
+                        {{-- お気に入り絞り込み --}}
                         <div class="pl-4 custom-switch" style="margin-left: 13px">
-                            <input type="checkbox" onclick="location.href='{{ route('index.sort', ['order' => 'asc']) }}'"
-                                class="custom-control-input" id="customSwitchesOld" checked
+                            <input type="checkbox" onclick="location.href='{{ route('favorite.search') }}'"
+                                class="custom-control-input" id="customSwitchesFavorite"
+                                {{ session('favorite') ? 'checked': '' }}
                             >
-                            <label class="custom-control-label" for="customSwitchesOld">古い順に表示中</label>
+                            <label class="custom-control-label" for="customSwitchesFavorite">お気に入り</label>
                         </div>
-                        <hr class="sidebar-hr">
 
-                    @else
-                    @endif
+                        {{-- タグ絞り込み --}}
+                        <div class="pl-4 pb-1 custom-switch" style="margin-left: 13px">
+                            <input type="checkbox" onclick="location.href='{{ route('tag.search', ['name' => session('tag_name') ?? 'a']) }}'"
+                                class="custom-control-input" id="customSwitchesTag"
+                                {{ session('tag_name') ? 'checked': 'disabled' }}
+                            >
+                            <label class="custom-control-label" for="customSwitchesTag">タグ検索</label>
+                        </div>
 
-                    {{-- お気に入り絞り込み --}}
-                    <div class="pl-4 custom-switch" style="margin-left: 13px">
-                        <input type="checkbox" onclick="location.href='{{ route('favorite.search') }}'"
-                            class="custom-control-input" id="customSwitchesFavorite"
-                            {{ session('favorite') ? 'checked': '' }}
-                        >
-                        <label class="custom-control-label" for="customSwitchesFavorite">お気に入り</label>
-                    </div>
-
-                    {{-- タグ絞り込み --}}
-                    <div class="pl-4 pb-1 custom-switch" style="margin-left: 13px">
-                        <input type="checkbox" onclick="location.href='{{ route('tag.search', ['name' => session('tag_name') ?? 'a']) }}'"
-                            class="custom-control-input" id="customSwitchesTag"
-                            {{ session('tag_name') ? 'checked': 'disabled' }}
-                        >
-                        <label class="custom-control-label" for="customSwitchesTag">タグ検索</label>
-                    </div>
-
-                    {{-- タグ一覧表示 --}}
-                    @isset($all_tags)
-                        @foreach($all_tags as $tag_array)
-                            @if($loop->first)
-                                <div class="pb-3 pl-3">
+                        {{-- タグ一覧表示 --}}
+                        @isset($all_tags)
+                            @foreach($all_tags as $tag_array)
+                                @if($loop->first)
+                                    <div class="pb-3 pl-3">
+                                    @endif
+                                        <a href="{{ route('tag.search', ['name' => $tag_array['text']]) }}"
+                                            class="badge tag-badge d-inline-block p-1 mr-1 mt-1"
+                                            id="{{ session('tag_name') ===  $tag_array['text'] ? 'badge-active-style': '' }}"
+                                            >
+                                            {{ $tag_array['text'] ?? [] }}
+                                        </a>
+                                    @if($loop->last)
+                                    </div>
                                 @endif
-                                    <a href="{{ route('tag.search', ['name' => $tag_array['text']]) }}"
-                                        class="badge tag-badge d-inline-block p-1 mr-1 mt-1"
-                                        id="{{ session('tag_name') ===  $tag_array['text'] ? 'badge-active-style': '' }}"
-                                        >
-                                        {{ $tag_array['text'] ?? [] }}
-                                    </a>
-                                @if($loop->last)
-                                </div>
-                            @endif
-                        @endforeach
-                    @endisset
-
+                            @endforeach
+                        @endisset
+                    @endif
                 </div>
 
             </div>
