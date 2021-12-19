@@ -18,7 +18,7 @@ class TrashRestoreController extends Controller
         $graph = Graph::onlyTrashed()
                 ->findOrFail($id);
 
-        $this->authorize('forceDelete', $graph);
+        $this->authorize('restore', $graph);
 
         $graph->restore();
         $graph->favorite = 0;

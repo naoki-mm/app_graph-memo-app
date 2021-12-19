@@ -17,6 +17,9 @@ class DownloadCsvController extends Controller
      */
     public function __invoke(Request $request, Graph $graph)
     {
+        // 認可機能
+        $this->authorize('csvDownload', $graph);
+
         //プロットデータのモデルコレクションを取得
         $plot_data_collection = $graph->plotData->pluck('data');
 
