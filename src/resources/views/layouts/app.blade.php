@@ -32,11 +32,20 @@
 <body>
     <div id="app">
         @yield('header')
+
         @if (session('status'))
             <success-notification
                 :notification='@json(session('status'))'
             ></success-notification>
         @endif
+
+        {{-- ゲストユーザー時の退会不可のエラーメッセージ --}}
+        @if (session('user_error_message'))
+            <user-failure-notification
+                :notification='@json(session('user_error_message'))'
+            ></user-failure-notification>
+        @endif
+
         @yield('content')
         @yield('footer')
     </div>

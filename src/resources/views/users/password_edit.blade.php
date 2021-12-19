@@ -93,6 +93,11 @@
                     <button type="submit" class="btn btn-block btn-custom">
                         変更する
                     </button>
+                    @if (Auth::id() === 1)
+                        <p class="text-danger text-center">
+                            <i class="fas fa-exclamation-triangle mr-1 mt-2"></i>ゲストユーザーは変更処理を行うことができません。
+                        </p>
+                    @endif
                 </div>
 
             </form>

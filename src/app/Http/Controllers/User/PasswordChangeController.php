@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\User\PasswordChangeRequest;
 use Illuminate\Support\Facades\Hash;
 use App\User;
@@ -37,6 +38,13 @@ class PasswordChangeController extends Controller
      */
     public function update(PasswordChangeRequest $request, User $user_password)
     {
+        $guest_user_id = 1;
+        // ゲストユーザーの処理防止
+        if ($guest_user_id === Auth::id()) {
+            return redirect()->route('user-password.edit', [$user_password])
+                ->with('user_error_message', 'ゲストユーザーはパスワードを変更することができません。');
+        }
+
         $user_password->password = Hash::make($request->input('password'));
         $user_password->save();
         return redirect()->route('user-password.edit', [$user_password])

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\User\EmailChangeRequest;
 use App\User;
 
@@ -36,6 +37,13 @@ class EmailChangeController extends Controller
      */
     public function update(EmailChangeRequest $request, User $user_email)
     {
+        $guest_user_id = 1;
+        // ゲストユーザーの処理防止
+        if ($guest_user_id === Auth::id()) {
+            return redirect()->route('user-email.edit', [$user_email])
+                ->with('user_error_message', 'ゲストユーザーはメールアドレスを変更することができません。');
+        }
+
         $user_email->email = $request->input('email');
         $user_email->save();
 

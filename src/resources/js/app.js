@@ -4,6 +4,7 @@ window.Vue = require('vue');
 require('vue-toasted');
 
 Vue.component('avatar-image-change', require('./components/users/AvatarImageChange.vue').default);
+Vue.component('user-failure-notification', require('./components/users/UserFailureNotification.vue').default);
 Vue.component('success-notification', require('./components/common/SuccessNotification.vue').default);
 Vue.component('failure-notification', require('./components/graphs/FailureNotification.vue').default);
 Vue.component('image-failure-notification', require('./components/graphs/ImageFailureNotification.vue').default);

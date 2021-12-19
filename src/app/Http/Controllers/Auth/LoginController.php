@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -43,6 +44,20 @@ class LoginController extends Controller
     // ログアウト時の遷移先をオーバーライド
     protected function loggedOut(Request $request)
     {
+        return redirect()->route('top.show');
+    }
+
+    // ゲストユーザー用ユーザーID
+    private const GUEST_USER_ID = 1;
+
+    // ゲストログイン処理
+    public function guestLogin()
+    {
+        // IDによるゲストログイン
+        if (Auth::loginUsingId(self::GUEST_USER_ID)) {
+            return redirect()->route('graph.index');
+        }
+
         return redirect()->route('top.show');
     }
 }
