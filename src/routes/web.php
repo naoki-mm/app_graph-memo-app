@@ -43,6 +43,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('sort-index/{order}', 'IndexSortController')->name('index.sort');
         // CSVダウンロード
         Route::get('download-csv/{graph}', 'DownloadCsvController')->name('csv.download');
+        // キーワード検索
+        Route::get('keyword-search', 'KeywordSearchController')->name('keyword.search');
     });
     Route::namespace('User')->group(function () {
         Route::resource('user-profile', 'ProfileChangeController', ['only' => ['edit', 'update']]);
