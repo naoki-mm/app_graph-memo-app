@@ -28,7 +28,7 @@
                 <li class="nav-item">
                     <a v-if="!modalBodyContent" class="nav-link passiveContent" id="save-tab" :data-toggle="sideNavTab"
                         href="#save" role="tab" aria-controls="save" aria-selected="false"
-                        v-on:click="switchContent(false, true, true)"
+                        v-on:click="switchContent(false, true, true); sendPlotImage()"
                         >
                         保存
                     </a>

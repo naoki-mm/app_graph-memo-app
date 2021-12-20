@@ -12,5 +12,6 @@ class PlotData extends Model
     protected $fillable = [
         'graph_id',
         'data',
+        'plot_image_name'
     ];
 }

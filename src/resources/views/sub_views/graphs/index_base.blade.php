@@ -13,16 +13,22 @@
                     <p class="p-0 ml-2 mb-0 font-weight-bold">{{ $graph->title }}</p>
                 </a>
 
-                {{-- Card image --}}
-                <a  href="{{ route("graph.edit", $graph->id) }}" class="view overlay mt-1">
-                    <img
-                        class="card-img-top"
-                        src="{{ Storage::disk('s3')->url('graph_images/'.$graph->image_name) }}"
-                        alt="Card image cap"
-                        style="aspect-ratio: 1 / 0.7; width: 100%;">
-                        {{-- ローカルの画像保存先
-                        src="{{ asset('storage/graph_images/'.$graph->image_name) }}" --}}
-                </a>
+                {{-- Card image プロット画像 --}}
+                @foreach ($graph->plotData as $plot_data)
+                    <a  href="{{ route("graph.edit", $graph->id) }}" class="" id="index-plot-image">
+                        <img
+                            class=""
+                            src="{{ Storage::disk('s3')->url('plot_images/'.$plot_data->plot_image_name) }}"
+                            alt="Card image cap"
+                            style="aspect-ratio: 1 / 0.7; width: 100%;
+                                background-image: url({{ Storage::disk('s3')->url('graph_images/'.$graph->image_name) }});
+                                background-repeat: no-repeat;
+                                background-size: 100% 100%;
+                                ">
+                            {{-- ローカルの画像保存先
+                            src="{{ asset('storage/graph_images/'.$graph->image_name) }}" --}}
+                    </a>
+                @endforeach
 
                 {{-- Card content --}}
                 <a href="{{ route("graph.edit", $graph->id) }}" class="card-body pb-0">

@@ -163,5 +163,29 @@ const app = new Vue({
         callSetCanvas() {
             setTimeout(this.$refs.graphCanvas.setCanvas,50);
         },
+
+        sendPlotImage() {
+            const dataUrl = this.$refs.graphCanvas.getPlotImage();
+
+            // Canvasのデータをblob化
+            const bin = atob(dataUrl.split(',')[1]);
+            const buffer = new Uint8Array(bin.length);
+            for (let i = 0; i < bin.length; i++) {
+                buffer[i] = bin.charCodeAt(i);
+            }
+            const blob = new Blob([buffer.buffer], {type: dataUrl});
+
+            const data = new FormData();
+            data.append('plot_image', blob, 'image.png');
+
+            axios.post('/plot-image-save', data, {
+                    headers: { 'content-type': 'multipart/form-data' }
+                })
+                .then(res => {
+                    console.log('success')
+                }).catch(error => {
+                    new Error(error)
+                });
+                    }
     },
 });

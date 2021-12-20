@@ -27,6 +27,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('graph', 'GraphController', ['except' => ['show']]);
         // 画像の一時保持
         Route::post('graph-image-save', 'GraphImageSaveController')->name('graph.image.save');
+        // プロットデータの画像保存
+        Route::post('plot-image-save', 'PlotImageSaveController')->name('plot.image.save');
         // お気に入りフラグの変更
         Route::put('favorite-update/{graph}', 'FavoriteUpdateController')->name('favorite.update');
         // ゴミ箱の中身を表示

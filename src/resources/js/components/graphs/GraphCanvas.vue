@@ -256,6 +256,10 @@ export default {
     },
 
     methods: {
+        getPlotImage() {
+            return this.canvas.plotCanvas.toDataURL();
+        },
+
         // キャンバスをセット
         setCanvas() {
             // canvas要素を取得。
