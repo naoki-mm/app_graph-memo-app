@@ -45,7 +45,7 @@ class Graph extends Model
         return $this->belongsToMany('App\Tag')->withTimestamps();
     }
 
-    // ログインユーザーのタグを全権取得
+    // タグ、お気に入り検索、ソートの結果を取得
     public function getSearchAndSortResult(Request $request)
     {
         $user_id = Auth::id();
@@ -72,7 +72,7 @@ class Graph extends Model
         // ソート機能
         if ($index_order === 'asc') {
             $graphs_query = $graphs_query->sortBy('updated_at');
-            // dd($graphs_query);
+
         } else if ($index_order === 'desc') {
             $graphs_query = $graphs_query->sortByDesc('updated_at');
         }
@@ -82,5 +82,37 @@ class Graph extends Model
         $graphs_paginate_result = $paginate->paginateGraphs($request, $graphs_query);
 
         return $graphs_paginate_result;
+    }
+
+    // キーワード検索の結果を取得
+    public function getKeywordSearchResult(Request $request, $search_keyword)
+    {
+        // セッション削除
+        $request->session()->forget('favorite');
+        $request->session()->forget('tag_name');
+
+        // セッション保存
+        $request->session()->put('index_order', 'desc');
+
+        $user_id = Auth::id();
+
+        // クエリビルダ
+        $query = self::where('user_id', $user_id);
+
+        // 全角スペースを半角に変換
+        $spaceConversion = mb_convert_kana($search_keyword, 's');
+
+        // 単語を半角スペースで区切り、配列にする
+        $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
+
+        // グラフタイトル、グラフメモと部分一致するものがあるか確認
+        foreach($wordArraySearched as $value) {
+            $query->where('title', 'like', '%'.$value.'%')
+                ->orWhere('memo', 'like', '%' .$value.'%');
+        }
+
+        $graphs = $query->paginate(4);
+
+        return $graphs;
     }
 }

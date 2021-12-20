@@ -32,15 +32,17 @@
         </button>
 
         <!-- 検索フォーム -->
-        <form class="d-none d-md-flex input-group w-auto mx-auto">
+        <form  method="GET" action="{{ route('keyword.search') }}" class="d-none d-md-flex input-group w-auto mx-auto">
             <input
                 autocomplete="off"
                 type="search"
                 class="form-control rounded"
-                placeholder='Search...'
+                placeholder='プロットメモを検索...'
                 style="min-width: 250px"
+                name="keyword_search"
+                value="@if (isset($search_keyword)) {{ $search_keyword }} @endif"
                 />
-            <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
+            <button type="submit" class="input-group-text border-0"><i class="fas fa-search"></i></button>
         </form>
 
         <!-- 右サイドのリスト -->

@@ -127,7 +127,7 @@
                                 <i class="bi bi-download"></i>
                             </a>
                         </li>
-                        
+
                         {{-- お気に入りボタン --}}
                         <li class="list-inline-item mx-auto">
                             <graph-favorite
@@ -178,5 +178,5 @@
 </div>
 
 <div class="d-flex align-items-center justify-content-center">
-    {{ $graphs->links() }}
+    {{ $graphs->appends(request()->input())->links() }}
 </div>
