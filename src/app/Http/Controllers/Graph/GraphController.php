@@ -92,7 +92,13 @@ class GraphController extends Controller
         // グラフプロットデータ保存処理
         $plot_data = new PlotData;
         $plot_data->graph_id = $graph->id;
-        $plot_data->fill($request->all())->save();
+
+        $plot_data->name = $request->input('name');
+        $plot_data->data = $request->input('data');
+
+        $plot_image_name = $request->session()->pull('plot_image_name');
+        $plot_data->plot_image_name = $plot_image_name;
+        $plot_data->save();
 
         // 軸設定プロットデータ保存処理
         $axis_plot = new AxisPlot;
@@ -154,7 +160,14 @@ class GraphController extends Controller
 
         // グラフプロットデータ保存処理
         $graph_plot_data = PlotData::where('graph_id', $graph->id)->first();
-        $graph_plot_data->fill($request->all())->save();
+        $graph_plot_data->graph_id = $graph->id;
+
+        $graph_plot_data->name = $request->input('name');
+        $graph_plot_data->data = $request->input('data');
+
+        $plot_image_name = $request->session()->pull('plot_image_name');
+        $graph_plot_data->plot_image_name = $plot_image_name;
+        $graph_plot_data->save();
 
         // 軸設定プロットデータ保存処理
         $graph_axis_plot = AxisPlot::where('graph_id', $graph->id)->first();

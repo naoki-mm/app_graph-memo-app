@@ -57,10 +57,10 @@
             @endif
         </div>
 
-        <button v-if="isEditOperation" class="mt-3 btn btn-block btn-custom">
+        <button type="submit" v-if="isEditOperation" class="mt-3 btn btn-block btn-custom">
             データを変更する
         </button>
-        <button v-else class="mt-4 btn btn-block btn-custom">
+        <button type="submit" v-else class="mt-4 btn btn-block btn-custom">
             データを登録する
         </button>
     </div>
