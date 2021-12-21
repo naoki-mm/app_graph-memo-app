@@ -89,13 +89,8 @@ $primary: #03bd51;
     }
 }
 
-/* グラフ一覧のフッター背景色 */
 .index-card-footer {
-    background:
-        linear-gradient(90deg, #7e898fdc 0%, #636C75 100%),
-        radial-gradient(at top, rgba(255, 255, 255, 0.452) 0%, rgba(122, 118, 118, 0.55) 93%),
-        radial-gradient(at top, rgba(255, 255, 255, 0.397) 0%, rgba(136, 130, 130, 0.08) 63%);
-    background-blend-mode: multiply, screen;
+    background-color: rgb(93, 97, 102) !important;
 }
 
 /* グラフ一覧のフッターアイコン */
