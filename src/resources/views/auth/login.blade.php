@@ -42,7 +42,6 @@
                                             class="form-control"
                                             autocomplete="email"
                                             value="{{ old('email') }}"
-                                            placeholder="graph-t@example.com"
                                             required autofocus
                                         >
 
@@ -60,7 +59,6 @@
                                             name="password"
                                             class="form-control"
                                             autocomplete="current-password"
-                                            placeholder="********"
                                             required
                                         >
 

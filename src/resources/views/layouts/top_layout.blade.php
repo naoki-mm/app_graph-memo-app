@@ -29,7 +29,19 @@
 </head>
 
 <body>
-    <div id="app"></div>
+    <div id="app">
+        @if (session('status'))
+            <success-notification
+                :notification='@json(session('status'))'
+            ></success-notification>
+        @endif
+
+        @if (session('user_error_message'))
+            <user-failure-notification
+                :notification='@json(session('user_error_message'))'
+            ></user-failure-notification>
+        @endif
+    </div>
     @yield('content')
 
     <!-- MDB 4.19.1 JavaScript-->

@@ -31,7 +31,7 @@
                                             class="form-control @error('name') is-invalid @enderror"
                                             autocomplete="name"
                                             value="{{ old('name') }}"
-                                            placeholder="グラフ太郎"
+                                            placeholder="例)グラフ太郎"
                                             required autofocus
                                         >
                                         @error('name')
@@ -54,7 +54,7 @@
                                             class="form-control @error('email') is-invalid @enderror"
                                             autocomplete="email"
                                             value="{{ old('email') }}"
-                                            placeholder="graph-t@example.com"
+                                            placeholder="例)graph-t@example.com"
                                             required
                                         >
                                         @error('email')
@@ -76,7 +76,6 @@
                                             name="password"
                                             class="form-control @error('password') is-invalid @enderror"
                                             autocomplete="new-password"
-                                            placeholder="********"
                                             required
                                         >
                                         @error('password')
@@ -99,7 +98,6 @@
                                             name="password_confirmation"
                                             class="form-control"
                                             autocomplete="new-password"
-                                            placeholder="********"
                                             required
                                         >
                                         <small class="grey-text">もう一度パスワードを入力してください。</small>

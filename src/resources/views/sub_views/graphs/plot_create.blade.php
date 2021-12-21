@@ -1,20 +1,23 @@
 <div class="col-12 col-md-12 col-lg-3 col-xl-4">
     <div class="card overflow-auto px-0 px-sm-3 px-md-5 px-lg-0 px-xl-3">
         <div class="card-body graph-sidebar-card w-100">
-            <ul class="nav nav-tabs nav-pills graph-nav-pills" id="myTab" role="tablist">
-                <li class="nav-item">
+            <ul class="justify-content-around nav nav-tabs nav-pills graph-nav-pills" id="myTab" role="tablist">
+                <li class="nav-item text-center">
                     <a class="nav-link active passiveContent" id="axis-tab" data-toggle="tab"
                         href="#axis" role="tab" aria-controls="axis" aria-selected="true"
                         v-on:click="switchContent(true, false, false)"
                         >
-                        軸設定
+                        <small class="">step1</small>
+                        <br>軸設定
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item text-center">
                     <a v-if="!modalBodyContent" class="nav-link passiveContent" id="plot-tab" :data-toggle="sideNavTab"
                         href="#plot" role="tab" aria-controls="plot" aria-selected="false"
                         v-on:click="switchContent(false, true, false)"
                         >
+                        <small class="">step2</small>
+                        <br>
                         プロット
                     </a>
                     <a v-if="modalBodyContent" class="nav-link passiveContent" id="plot-tab" data-toggle="modal"
@@ -22,22 +25,28 @@
                         aria-controls="plot" aria-selected="false"
                         v-on:click="switchContent(false, true, false)"
                         >
+                        <small class="">step2</small>
+                        <br>
                         プロット
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item text-center">
                     <a v-if="!modalBodyContent" class="nav-link passiveContent" id="save-tab" :data-toggle="sideNavTab"
                         href="#save" role="tab" aria-controls="save" aria-selected="false"
                         v-on:click="switchContent(false, true, true); sendPlotImage()"
                         >
-                        保存
+                        <small class="">step3</small>
+                        <br>
+                        保 存
                     </a>
                     <a v-if="modalBodyContent" class="nav-link passiveContent" id="save-tab" data-toggle="modal"
                         data-target="#axisModalWarning" href="#save" role="tab"
                         aria-controls="save" aria-selected="false"
                         v-on:click="switchContent(false, true, true)"
                         >
-                        保存
+                        <small class="">step3</small>
+                        <br>
+                        保 存
                     </a>
                 </li>
             </ul>
