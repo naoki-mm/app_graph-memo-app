@@ -44,7 +44,8 @@ class LoginController extends Controller
     // ログアウト時の遷移先をオーバーライド
     protected function loggedOut(Request $request)
     {
-        return redirect()->route('top.show');
+        return redirect()->route('top.show')
+            ->with('status', 'ログアウトしました');
     }
 
     // ゲストユーザー用ユーザーID
@@ -55,9 +56,11 @@ class LoginController extends Controller
     {
         // IDによるゲストログイン
         if (Auth::loginUsingId(self::GUEST_USER_ID)) {
-            return redirect()->route('graph.index');
+            return redirect()->route('graph.index')
+                ->with('status', 'ゲストユーザーとしてログインしました');
         }
 
-        return redirect()->route('top.show');
+        return redirect()->route('top.show')
+            ->with('user_error_message', 'ゲストログインに失敗しました');
     }
 }
