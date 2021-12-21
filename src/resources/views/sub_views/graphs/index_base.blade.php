@@ -72,7 +72,8 @@
                 <ul class="index-ul list-unstyled list-inline m-0 d-flex">
                     @if($is_trash)
                         {{-- 復元ボタン --}}
-                        <li class="list-inline-item mx-auto">
+                        <li class="list-inline-item mx-auto"
+                            data-toggle="tooltip" data-placement="top" title="復元する">
                         <!--復元用のフォーム -->
                             <form method="POST" action="{{ route('trash.restore', $graph->id) }}">
                                 @method('PUT')
@@ -84,7 +85,8 @@
                         </li>
 
                         {{-- 完全削除ボタン --}}
-                        <li class="list-inline-item mx-auto">
+                        <li class="list-inline-item mx-auto"
+                            data-toggle="tooltip" data-placement="top" title="完全に削除する">
                             @component('components.common.warning_modal')
 
                                 @slot('modal_view_button')
@@ -121,21 +123,23 @@
 
                     @else
                         {{-- 編集ボタン --}}
-                        <li class="index-li list-inline-item mx-auto">
+                        <li class="index-li list-inline-item mx-auto"
+                                data-toggle="tooltip" data-placement="top" title="編集する">
                             <a href="{{ route("graph.edit", $graph->id) }}" class="bi-btn btn m-0 p-1 shadow-none">
                                 <i class="bi bi-pencil"></i>
                             </a>
                         </li>
 
                         {{-- csvダウンロードボタン --}}
-                        <li class="list-inline-item mx-auto">
+                        <li class="list-inline-item mx-auto" data-toggle="tooltip"
+                            data-placement="top" title="csvをダウンロードする">
                             <a href="{{ route("csv.download", $graph->id) }}" class="bi-btn btn m-0 p-1 shadow-none">
                                 <i class="bi bi-download"></i>
                             </a>
                         </li>
 
                         {{-- お気に入りボタン --}}
-                        <li class="list-inline-item mx-auto">
+                        <li class="list-inline-item mx-auto" data-toggle="tooltip" data-placement="top" title="お気に入り">
                             <graph-favorite
                                 :initial-is-favorite = '@json($graph->favorite)'
                                 favorite-update-endpoint="{{ route('favorite.update', $graph->id) }}"
@@ -144,7 +148,8 @@
                         </li>
 
                         {{-- 削除ボタン --}}
-                        <li class="list-inline-item mx-auto">
+                        <li class="list-inline-item mx-auto"
+                            data-toggle="tooltip" data-placement="top" title="ゴミ箱に移動する">
                             @component('components.common.warning_modal')
 
                                 @slot('modal_view_button')
