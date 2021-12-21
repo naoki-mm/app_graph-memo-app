@@ -82,7 +82,7 @@
         <div class="btn btn-link mr-2 pr-0 axis-reset-link"
             style="margin-top: 60px"
             v-on:click="resetSettingAxis">
-            <strong>軸設定をリセット</strong>
+            <strong>軸設定をリセットする</strong>
         </div>
     </div>
 </div>
