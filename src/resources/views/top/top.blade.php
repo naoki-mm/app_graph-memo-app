@@ -58,7 +58,7 @@
             <div class="row my-1 my-sm-4 justify-content-center">
                 <div class="col-12 text-center">
                     <h1 class="px-0 border-bottom"><img src="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/content_logo_1.svg"
-                        style="max-width: 75%; height: auto" class="pb-1 pb-lg-2"></h1>
+                        class="img-main-title pb-1 pb-lg-2"></h1>
                 </div>
             </div>
 
@@ -101,7 +101,7 @@
             <div class="row my-5 justify-content-center">
                 <div class="col-12 text-center mb-5">
                     <h1 class="px-0 border-bottom"><img src="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/content_logo_2.svg"
-                        style="max-width: 75%; height: auto" class="pb-1 pb-lg-2"></h1>
+                        class="img-main-title pb-1 pb-lg-2"></h1>
                 </div>
 
                 <div class="col-12 text-left mb-5">
