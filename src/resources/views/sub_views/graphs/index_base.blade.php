@@ -2,44 +2,36 @@
     @foreach ($graphs_select as $graph)
     <div class="col mb-2 px-1">
 
-        <div class="card h-100 index-card">
+        <div class="card h-100 index-card @if($is_trash) no_active_a ml-3 @endif">
 
-        @if ($is_trash)
-            <div class="no_active_a disabled ml-3">
-        @endif
+            {{-- Card header --}}
+            <a @if(!$is_trash) href="{{ route("graph.edit", $graph->id) }}" @endif class="m-0 pb-0 card-header" style="background-color: rgba(0,0,0,0); border-color: rgba(0,0,0,0)">
+                <p class="p-0 ml-2 mb-0 font-weight-bold">{{ $graph->title }}</p>
+            </a>
 
-                {{-- Card header --}}
-                <a href="{{ route("graph.edit", $graph->id) }}" class="m-0 pb-0 card-header" style="background-color: rgba(0,0,0,0); border-color: rgba(0,0,0,0)">
-                    <p class="p-0 ml-2 mb-0 font-weight-bold">{{ $graph->title }}</p>
+            {{-- Card image プロット画像 --}}
+            @foreach ($graph->plotData as $plot_data)
+                <a @if(!$is_trash) href="{{ route("graph.edit", $graph->id) }}" @endif class="" id="index-plot-image">
+                    <img
+                        class=""
+                        src="{{ Storage::disk('s3')->url('plot_images/'.$plot_data->plot_image_name) }}"
+                        alt="Card image cap"
+                        style="aspect-ratio: 1 / 0.7; width: 100%;
+                            background-image: url({{ Storage::disk('s3')->url('graph_images/'.$graph->image_name) }});
+                            background-repeat: no-repeat;
+                            background-size: 100% 100%;
+                            ">
+                        {{-- ローカルの画像保存先
+                        src="{{ asset('storage/graph_images/'.$graph->image_name) }}" --}}
                 </a>
+            @endforeach
 
-                {{-- Card image プロット画像 --}}
-                @foreach ($graph->plotData as $plot_data)
-                    <a  href="{{ route("graph.edit", $graph->id) }}" class="" id="index-plot-image">
-                        <img
-                            class=""
-                            src="{{ Storage::disk('s3')->url('plot_images/'.$plot_data->plot_image_name) }}"
-                            alt="Card image cap"
-                            style="aspect-ratio: 1 / 0.7; width: 100%;
-                                background-image: url({{ Storage::disk('s3')->url('graph_images/'.$graph->image_name) }});
-                                background-repeat: no-repeat;
-                                background-size: 100% 100%;
-                                ">
-                            {{-- ローカルの画像保存先
-                            src="{{ asset('storage/graph_images/'.$graph->image_name) }}" --}}
-                    </a>
-                @endforeach
-
-                {{-- Card content --}}
-                <a href="{{ route("graph.edit", $graph->id) }}" class="card-body pb-0">
-                    <blockquote class="blockquote card-text">
-                        <small class="mb-0">{{ $graph->memo }}</small>
-                    </blockquote>
-                </a>
-
-        @if ($is_trash)
-            </div>
-        @endif
+            {{-- Card content --}}
+            <a @if(!$is_trash) href="{{ route("graph.edit", $graph->id) }}" @endif class="card-body pb-0">
+                <blockquote class="blockquote card-text">
+                    <small class="mb-0">{{ $graph->memo }}</small>
+                </blockquote>
+            </a>
 
             {{-- card footer --}}
             <div class="card-footer m-0 pb-0 text-center" style="background-color: rgba(0,0,0,0); border-color: rgba(0,0,0,0)">
@@ -65,7 +57,6 @@
                     <footer class="py-1"><small>削除日：{{ $graph->deleted_at->format('Y/m/d') }}</small></footer>
                 @endif
             </div>
-
 
             {{-- card footer --}}
             <div class="card-footer p-0 index-card-footer">
