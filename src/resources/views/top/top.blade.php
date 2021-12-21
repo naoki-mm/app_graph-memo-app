@@ -57,7 +57,8 @@
         <div class="container">
             <div class="row my-1 my-sm-4 justify-content-center">
                 <div class="col-12 text-center">
-                        <h1 class="border-bottom">ー できること ー</h1>
+                    <h1 class="px-0 border-bottom"><img src="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/content_logo_1.svg"
+                        style="max-width: 75%; height: auto" class="pb-1 pb-lg-2"></h1>
                 </div>
             </div>
 
@@ -99,7 +100,8 @@
         <div class="container" style="margin-top: 120px">
             <div class="row my-5 justify-content-center">
                 <div class="col-12 text-center mb-5">
-                    <h1 class="border-bottom">ー 役立つ場面 ー</h1>
+                    <h1 class="px-0 border-bottom"><img src="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/content_logo_2.svg"
+                        style="max-width: 75%; height: auto" class="pb-1 pb-lg-2"></h1>
                 </div>
 
                 <div class="col-12 text-left mb-5">
@@ -136,10 +138,10 @@
         <div class="container mb-5" style="margin-top: 120px">
             <div class="row justify-content-center">
                 <div class="col-md-12 text-center">
-                    <h1 class="border-bottom">ー さあ、今すぐ PLOTemo を始めましょう ー</h1>
+                    <h1 class="border-bottom">ー さあ、今すぐ無料で始めましょう ー</h1>
                 </div>
 
-                <div class="col-12 text-center my-3">
+                <div class="col-12 text-center my-4">
 
                     <h4 class="mb-3">全ての機能が無料で使えます。</h4>
 
