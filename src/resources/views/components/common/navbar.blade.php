@@ -68,7 +68,7 @@
                         >
                     {{-- アバター画像がDBに保存されていなければ、初期画像を表示。 --}}
                     @else
-                        <img src="{{ Storage::disk('s3')->url('avatar_images/user-default.svg') }}"
+                        <img src="{{ Storage::disk('s3')->url('avatar_images/user-default.jpg') }}"
                         {{-- ローカルの保存先 --}}
                         {{-- <img src="/images/avatar-default.svg" --}}
                             class="rounded-circle mr-2 ml-3"

@@ -29,7 +29,7 @@ export default {
     props: {
         imageName: {
             type: String,
-            default: 'user-default.svg'
+            default: 'user-default.jpg'
             // ローカルの保存先
             // default: '/images/avatar-default.svg'
         },
@@ -45,7 +45,7 @@ export default {
     mounted() {
         // アバター画像が登録されていなければ、デフォルト画像を設定する。
         if(this.imageName === null) {
-            const defaultAvatarImage = 'https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/avatar_images/user-default.svg';
+            const defaultAvatarImage = 'https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/avatar_images/user-default.jpg';
             // ローカルの保存先
             // const defaultAvatarImage = '/images/avatar-default.svg';
             this.avatarImage = defaultAvatarImage;
