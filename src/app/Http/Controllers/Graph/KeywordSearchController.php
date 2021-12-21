@@ -21,7 +21,7 @@ class KeywordSearchController extends Controller
         $search_keyword = $request->input('keyword_search');
 
         if (is_null($search_keyword)) {
-            return redirect('graph');
+            return redirect('graph')->with('user_error_message', '検索フォームに入力がございません');
         }
 
         // キーワード検索結果(ペジネート)を取得
