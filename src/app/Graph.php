@@ -110,8 +110,10 @@ class Graph extends Model
             $query->where('title', 'like', '%'.$value.'%')
                 ->orWhere('memo', 'like', '%' .$value.'%');
         }
+        // 1ページあたりの表示数
+        $perPage = 12;
 
-        $graphs = $query->paginate(4);
+        $graphs = $query->orderBy('updated_at', 'desc')->paginate($perPage);
 
         return $graphs;
     }
