@@ -30,10 +30,10 @@
                                 </h5>
 
                                 {{-- 認証系 --}}
-                                <div class="text-center">
+                                <div class="text-center top-image-layout-contents">
                                     <a href="{{ route('register') }}" class="h5 btn btn-success font-weight-bold" style="padding: 15px 40px">無料で登録</a>
                                     <a href="{{ route('guest.login') }}" class="h5 btn btn-outline-success font-weight-bold bg-white" style="padding: 15px 40px">機能を試す</a>
-                                    <h5 class="mt-3">
+                                    <h5 class="mt-3 top-image-layout-contents">
                                         <a href="{{ route('login') }}" class="border-bottom border-success font-weight-bold">すでにアカウトをお持ちですか？ログイン</a>
                                     </h5>
                                 </div>
@@ -145,7 +145,7 @@
 
                     <a class="h5 btn btn-success font-weight-bold" href="{{ route('register') }}" style="padding: 20px 50px">無料で登録</a>
                     <a class="h5 btn btn-outline-success font-weight-bold bg-white" href="{{ route('guest.login') }}" style="padding: 20px 50px">機能を試す</a>
-                    <h4 class="mt-3">
+                    <h4 class="mt-3 top-image-layout-contents">
                         <a href="{{ route('login') }}" class="border-bottom border-success font-weight-bold">すでにアカウトをお持ちですか？ログイン</a>
                     </h4>
                 </div>
