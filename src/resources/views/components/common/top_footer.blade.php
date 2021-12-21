@@ -5,7 +5,7 @@
         <a href="{{ route('privacy_policy.show') }}">プライバシーポリシー</a>
     </div>
 
-    <div class="pb-3 pt-2 footer-copyright text-center">Copyright © 2021 ：na
-        <a href="https://twitter.com/hinanam3"> @hinanam3</a>
+    <div class="pb-3 pt-2 footer-copyright text-center">
+        Copyright © 2021 ：na
     </div>
 </footer>

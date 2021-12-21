@@ -25,7 +25,8 @@
 
                                 {{-- サブタイトル --}}
                                 <h5 class="mb-4 text-left">
-                                    PLOTemo (プロッテモ) は画像・PDFなどのグラフデータポイントを効率的に読み取り、クラウド上にメモのように保存・一元管理が可能です。検索機能も備え、欲しいデータとすぐに出会えます。
+                                    PLOTemo (プロッテモ) は画像・PDFなどのグラフデータポイントを効率的に読み取り、クラウド上にメモのように保存・一括管理が可能です。検索や
+                                    CSVダウンロードも可能で、欲しいデータがすぐに使えます。
                                 </h5>
 
                                 {{-- 認証系 --}}
@@ -77,15 +78,15 @@
                         style="max-width: 85%; height: auto">
                 </div>
                 <div class="col-11 col-lg-7 col-xl-6 pl-lg-3 pl-xl-5 align-self-center order-1 order-lg-2">
-                    <h2 class="text-success mb-4">データの一元管理・再利用<i class="fas fa-cloud-upload-alt text-success ml-1 ml-md-3"></i></h2>
-                    <h4 class="font-weight-light">読み取ったデータはメモ形式で保存でき、クラウド上で一元管理が可能。一度読み取ったデータが再利用でき、エビデンスとしても活用できる。</h4>
+                    <h2 class="text-success mb-4">データの一括管理・再利用<i class="fas fa-cloud-upload-alt text-success ml-1 ml-md-3"></i></h2>
+                    <h4 class="font-weight-light">読み取ったデータはメモ形式で保存でき、クラウド上で一括管理が可能。一度読み取ったデータを再利用でき、作成した資料のエビデンスとしても活用できる。</h4>
                 </div>
             </div>
 
             <div class="row py-1 justify-content-center mb-3">
                 <div class="col-11 col-lg-7 col-xl-6 pl-lg-3 pl-xl-5 align-self-center">
-                    <h2 class="text-success mb-4">スマートな検索<i class="fas fa-search text-success ml-1 ml-md-3"></i></h2>
-                    <h4 class="font-weight-light">タグ、お気に入り、キーワード検索、ソートを使えば必要なデータがすぐに見つかる。コピー&ペーストやCSVダウンロードによりすぐに使える。</h4>
+                    <h2 class="text-success mb-4">すぐに見つかる、すぐ使える<i class="fas fa-search text-success ml-1 ml-md-3"></i></h2>
+                    <h4 class="font-weight-light">タグ、お気に入り、キーワード検索、ソートを使えば必要なデータがすぐに見つかる。プロットデータのCSVダウンロードによりすぐに使える。</h4>
                 </div>
                 <div class="col-11 col-lg-5 col-xl-6 text-center align-self-center">
                     <img src="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/Site+Stats-amico.svg"
@@ -98,7 +99,7 @@
         <div class="container" style="margin-top: 120px">
             <div class="row my-5 justify-content-center">
                 <div class="col-12 text-center mb-5">
-                    <h2 class="border-bottom">ー 役立つ場面 ー</h2>
+                    <h1 class="border-bottom">ー 役立つ場面 ー</h1>
                 </div>
 
                 <div class="col-12 text-left mb-5">
@@ -138,7 +139,10 @@
                     <h1 class="border-bottom">ー さあ、今すぐ PLOTemo を始めましょう ー</h1>
                 </div>
 
-                <div class="col-12 text-center my-5">
+                <div class="col-12 text-center my-3">
+
+                    <h4 class="mb-3">全ての機能が無料で使えます。</h4>
+
                     <a class="h5 btn btn-success font-weight-bold" href="{{ route('register') }}" style="padding: 20px 50px">無料で登録</a>
                     <a class="h5 btn btn-outline-success font-weight-bold bg-white" href="{{ route('guest.login') }}" style="padding: 20px 50px">機能を試す</a>
                     <h4 class="mt-3">
