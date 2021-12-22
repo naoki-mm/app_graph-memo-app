@@ -44,3 +44,20 @@ h6 {
         radial-gradient(at top, rgba(177, 175, 175, 0.397) 0%, rgba(3, 3, 3, 0.08) 63%) !important;
     background-blend-mode: multiply, screen !important;
 }
+
+/* サクセスアウトラインボタンのホバー時の色 */
+.top-image-layout-contents .btn-outline-success:hover {
+    background-color: #e9e1e1 !important;
+}
+
+/* リンクのホバー時の色 */
+.top-image-layout-contents a:hover {
+    color: #02a747;
+    text-decoration: none;
+}
+
+/* サクセスボタンのホバー時の色 */
+.top-image-layout-contents .btn-success:hover {
+    background-color: #3bbe72 !important;
+    color: white !important;
+}

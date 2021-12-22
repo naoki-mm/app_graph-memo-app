@@ -85,9 +85,9 @@
                     <button form="user-info" class="dropdown-item" type="button" onclick="location.href='{{ route("user-profile.edit", auth()->user()->id) }}'">
                         <i class="fas fa-user-cog fa-fw mr-1"></i></i>アカウント設定
                     </button>
-                    <button class="dropdown-item" type="button" onclick="location.href=''">
+                    {{-- <button class="dropdown-item" type="button" onclick="location.href=''">
                         <i class="fas fa-question fa-fw mr-1"></i>使い方
-                    </button>
+                    </button> --}}
                     <div class="dropdown-divider"></div>
                     <button form="logout-button" class="dropdown-item" type="submit">
                         <i class="fas fa-sign-out-alt fa-fw mr-1"></i>ログアウト

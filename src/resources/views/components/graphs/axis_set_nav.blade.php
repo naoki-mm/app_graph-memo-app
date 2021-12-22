@@ -1,4 +1,7 @@
-<div class="mt-4 btn-group d-flex align-items-center justify-content-center" role="group" aria-label="axis-graph-group">
+<div class="mt-4 ml-2">
+    x軸とy軸の設定を行なってください。
+</div>
+<div class="mt-2 btn-group d-flex align-items-center justify-content-center" role="group" aria-label="axis-graph-group">
     <div class="btn mr-0"
         :class="{'btn-custom': axisSettingDetect.isActiveX}"
         v-on:click="axisSettingDetect.isActiveX = true; axisSettingDetect.isActiveY = false">
