@@ -6,7 +6,7 @@
 
             {{-- Card header --}}
             <a @if(!$is_trash) href="{{ route("graph.edit", $graph->id) }}" @endif class="m-0 pb-0 card-header" style="background-color: rgba(0,0,0,0); border-color: rgba(0,0,0,0)">
-                <p class="p-0 ml-2 mb-0 font-weight-bold">{{ $graph->title }}</p>
+                <p class="text-center p-0 pt-2 ml-2 mb-3 font-weight-bold">{{ $graph->title }}</p>
             </a>
 
             {{-- Card image プロット画像 --}}

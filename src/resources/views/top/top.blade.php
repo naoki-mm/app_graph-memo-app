@@ -25,7 +25,7 @@
 
                                 {{-- サブタイトル --}}
                                 <h5 class="mb-4 text-left">
-                                    PLOTemo (プロッテモ) は画像・PDFなどのグラフデータポイントを効率的に読み取り、クラウド上にメモのように保存・一括管理ができます。検索や
+                                    PLOTemo (プロッテモ) は画像化されたグラフのデータポイントを効率的に読み取り、クラウド上にメモのように保存・一括管理ができます。検索や
                                     CSVダウンロードも可能で、欲しいデータがすぐに使えます。
                                 </h5>
 
@@ -68,15 +68,15 @@
                     <h4 class="font-weight-light">目視で行っていたグラフ画像の読み取り時間を短縮。グラフ画像上をクリックするだけで、簡単に座標データを取得。もう読み取りミスも起こさない。</h4>
                 </div>
                 <div class="col-11 col-lg-5 col-xl-6 text-center align-self-center">
-                    <img src="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/Site+Stats-amico.svg"
-                        style="max-width: 85%; height: auto">
+                    <img src="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/content_icon_1.svg"
+                        style="max-width: 100%; height: auto">
                 </div>
             </div>
 
             <div class="row py-1 justify-content-center mb-3">
                 <div class="col-11 col-lg-5 col-xl-6 text-center align-self-center order-2 order-lg-1">
-                    <img src="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/Site+Stats-amico.svg"
-                        style="max-width: 85%; height: auto">
+                    <img src="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/content_icon_2.svg"
+                        style="max-width: 100%; height: auto">
                 </div>
                 <div class="col-11 col-lg-7 col-xl-6 pl-lg-3 pl-xl-5 align-self-center order-1 order-lg-2">
                     <h2 class="text-success mb-4">データの一括管理・再利用<i class="fas fa-cloud-upload-alt text-success ml-1 ml-md-3"></i></h2>
@@ -90,7 +90,7 @@
                     <h4 class="font-weight-light">タグ、お気に入り、キーワード検索、ソートを使えば必要なデータがすぐに見つかる。プロットデータのCSVダウンロードによりすぐに使える。</h4>
                 </div>
                 <div class="col-11 col-lg-5 col-xl-6 text-center align-self-center">
-                    <img src="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/Site+Stats-amico.svg"
+                    <img src="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/content_icon_3.svg"
                         style="max-width: 85%; height: auto">
                 </div>
             </div>
