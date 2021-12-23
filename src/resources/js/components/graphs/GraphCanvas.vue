@@ -552,8 +552,8 @@ export default {
             let plotHypotenuseCos = plotHypotenuse * Math.cos(plotPointAngle);
 
             // 対辺と隣辺に軸補正係数を掛けて, プロットデータの変換値を計算してdataにセット。
-            this.plotPoint.convertGraphData.X = plotHypotenuseCos * scaleAdjustValueX;
-            this.plotPoint.convertGraphData.Y = plotHypotenuseSin * scaleAdjustValueY;
+            this.plotPoint.convertGraphData.X = plotHypotenuseCos * scaleAdjustValueX + Number(this.getAxisValue.xMin);
+            this.plotPoint.convertGraphData.Y = plotHypotenuseSin * scaleAdjustValueY + Number(this.getAxisValue.yMin);
         },
 
         // データ表示の桁数調整
@@ -622,8 +622,8 @@ export default {
             let scaleAdjustY = this.getAxisScaleAdjustValue(canvasExponent, this.getAxisValue.yMax, this.getAxisValue.yMin, this.axisSetting.value.axisY.max, this.axisSetting.value.axisY.min);
 
             // プロットデータのユーザー設定軸に対するsin,cos成分
-            let plotPointHypotenuseCos = graphPlotPoint.x / scaleAdjustX;
-            let plotPointHypotenuseSin = graphPlotPoint.y / scaleAdjustY;
+            let plotPointHypotenuseCos = (graphPlotPoint.x - Number(this.getAxisValue.xMin)) / scaleAdjustX;
+            let plotPointHypotenuseSin = (graphPlotPoint.y - Number(this.getAxisValue.yMin)) / scaleAdjustY;
 
             // ユーザーが設定した軸をベースとした斜辺の長さ
             let plotPointHypotenuse = Math.sqrt(Math.pow(plotPointHypotenuseSin, canvasExponent) + Math.pow(plotPointHypotenuseCos, canvasExponent));
