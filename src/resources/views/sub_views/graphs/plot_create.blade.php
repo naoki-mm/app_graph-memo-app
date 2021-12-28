@@ -1,6 +1,18 @@
 <div class="col-12 col-md-12 col-lg-3 col-xl-4">
     <div class="card overflow-auto px-0 px-sm-3 px-md-5 px-lg-0 px-xl-3">
-        <div class="card-body graph-sidebar-card w-100">
+    <div class="card-body graph-sidebar-card w-100 pt-2">
+
+            {{-- パンくずリスト --}}
+            <div class="m-0 p-0 pb-2 border-bottom" aria-label="breadcrumb">
+                <ol class="text-center breadcrumb m-0 p-0" style="background-color: rgba(0, 0, 0, 0) !important;">
+                    <li class="breadcrumb-item"><a href="#" onClick="history.back()">プロットメモ</a></li>
+                    <li class="breadcrumb-item active">
+                        @if($create_flag) メモの新規作成
+                        @else メモの編集 @endif
+                    </li>
+                </ol>
+            </div>
+
             <ul class="justify-content-around nav nav-tabs nav-pills graph-nav-pills" id="myTab" role="tablist">
                 <li class="nav-item text-center">
                     <a class="nav-link active passiveContent" id="axis-tab" data-toggle="tab"

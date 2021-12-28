@@ -33,7 +33,7 @@
 
                 <div v-show="graphImage.isFile" class="row no-gutters">
 
-                    @include('sub_views.graphs.plot_create')
+                    @include('sub_views.graphs.plot_create', ['create_flag' => true])
 
                     <graph-canvas
                         ref="graphCanvas"

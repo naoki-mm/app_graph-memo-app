@@ -22,7 +22,7 @@
                 {{--  画像選択 or 画像ドロップ時にcanvasとグラフ読み取りサイドバーを表示  --}}
                 <div v-show="graphImage.isFile" class="row no-gutters">
 
-                    @include('sub_views.graphs.plot_create')
+                    @include('sub_views.graphs.plot_create', ['create_flag' => false])
 
                     <graph-canvas
                         ref="graphCanvas"
