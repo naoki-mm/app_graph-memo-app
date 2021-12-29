@@ -471,6 +471,10 @@ export default {
             const axisSetCountMinNumber = 1;
             const axisSetCountMaxNumber = 2;
             const textPositionAdjust = 10;
+            const textPositionAdjustXy = 5;
+            const textPositionAdjustX = 60;
+            const textPositionAdjustY = 25;
+
             // テキスト描画コンテキストの設定変数
             context.font = "20px 'ＭＳ ゴシック'";
             context.textAlign = "left";
@@ -480,10 +484,10 @@ export default {
                 context.textBaseline = "top";
                 // クリック数により、テキストの表示を切り替える
                 if(this.axisSetting.clickCount.X === axisSetCountMinNumber) {
-                    context.fillText("x min",this.plotPoint.onCanvasData.X + textPositionAdjust, this.plotPoint.onCanvasData.Y);
+                    context.fillText("x min",this.plotPoint.onCanvasData.X + textPositionAdjust, this.plotPoint.onCanvasData.Y + textPositionAdjustXy);
                 }
                 if(this.axisSetting.clickCount.X === axisSetCountMaxNumber) {
-                    context.fillText("x max",this.plotPoint.onCanvasData.X + textPositionAdjust, this.plotPoint.onCanvasData.Y);
+                    context.fillText("x max",this.plotPoint.onCanvasData.X - textPositionAdjustX, this.plotPoint.onCanvasData.Y + textPositionAdjustXy);
                     this.$emit("complete-set-axis-x", this.axisSetting.clickCount.X);
                 }
             }
@@ -495,7 +499,7 @@ export default {
                     context.fillText("y min",this.plotPoint.onCanvasData.X + textPositionAdjust, this.plotPoint.onCanvasData.Y - textPositionAdjust);
                 }
                 if(this.axisSetting.clickCount.Y === axisSetCountMaxNumber) {
-                    context.fillText("y max",this.plotPoint.onCanvasData.X + textPositionAdjust, this.plotPoint.onCanvasData.Y - textPositionAdjust);
+                    context.fillText("y max",this.plotPoint.onCanvasData.X + textPositionAdjust, this.plotPoint.onCanvasData.Y + textPositionAdjustY);
                     this.$emit("complete-set-axis-y", this.axisSetting.clickCount.Y);
                 }
             }
@@ -657,7 +661,7 @@ export default {
             const plotPointerSize = 5;
 
             // 描画スタイルの設定
-            context.fillStyle = "rgba(200, 0, 0, 0.8)";
+            context.fillStyle = "rgb(200, 0, 0)";
 
             if(updatePlotData) {
                 // 描画配列データがあれば描画する
