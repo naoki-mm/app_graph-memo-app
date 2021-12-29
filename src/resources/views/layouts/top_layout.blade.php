@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>
-        @yield('title') | {{ config('app.name') }}
+        {{ config('app.name') }} | @yield('title')
     </title>
 
     <link rel="icon" type="image/png" href="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/favicon.png" />
