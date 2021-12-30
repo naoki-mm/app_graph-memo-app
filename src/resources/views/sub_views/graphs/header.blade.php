@@ -42,7 +42,7 @@
                         <div class="pl-4 mt-2 custom-switch" style="margin-left: 13px">
                             <input type="checkbox" onclick="location.href='{{ route('keyword.search') }}'"
                                 class="custom-control-input" id="customSwitchesKeyword"
-                                @if($index_active_flag ?? '') {{ session('favorite') || session('tag_name') ? '' : 'checked' }} @endif
+                                @if($index_active_flag ?? '') {{ session('favorite') || session('tag_name') ? '' : 'checked disabled' }} @endif
                             >
                             <label class="custom-control-label" for="customSwitchesKeyword">キーワード検索</label>
                         </div>

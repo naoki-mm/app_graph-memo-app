@@ -1,7 +1,7 @@
 @extends('layouts.top_layout')
 
 @section('title')
-
+    グラフ画像のデータ読み取りを効率化 & メモ管理
 @endsection
 
 @section('content')

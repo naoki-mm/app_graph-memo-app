@@ -57,11 +57,19 @@
             @endif
         </div>
 
-        <button type="submit" v-if="isEditOperation" class="mt-3 btn btn-block btn-custom">
-            データを変更する
-        </button>
-        <button type="submit" v-else class="mt-4 btn btn-block btn-custom">
-            データを登録する
-        </button>
+        <div class="text-center">
+            <button type="submit" v-if="isEditOperation" class="mt-3 btn btn-custom btn-block">
+                データを変更する
+            </button>
+
+            <button type="submit" v-else class="mt-4 btn btn-block btn-custom">
+                データを登録する
+            </button>
+
+            <button type="button" class="mt-3 btn btn-outline-success btn-block waves-effect"
+                style="height: 37.05px; padding: 6px 12px" onClick="history.back()">
+                キャンセル
+            </button>
+        </div>
     </div>
 </div>
