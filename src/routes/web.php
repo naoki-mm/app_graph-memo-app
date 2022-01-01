@@ -31,12 +31,15 @@ Route::middleware(['auth'])->group(function () {
         Route::post('plot-image-save', 'ImageSaveController@savePlotImage')->name('plot.image.save');
         // お気に入りフラグの変更
         Route::put('favorite-update/{graph}', 'FavoriteUpdateController')->name('favorite.update');
-        // ゴミ箱の中身を表示
-        Route::get('trash-index', 'TrashIndexController')->name('trash.index');
-        // ゴミ箱のデータを復元
-        Route::put('trash-restore/{id}', 'TrashRestoreController')->name('trash.restore');
-        // ゴミ箱のデータを完全削除
-        Route::delete('trash-destroy/{id}', 'TrashDestroyController')->name('trash.destroy');
+
+        Route::prefix('trash')->group(function () {
+            // ゴミ箱の中身を表示
+            Route::get('/', 'TrashController@index')->name('trash.index');
+            // ゴミ箱のデータを復元
+            Route::put('restore/{id}', 'TrashController@restore')->name('trash.restore');
+            // ゴミ箱のデータを完全削除
+            Route::delete('destroy/{id}', 'TrashController@destroy')->name('trash.destroy');
+        });
         // タグ絞り込み
         Route::get('tags/{name}', 'TagSearchController')->name('tag.search');
         // お気に入り絞り込み
