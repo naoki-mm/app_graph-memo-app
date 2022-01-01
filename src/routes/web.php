@@ -16,9 +16,9 @@ Route::get('guest-login', 'Auth\LoginController@guestLogin')->name('guest.login'
 
 Route::middleware(['guest'])->group(function () {
     Route::namespace('Top')->group(function () {
-        Route::get('/', 'ShowTopPageController')->name('top.show');
-        Route::get('user-policy', 'ShowUserPolicyController')->name('user_policy.show');
-        Route::get('privacy-policy', 'ShowPrivacyPolicyController')->name('privacy_policy.show');
+        Route::get('/', 'TopPageController@showTop')->name('top.show');
+        Route::get('user-policy', 'TopPageController@showUserPolicy')->name('user_policy.show');
+        Route::get('privacy-policy', 'TopPageController@showPrivacyPolicy')->name('privacy_policy.show');
     });
 });
 
