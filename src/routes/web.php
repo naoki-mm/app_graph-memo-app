@@ -24,11 +24,16 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::namespace('Graph')->group(function () {
+
         Route::resource('graph', 'GraphController', ['except' => ['show']]);
-        // 画像の一時保持
-        Route::post('graph-image-save', 'ImageSaveController@saveGraphImage')->name('graph.image.save');
-        // プロットデータの画像保存
-        Route::post('plot-image-save', 'ImageSaveController@savePlotImage')->name('plot.image.save');
+
+        Route::prefix('image-save')->group(function () {
+            // 画像の一時保持
+            Route::post('graph', 'ImageSaveController@saveGraphImage')->name('graph.image.save');
+            // プロットデータの画像保存
+            Route::post('plot', 'ImageSaveController@savePlotImage')->name('plot.image.save');
+        });
+
         // お気に入りフラグの変更
         Route::put('favorite-update/{graph}', 'FavoriteUpdateController')->name('favorite.update');
 
