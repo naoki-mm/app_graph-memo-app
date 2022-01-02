@@ -178,7 +178,7 @@ const app = new Vue({
             const data = new FormData();
             data.append('plot_image', blob, 'image.png');
 
-            axios.post('/plot-image-save', data, {
+            axios.post('/image-save/plot', data, {
                     headers: { 'content-type': 'multipart/form-data' }
                 })
                 .then(res => {
