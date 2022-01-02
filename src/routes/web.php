@@ -12,6 +12,7 @@
 */
 
 Auth::routes();
+
 Route::get('guest-login', 'Auth\LoginController@guestLogin')->name('guest.login');
 
 Route::middleware(['guest'])->group(function () {
@@ -45,17 +46,22 @@ Route::middleware(['auth'])->group(function () {
             // ゴミ箱のデータを完全削除
             Route::delete('destroy/{id}', 'TrashController@destroy')->name('trash.destroy');
         });
-        // タグ絞り込み
-        Route::get('tags/{name}', 'TagSearchController')->name('tag.search');
-        // お気に入り絞り込み
-        Route::get('favorite-index', 'FavoriteSearchController')->name('favorite.search');
-        // ソート機能
-        Route::get('sort-index/{order}', 'IndexSortController')->name('index.sort');
+
+        Route::prefix('search')->group(function () {
+            // タグ絞り込み
+            Route::get('tags/{name}', 'SearchController@tagSearch')->name('tag.search');
+            // お気に入り絞り込み
+            Route::get('favorite', 'SearchController@favoriteSearch')->name('favorite.search');
+            // ソート機能
+            Route::get('sort/{order}', 'SearchController@sort')->name('index.sort');
+            // キーワード検索
+            Route::get('keyword', 'SearchController@keywordSearch')->name('keyword.search');
+        });
+
         // CSVダウンロード
         Route::get('download-csv/{graph}', 'DownloadCsvController')->name('csv.download');
-        // キーワード検索
-        Route::get('keyword-search', 'KeywordSearchController')->name('keyword.search');
     });
+
     Route::namespace('User')->group(function () {
         Route::resource('user-profile', 'ProfileChangeController', ['only' => ['edit', 'update']]);
         Route::resource('user-email', 'EmailChangeController', ['only' => ['edit', 'update']]);
