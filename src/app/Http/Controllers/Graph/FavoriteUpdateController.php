@@ -9,11 +9,10 @@ use App\Graph;
 class FavoriteUpdateController extends Controller
 {
     /**
-     * Handle the incoming request.
+     * お気に入りフラグを保存する。
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Graph $favorite_update
-     * @return \Illuminate\Http\Response
      */
     public function __invoke(Request $request, Graph $graph)
     {

@@ -29,17 +29,14 @@ class GraphController extends Controller
      */
     public function index(Request $request)
     {
-        // セッション削除
         $request->session()->forget('favorite');
         $request->session()->forget('tag_name');
 
-        // セッション保存
         $request->session()->put('index_order', 'desc');
 
         $user_id = Auth::id();
         $graphs = Graph::where('user_id', $user_id)->orderBy('updated_at', 'desc')->paginate(12);
 
-        // タグ情報を取得
         $user = new User;
         $all_tags = $user->all_tags;
 
@@ -55,12 +52,10 @@ class GraphController extends Controller
      */
     public function create(Request $request)
     {
-        // セッション削除
         $request->session()->forget('favorite');
         $request->session()->forget('tag_name');
         $request->session()->forget('index_order');
 
-        // タグ情報を取得
         $user = new User;
         $all_tags = $user->all_tags;
 
@@ -79,17 +74,14 @@ class GraphController extends Controller
      */
     public function store(GraphRequest $request, Graph $graph)
     {
-        // グラフ情報保存処理
         $graph->user_id = Auth::id();
         $graph->title = $request->input('title');
         $graph->memo = $request->input('memo');
 
-        // session取得後に削除
         $graph_image_name = $request->session()->pull('graph_image_name');
         $graph->image_name = $graph_image_name;
         $graph->save();
 
-        // グラフプロットデータ保存処理
         $plot_data = new PlotData;
         $plot_data->graph_id = $graph->id;
 
@@ -100,17 +92,14 @@ class GraphController extends Controller
         $plot_data->plot_image_name = $plot_image_name;
         $plot_data->save();
 
-        // 軸設定プロットデータ保存処理
         $axis_plot = new AxisPlot;
         $axis_plot->graph_id = $graph->id;
         $axis_plot->fill($request->all())->save();
 
-        // 軸設定値の保存処理
         $axis_value = new AxisValue;
         $axis_value->graph_id = $graph->id;
         $axis_value->fill($request->all())->save();
 
-        // canvasデータ保存処理
         $canvas = new Canvas;
         $canvas->graph_id = $graph->id;
         $canvas->fill($request->all())->save();
@@ -137,7 +126,6 @@ class GraphController extends Controller
             return ['text' => $tag->name];
         });
 
-        // タグ情報を取得
         $user = new User;
         $all_tags = $user->all_tags;
 
@@ -153,12 +141,10 @@ class GraphController extends Controller
      */
     public function update(GraphRequest $request, Graph $graph)
     {
-        // グラフ情報保存処理
         $graph->title = $request->input('title');
         $graph->memo = $request->input('memo');
         $graph->save();
 
-        // グラフプロットデータ保存処理
         $graph_plot_data = PlotData::where('graph_id', $graph->id)->first();
         $graph_plot_data->graph_id = $graph->id;
 
@@ -169,19 +155,15 @@ class GraphController extends Controller
         $graph_plot_data->plot_image_name = $plot_image_name;
         $graph_plot_data->save();
 
-        // 軸設定プロットデータ保存処理
         $graph_axis_plot = AxisPlot::where('graph_id', $graph->id)->first();
         $graph_axis_plot->fill($request->all())->save();
 
-        // 軸設定値の保存処理
         $graph_axis_value = AxisValue::where('graph_id', $graph->id)->first();
         $graph_axis_value->fill($request->all())->save();
 
-        // canvasデータ保存処理
         $graph_canvas = Canvas::where('graph_id', $graph->id)->first();
         $graph_canvas->fill($request->all())->save();
 
-        // タグ更新処理
         $graph->tags()->detach();
         $request->tags->each(function ($tagName) use ($graph) {
             $tag = Tag::firstOrCreate(['name' => $tagName]);

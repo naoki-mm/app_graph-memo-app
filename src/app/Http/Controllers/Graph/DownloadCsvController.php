@@ -10,14 +10,14 @@ use App\Graph;
 class DownloadCsvController extends Controller
 {
     /**
-     * Handle the incoming request.
+     * 指定されたプロットデータのCSVをダウンロードする。
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Graph $graph
+     * @return Symfony\Component\HttpFoundation\StreamedResponse $response
      */
     public function __invoke(Request $request, Graph $graph)
     {
-        // 認可機能
         $this->authorize('csvDownload', $graph);
 
         //プロットデータのモデルコレクションを取得
@@ -28,7 +28,6 @@ class DownloadCsvController extends Controller
         // 改行でプロットデータを区切って配列に変換
         $csv_plot_data = explode("\r\n", $plot_data);
 
-        // csvリストの初期値を定義
         $csv_list = [
             ['x', 'y']
         ];
@@ -46,14 +45,12 @@ class DownloadCsvController extends Controller
             // 文字化け対策
             stream_filter_prepend($stream, 'convert.iconv.utf-8/cp932//TRANSLIT');
 
-            // CSVデータ
             foreach ($csv_list as $value) {
                 fputcsv($stream, $value);
             }
             fclose($stream);
         });
 
-        // グラフタイトルの取得
         $graph_title = $graph->title;
 
         $response->headers->set('Content-Type', 'application/octet-stream');

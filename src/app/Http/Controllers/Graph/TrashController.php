@@ -11,13 +11,14 @@ use App\User;
 class TrashController extends Controller
 {
     /**
-     * Handle the incoming request.
+     * ゴミ箱のデータ一覧を取得し、viewを返す。
+     * 検索データのセッションを削除する。
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        // セッション削除
         $request->session()->forget('favorite');
         $request->session()->forget('tag_name');
         $request->session()->forget('index_order');
@@ -27,7 +28,6 @@ class TrashController extends Controller
 
         $trash_active_flag = true;
 
-        // タグ情報を取得
         $user = new User;
         $all_tags = $user->all_tags;
 
@@ -35,9 +35,10 @@ class TrashController extends Controller
     }
 
     /**
-     * Handle the incoming request.
+     * 指定されたゴミ箱のデータを復元して、ゴミ箱一覧画面へリダイレクトさせる。
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function restore($id)
@@ -54,11 +55,13 @@ class TrashController extends Controller
     }
 
     /**
-     * Handle the incoming request.
+     * 指定されたゴミ箱のデータを物理削除して、ゴミ箱一覧画面へリダイレクトさせる。
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
         $graph = Graph::onlyTrashed()
