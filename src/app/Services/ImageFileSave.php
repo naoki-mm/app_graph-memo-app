@@ -27,8 +27,7 @@ class ImageFileSave
             Image::make($upload_file)->save($temp_path);
         }
 
-        // 画像をstorageの指定フォルダに格納
-        $file_path = Storage::disk('s3')  //ローカルに保存する場合はs3→public
+        $file_path = Storage::disk('s3')
         ->putFile($directory_name, new File($temp_path));
 
         return basename($file_path);
@@ -41,7 +40,7 @@ class ImageFileSave
      */
     private function makeTempPath(): string
     {
-        // テンポラリファイルを作成 (返り値：ファイルポインタ)
+        // テンポラリファイルを作成
         $tmp_fp = tmpfile();
         // ファイルポインタからメタデータを取得
         $meta = stream_get_meta_data($tmp_fp);

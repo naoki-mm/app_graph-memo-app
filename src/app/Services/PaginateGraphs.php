@@ -17,10 +17,8 @@ class paginateGraphs
      */
     public function paginateGraphs(Request $request, Collection $graphs_query): LengthAwarePaginator
     {
-        // 1ページあたりの表示数
         $perPage = 12;
 
-        // ページネーションの設定
         $graphs_paginate_result = new LengthAwarePaginator(
             $graphs_query->forPage($request->page, $perPage),
             $graphs_query->count(),
