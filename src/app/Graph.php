@@ -114,7 +114,7 @@ class Graph extends Model
                 ->orWhere('memo', 'like', '%' .$value.'%');
         }
 
-        $perPage = 12;
+        $perPage = \PerPageConst::GRAPH_INDEX;
 
         $graphs = $query->orderBy('updated_at', 'desc')->paginate($perPage);
 

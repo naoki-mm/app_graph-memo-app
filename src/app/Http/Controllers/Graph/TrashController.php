@@ -24,7 +24,8 @@ class TrashController extends Controller
         $request->session()->forget('index_order');
 
         $user_id = Auth::id();
-        $graphs = Graph::onlyTrashed()->where('user_id', $user_id)->latest()->paginate(4);
+        $perPage = \PerPageConst::GRAPH_INDEX;
+        $graphs = Graph::onlyTrashed()->where('user_id', $user_id)->latest()->paginate($perPage);
 
         $trash_active_flag = true;
 

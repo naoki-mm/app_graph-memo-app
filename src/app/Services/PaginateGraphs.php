@@ -17,7 +17,7 @@ class paginateGraphs
      */
     public function paginateGraphs(Request $request, Collection $graphs_query): LengthAwarePaginator
     {
-        $perPage = 12;
+        $perPage = \PerPageConst::GRAPH_INDEX;
 
         $graphs_paginate_result = new LengthAwarePaginator(
             $graphs_query->forPage($request->page, $perPage),
