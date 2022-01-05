@@ -38,7 +38,7 @@ class PasswordChangeController extends Controller
      */
     public function update(PasswordChangeRequest $request, User $user_password)
     {
-        $guest_user_id = 1;
+        $guest_user_id = \UserIdConst::GUEST;
         // ゲストユーザーの処理防止
         if ($guest_user_id === Auth::id()) {
             return redirect()->route('user-password.edit', [$user_password])

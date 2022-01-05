@@ -37,7 +37,7 @@ class EmailChangeController extends Controller
      */
     public function update(EmailChangeRequest $request, User $user_email)
     {
-        $guest_user_id = 1;
+        $guest_user_id = \UserIdConst::GUEST;
         // ゲストユーザーの処理防止
         if ($guest_user_id === Auth::id()) {
             return redirect()->route('user-email.edit', [$user_email])

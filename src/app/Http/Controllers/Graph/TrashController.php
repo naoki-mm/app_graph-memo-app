@@ -50,7 +50,7 @@ class TrashController extends Controller
         $this->authorize('restore', $graph);
 
         $graph->restore();
-        $graph->favorite = 0;
+        $graph->favorite = \FavoriteFlagConst::FALSE;
         return redirect()->route('trash.index')
         ->with('status', 'グラフデータを復元しました。');
     }
