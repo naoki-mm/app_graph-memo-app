@@ -35,7 +35,7 @@ class SearchController extends Controller
         }
 
         $graphs = new Graph;
-        $graphs_search_sort_result = $graphs->getSearchAndSortResult($request);
+        $graphs_search_sort_result = $graphs->getSearchSortResult($request);
 
         $user = new User;
         $all_tags = $user->all_tags;
@@ -66,7 +66,7 @@ class SearchController extends Controller
         }
 
         $graphs = new Graph;
-        $graphs_search_sort_result = $graphs->getSearchAndSortResult($request);
+        $graphs_search_sort_result = $graphs->getSearchSortResult($request);
 
         $user = new User;
         $all_tags = $user->all_tags;
@@ -99,7 +99,7 @@ class SearchController extends Controller
         }
 
         $graphs = new Graph;
-        $graphs_search_sort_result = $graphs->getSearchAndSortResult($request);
+        $graphs_search_sort_result = $graphs->getSearchSortResult($request);
 
         $user = new User;
         $all_tags = $user->all_tags;

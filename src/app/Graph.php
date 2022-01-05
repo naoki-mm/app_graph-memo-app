@@ -53,7 +53,7 @@ class Graph extends Model
      * @return Illuminate\Pagination\LengthAwarePaginator  $graphs_paginate_result
      */
 
-    public function getSearchAndSortResult(Request $request)
+    public function getSearchSortResult(Request $request)
     {
         $user_id = Auth::id();
 
@@ -113,7 +113,7 @@ class Graph extends Model
             $query->where('title', 'like', '%'.$value.'%')
                 ->orWhere('memo', 'like', '%' .$value.'%');
         }
-        
+
         $perPage = 12;
 
         $graphs = $query->orderBy('updated_at', 'desc')->paginate($perPage);
