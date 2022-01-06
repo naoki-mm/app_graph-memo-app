@@ -39,7 +39,7 @@ class ProfileChangeController extends Controller
      */
     public function update(ProfileChangeRequest $request, User $user_profile, ImageFileSave $image_file_save)
     {
-        $guest_user_id = 1;
+        $guest_user_id = \UserIdConst::GUEST;
         // ゲストユーザーの処理防止
         if ($guest_user_id === Auth::id()) {
             return redirect()->route('user-profile.edit', [$user_profile])

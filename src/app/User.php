@@ -38,17 +38,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // UserモデルからGraphモデルへのアクセス
     public function graphs()
     {
         return $this->hasMany('App\Graph');
     }
 
-    // ログインユーザーのタグを全権取得
+    /**
+     * ログインユーザーのタグを全権取得する。
+     *
+     * @return array $all_tags
+     */
     public function getAllTagsAttribute(): array {
         $user_id = Auth::id();
 
-        // ログインユーザーのグラフを全権取得 (N+1問題を考慮してwith使用)
         $users = self::with('graphs.tags')->get();
         $user_graphs = $users->find($user_id)->graphs;
 

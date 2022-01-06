@@ -10,14 +10,12 @@ use App\Http\Requests\Graph\GraphImageSaveRequest;
 class ImageSaveController extends Controller
 {
     /**
-     * Handle the incoming request.
+     * グラフ画像をs3に保存して、セッションに画像名を保存する。
      *
      * @param  \Illuminate\Http\Requests\Graph\GraphImageSaveRequest  $request
-     * @return \Illuminate\Http\Response
      */
     public function saveGraphImage(GraphImageSaveRequest $request, ImageFileSave $image_file_save)
     {
-        // グラフ画像保存
         if ($request->has('graph_image')) {
             $fileName = $image_file_save->saveImage($request->file('graph_image'), false, 'graph_images');
             $request->session()->put('graph_image_name', $fileName);
@@ -25,14 +23,12 @@ class ImageSaveController extends Controller
     }
 
     /**
-     * Handle the incoming request.
+     *  プロット画像をs3に保存して、セッションに画像名を保存する。
      *
      * @param  \Illuminate\Http\Requests\Graph\GraphImageSaveRequest  $request
-     * @return \Illuminate\Http\Response
      */
     public function savePlotImage(Request $request, ImageFileSave $image_file_save)
     {
-        // グラフ画像保存
         if ($request->has('plot_image')) {
             $fileName = $image_file_save->saveImage($request->file('plot_image'), false, 'plot_images');
             $request->session()->put('plot_image_name', $fileName);

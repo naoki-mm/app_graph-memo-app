@@ -48,14 +48,11 @@ class LoginController extends Controller
             ->with('status', 'ログアウトしました');
     }
 
-    // ゲストユーザー用ユーザーID
-    private const GUEST_USER_ID = 1;
-
     // ゲストログイン処理
     public function guestLogin()
     {
         // IDによるゲストログイン
-        if (Auth::loginUsingId(self::GUEST_USER_ID)) {
+        if (Auth::loginUsingId(\UserIdConst::GUEST)) {
             return redirect()->route('graph.index')
                 ->with('status', 'ゲストユーザーとしてログインしました');
         }

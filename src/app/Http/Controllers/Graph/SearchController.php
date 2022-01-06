@@ -10,9 +10,12 @@ use App\User;
 class SearchController extends Controller
 {
     /**
-     * Handle the incoming request.
+     * 保存済みのセッションと検索対象のタグの名前が一致する場合は、セッションを削除する
+     * 絞り込み条件のセッションを保存する。
+     * ルートパラメータのタグの名前とセッションに保存されている検索・ソートとのAND条件で、グラフを取得してviewを返す。
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  string $name
      * @return \Illuminate\Http\Response
      */
     public function tagSearch(string $name, Request $request)
@@ -21,10 +24,8 @@ class SearchController extends Controller
 
         if (is_null($request->page)) {
             if ($current_tag_name === $name) {
-                // セッション削除
                 $request->session()->forget('tag_name');
             } else {
-                // セッション保存
                 $request->session()->put('tag_name', $name);
             }
         }
@@ -33,11 +34,9 @@ class SearchController extends Controller
             $request->session()->put('index_order', 'desc');
         }
 
-        // 絞り込み,ソートの結果(paginate有り)を取得
         $graphs = new Graph;
-        $graphs_search_sort_result = $graphs->getSearchAndSortResult($request);
+        $graphs_search_sort_result = $graphs->getSearchSortResult($request);
 
-        // タグ情報を取得
         $user = new User;
         $all_tags = $user->all_tags;
 
@@ -45,7 +44,9 @@ class SearchController extends Controller
     }
 
     /**
-     * Handle the incoming request.
+     * お気に入りフラグのセッションが保存されていなければ、セッション保存する。
+     * お気に入りフラグのセッションが保存されていれば、セッションを削除する。
+     * お気に入りフラグとセッションに保存されている検索・ソートとのAND条件で、グラフを取得してviewを返す。
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -54,10 +55,8 @@ class SearchController extends Controller
     {
         if (is_null($request->page)) {
             if ($request->session()->has('favorite')) {
-                // セッション削除
                 $request->session()->forget('favorite');
             } else {
-                // セッション保存
                 $request->session()->put('favorite', 1);
             }
         }
@@ -66,11 +65,9 @@ class SearchController extends Controller
             $request->session()->put('index_order', 'desc');
         }
 
-        // 絞り込み,ソートの結果(paginate有り)を取得
         $graphs = new Graph;
-        $graphs_search_sort_result = $graphs->getSearchAndSortResult($request);
+        $graphs_search_sort_result = $graphs->getSearchSortResult($request);
 
-        // タグ情報を取得
         $user = new User;
         $all_tags = $user->all_tags;
 
@@ -78,15 +75,17 @@ class SearchController extends Controller
     }
 
     /**
-     * Handle the incoming request.
+     * index_orderセッションにdescの値が保存されていれば、ascの値を保存する。
+     * index_orderセッションにascの値が保存されていれば、descの値を保存する。
+     * ソートとセッションに保存されている検索条件で、グラフを取得してviewを返す。
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  string $order
      * @return \Illuminate\Http\Response
      */
     public function sort(string $order, Request $request)
     {
         if (is_null($request->page)) {
-            // セッション保存
             $check_sort_session = $request->session()->get('index_order');
             if ($check_sort_session === $order) {
                 if ($check_sort_session === 'asc') {
@@ -99,11 +98,9 @@ class SearchController extends Controller
             }
         }
 
-        // 絞り込み,ソートの結果(paginate有り)を取得
         $graphs = new Graph;
-        $graphs_search_sort_result = $graphs->getSearchAndSortResult($request);
+        $graphs_search_sort_result = $graphs->getSearchSortResult($request);
 
-        // タグ情報を取得
         $user = new User;
         $all_tags = $user->all_tags;
 
@@ -111,25 +108,23 @@ class SearchController extends Controller
     }
 
     /**
-     * Handle the incoming request.
+     * 検索フォームで入力された値がなければ、エラーメッセージを保持して一覧画面にリダイレクトする。
+     * 検索フォームに入力された値でOR検索して、グラフデータを取得して、viewを返す。
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function keywordSearch(Request $request)
     {
-        // 検索フォームで入力された値を取得する
         $search_keyword = $request->input('keyword_search');
 
         if (is_null($search_keyword)) {
             return redirect('graph')->with('user_error_message', '検索フォームに入力がございません');
         }
 
-        // キーワード検索結果(ペジネート)を取得
         $graphs = new Graph;
         $graphs = $graphs->getKeywordSearchResult($request, $search_keyword);
 
-        // タグ情報を取得
         $user = new User;
         $all_tags = $user->all_tags;
 

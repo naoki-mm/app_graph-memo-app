@@ -225,7 +225,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'PerPageConst' => App\Consts\PerPageConst::class,
+        'FavoriteFlagConst' => App\Consts\FavoriteFlagConst::class,
+        'UserIdConst' => App\Consts\UserIdConst::class,
     ],
 
 ];
