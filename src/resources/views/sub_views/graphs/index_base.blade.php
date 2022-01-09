@@ -34,13 +34,13 @@
             </a>
 
             {{-- card footer --}}
-            <div class="card-footer m-0 pb-0 text-center" style="background-color: rgba(0,0,0,0); border-color: rgba(0,0,0,0)">
+            <div class="card-footer m-0 pb-0" style="background-color: rgba(0,0,0,0); border-color: rgba(0,0,0,0)">
                 @if (!$is_trash)
 
                     {{-- タグ一覧表示 --}}
                     @foreach($graph->tags as $tag)
                         @if($loop->first)
-                        <div class="pt-0 pb-0 pl-3">
+                        <div class="pt-0 pb-0">
                             <div class="card-text line-height">
                         @endif
                             <a href="{{ route('tag.search', ['name' => $tag->name]) }}" class="tag-badge d-inline-block badge badge-light p-1 mr-1 mt-1"
@@ -52,9 +52,9 @@
                         </div>
                         @endif
                     @endforeach
-                    <footer class="py-1"><small>更新日時：{{ $graph->updated_at->format('Y/m/d H:i') }}</small></footer>
+                    <footer class="pb-1 pt-2 text-center"><small>更新日時：{{ $graph->updated_at->format('Y/m/d H:i') }}</small></footer>
                 @else
-                    <footer class="py-1"><small>削除日：{{ $graph->deleted_at->format('Y/m/d') }}</small></footer>
+                    <footer class="pb-1 pt-2 text-center"><small>削除日：{{ $graph->deleted_at->format('Y/m/d') }}</small></footer>
                 @endif
             </div>
 
