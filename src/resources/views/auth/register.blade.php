@@ -34,6 +34,7 @@
                                             placeholder="例)グラフ太郎"
                                             required autofocus
                                         >
+                                        <small class="grey-text">20字以内で入力してください。</small>
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
