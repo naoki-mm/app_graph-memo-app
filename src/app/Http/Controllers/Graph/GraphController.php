@@ -171,7 +171,7 @@ class GraphController extends Controller
             $graph->tags()->attach($tag);
         });
 
-        return redirect()->route('graph.edit', [$graph->id])
+        return redirect()->route('graph.index', [$graph->id])
         ->with('status', 'グラフデータを変更しました。');
     }
 
