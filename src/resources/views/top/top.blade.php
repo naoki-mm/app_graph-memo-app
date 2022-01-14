@@ -75,7 +75,7 @@
 
             <div class="row py-1 justify-content-center mb-3">
                 <div class="col-11 col-lg-5 col-xl-6 text-center align-self-center order-2 order-lg-1">
-                    <img src="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/content_icon_2.svg"
+                    <img src="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/content_icon_2.png"
                         style="max-width: 100%; height: auto">
                 </div>
                 <div class="col-11 col-lg-7 col-xl-6 pl-lg-3 pl-xl-5 align-self-center order-1 order-lg-2">
@@ -90,7 +90,7 @@
                     <h4 class="font-weight-light">タグ、お気に入り、キーワード検索、ソートを使えば必要なデータがすぐに見つかる。プロットデータのCSVダウンロードによりすぐに使える。</h4>
                 </div>
                 <div class="col-11 col-lg-5 col-xl-6 text-center align-self-center">
-                    <img src="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/content_icon_3.svg"
+                    <img src="https://plot-memo-app-laravel.s3.ap-northeast-1.amazonaws.com/logo_image/content_icon_3.png"
                         style="max-width: 85%; height: auto">
                 </div>
             </div>
