@@ -1,5 +1,6 @@
 # 「PLOTemo」 グラフ画像のプロット&メモ アプリ 
-![トップページの画像](https://user-images.githubusercontent.com/86902324/149503039-a7bfbbf3-8448-4029-9723-4d6072ad914c.png)
+
+https://user-images.githubusercontent.com/86902324/149649147-c11c41d5-b013-4bbd-8697-e4087ab39b93.mp4
 
 ## サービス概要
 
@@ -52,12 +53,13 @@ URL：https://plot-memo-app.com/
 - Draw.io (ER図、インフラ構成図の作成)
 - Sequel Ace (DBクライアントツール)
 
-## インフラ構成図
-
-
 ## ER図
 
 ![PF_ER図](https://user-images.githubusercontent.com/86902324/149616947-75f9de92-8928-4748-9574-9dfd88c2c440.png)
+
+## インフラ構成図
+
+![インフラ構成図](https://user-images.githubusercontent.com/86902324/149628551-1a1baaa2-0ef8-48f8-ab0b-e23a8a156622.png)
 
 ## 主な機能
 
