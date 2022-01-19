@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    ホーム
+    プロットメモ一覧
 @endsection
 
 @section('header')
