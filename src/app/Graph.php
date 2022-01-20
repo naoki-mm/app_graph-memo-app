@@ -65,7 +65,7 @@ class Graph extends Model
             $tag = Tag::where('name', $tag_name)->first();
             $graphs_query = $tag->graphs->where('user_id', $user_id);
         } else {
-            $graphs_query = self::where('user_id', $user_id)->get();
+            $graphs_query = self::with(['plotData', 'tags'])->where('user_id', $user_id)->get();
         }
 
         if ($favorite_flag) {
@@ -100,7 +100,7 @@ class Graph extends Model
 
         $user_id = Auth::id();
 
-        $query = self::where('user_id', $user_id);
+        $query = self::with(['plotData', 'tags'])->where('user_id', $user_id);
 
         // 全角スペースを半角に変換
         $spaceConversion = mb_convert_kana($search_keyword, 's');

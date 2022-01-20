@@ -36,7 +36,7 @@ class GraphController extends Controller
 
         $user_id = Auth::id();
         $perPage = \PerPageConst::GRAPH_INDEX;
-        $graphs = Graph::where('user_id', $user_id)->orderBy('updated_at', 'desc')->paginate($perPage);
+        $graphs = Graph::with(['plotData', 'tags'])->where('user_id', $user_id)->orderBy('updated_at', 'desc')->paginate($perPage);
 
         $user = new User;
         $all_tags = $user->all_tags;
