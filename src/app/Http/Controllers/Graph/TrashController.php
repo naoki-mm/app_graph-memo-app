@@ -25,7 +25,7 @@ class TrashController extends Controller
 
         $user_id = Auth::id();
         $perPage = \PerPageConst::GRAPH_INDEX;
-        $graphs = Graph::onlyTrashed()->where('user_id', $user_id)->latest()->paginate($perPage);
+        $graphs = Graph::with(['plotData'])->onlyTrashed()->where('user_id', $user_id)->latest()->paginate($perPage);
 
         $trash_active_flag = true;
 
