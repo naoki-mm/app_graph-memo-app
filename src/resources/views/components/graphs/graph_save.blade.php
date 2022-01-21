@@ -32,7 +32,7 @@
                     id="memo"
                     name="memo"
                     class="form-control @error('memo') is-invalid @enderror"
-                    rows="7"
+                    rows="4"
                     autocomplete="off"
                 >{{ old('memo', $graph->memo ?? '') }}</textarea>
 
@@ -56,6 +56,17 @@
                 </span>
             @endif
         </div>
+
+        @isset($graph->id)
+            @foreach (\GraphIdConst::SAMPLES as $sample_graph_id)
+                    @if ($graph->id === $sample_graph_id)
+                        <p class="text-danger text-left">
+                            <i class="fas fa-exclamation-triangle mr-1 mt-2"></i>このサンプルデータは変更できません。
+                            <br>変更機能を試す場合は、メモを新規登録してください。
+                        </p>
+                    @endif
+            @endforeach
+        @endisset
 
         <div class="text-center">
             <button type="submit" v-if="isEditOperation" class="mt-3 btn btn-custom btn-block">

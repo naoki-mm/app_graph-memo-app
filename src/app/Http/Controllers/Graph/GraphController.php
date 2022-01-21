@@ -142,6 +142,14 @@ class GraphController extends Controller
      */
     public function update(GraphRequest $request, Graph $graph)
     {
+        foreach (\GraphIdConst::SAMPLES as $sample_graph_id) {
+            if ($sample_graph_id === $graph->id) {
+                return redirect()->route('graph.index')
+                    ->with('user_error_message',
+                        'このサンプルグラフは変更することができません。変更機能を試す場合は、新しくグラフを登録してください。');
+            }
+        }
+
         $graph->title = $request->input('title');
         $graph->memo = $request->input('memo');
         $graph->save();
@@ -171,7 +179,7 @@ class GraphController extends Controller
             $graph->tags()->attach($tag);
         });
 
-        return redirect()->route('graph.index', [$graph->id])
+        return redirect()->route('graph.index')
         ->with('status', 'グラフデータを変更しました。');
     }
 

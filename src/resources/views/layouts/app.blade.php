@@ -39,7 +39,6 @@
             ></success-notification>
         @endif
 
-        {{-- ゲストユーザー時の退会不可のエラーメッセージ --}}
         @if (session('user_error_message'))
             <user-failure-notification
                 :notification='@json(session('user_error_message'))'

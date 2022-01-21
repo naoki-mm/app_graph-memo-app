@@ -228,6 +228,7 @@ return [
         'PerPageConst' => App\Consts\PerPageConst::class,
         'FavoriteFlagConst' => App\Consts\FavoriteFlagConst::class,
         'UserIdConst' => App\Consts\UserIdConst::class,
+        'GraphIdConst' => App\Consts\GraphIdConst::class,
     ],
 
 ];

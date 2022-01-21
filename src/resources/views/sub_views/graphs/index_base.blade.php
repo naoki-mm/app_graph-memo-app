@@ -55,6 +55,17 @@
                     <footer class="pb-1 pt-2 text-center"><small>更新日時：{{ $graph->updated_at->format('Y/m/d H:i') }}</small></footer>
                 @else
                     <footer class="pb-1 pt-2 text-center"><small>削除日：{{ $graph->deleted_at->format('Y/m/d') }}</small></footer>
+
+                    @isset($graph->id)
+                        @foreach (\GraphIdConst::SAMPLES as $sample_graph_id)
+                                @if ($graph->id === $sample_graph_id)
+                                    <p class="text-danger text-left">
+                                        ※このサンプルデータは完全に削除できません。
+                                        <br>削除機能を試す場合は、メモを新規登録してください。
+                                    </p>
+                                @endif
+                        @endforeach
+                    @endisset
                 @endif
             </div>
 
