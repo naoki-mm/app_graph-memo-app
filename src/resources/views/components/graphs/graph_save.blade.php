@@ -57,16 +57,16 @@
             @endif
         </div>
 
-        @foreach (\GraphIdConst::SAMPLES as $sample_graph_id)
-            @isset($graph->id)
-                @if ($graph->id === $sample_graph_id)
-                    <p class="text-danger text-left">
-                        <i class="fas fa-exclamation-triangle mr-1 mt-2"></i>このサンプルデータは変更できません。
-                        <br>変更機能を試す場合は、メモを新規登録してください。
-                    </p>
-                @endif
-            @endisset
-        @endforeach
+        @isset($graph->id)
+            @foreach (\GraphIdConst::SAMPLES as $sample_graph_id)
+                    @if ($graph->id === $sample_graph_id)
+                        <p class="text-danger text-left">
+                            <i class="fas fa-exclamation-triangle mr-1 mt-2"></i>このサンプルデータは変更できません。
+                            <br>変更機能を試す場合は、メモを新規登録してください。
+                        </p>
+                    @endif
+            @endforeach
+        @endisset
 
         <div class="text-center">
             <button type="submit" v-if="isEditOperation" class="mt-3 btn btn-custom btn-block">

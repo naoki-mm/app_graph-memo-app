@@ -63,8 +63,19 @@ class TrashController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy($id)
+    public function destroy(int $id)
     {
+
+        foreach (\GraphIdConst::SAMPLES as $sample_graph_id) {
+            if ($sample_graph_id === $id) {
+                return redirect()->route('trash.index')
+                ->with(
+                    'user_error_message',
+                    'このサンプルグラフは削除することができません。削除機能を試す場合は、新しくグラフを登録してください。'
+                );
+            }
+        }
+
         $graph = Graph::onlyTrashed()
             ->findOrFail($id);
 
