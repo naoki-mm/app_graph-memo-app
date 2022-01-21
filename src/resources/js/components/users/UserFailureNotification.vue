@@ -20,7 +20,7 @@ export default {
         const options = {
             theme: "bubble",
             position: "top-center",
-            duration : 3000,
+            duration : 8000,
             fitToScreen : true,
             action: {
                 text : 'x',
